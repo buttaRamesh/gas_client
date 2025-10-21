@@ -1,14 +1,22 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const Index = () => {
+export default function Index() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          EnergyPath Portal
+        </h1>
+        <p className="text-gray-600 mb-8">
+          Gas Cylinder Management System
+        </p>
+        <Link to="/demo">
+          <Button size="lg">
+            View Layout Demo →
+          </Button>
+        </Link>
       </div>
     </div>
   );
-};
-
-export default Index;
+}
