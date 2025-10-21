@@ -122,7 +122,7 @@ export default function Routes() {
             elevation={3}
             sx={{
               height: "100%",
-              bgcolor: "background.paper",
+              bgcolor: "grey.100",
               transition: "transform 0.2s, box-shadow 0.2s",
               "&:hover": {
                 transform: "translateY(-4px)",
