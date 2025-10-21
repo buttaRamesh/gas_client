@@ -101,13 +101,13 @@ export default function Routes() {
               </div>
 
               <div className="flex gap-2 mb-4">
-                <div className="flex-1 text-center p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
-                  <MapPin className="h-5 w-5 mx-auto mb-1 text-blue-600 dark:text-blue-400" />
+                <div className="flex-1 text-center p-3 bg-info-light rounded-lg">
+                  <MapPin className="h-5 w-5 mx-auto mb-1 text-info" />
                   <p className="text-lg font-semibold">{route.area_count}</p>
                   <p className="text-xs text-muted-foreground">Areas</p>
                 </div>
-                <div className="flex-1 text-center p-3 bg-green-50 dark:bg-green-950 rounded-lg">
-                  <Users className="h-5 w-5 mx-auto mb-1 text-green-600 dark:text-green-400" />
+                <div className="flex-1 text-center p-3 bg-success-light rounded-lg">
+                  <Users className="h-5 w-5 mx-auto mb-1 text-success" />
                   <p className="text-lg font-semibold">{route.consumer_count}</p>
                   <p className="text-xs text-muted-foreground">Consumers</p>
                 </div>
@@ -115,7 +115,7 @@ export default function Routes() {
 
               <div
                 className={`flex items-center gap-2 p-3 rounded-lg ${
-                  route.delivery_person_name ? "bg-secondary" : "bg-yellow-50 dark:bg-yellow-950"
+                  route.delivery_person_name ? "bg-secondary" : "bg-warning-light"
                 }`}
               >
                 <User className="h-4 w-4" />
