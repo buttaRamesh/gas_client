@@ -134,10 +134,7 @@ export default function Routes() {
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2 }}>
                 <Box>
                   <Typography variant="h6" sx={{ fontWeight: 600, color: "primary.main" }}>
-                    {route.area_code}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {route.area_code_description}
+                    {route.area_code}-{route.area_code_description}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", gap: 0.5 }}>
