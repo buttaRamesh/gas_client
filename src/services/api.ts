@@ -41,5 +41,15 @@ export const routesApi = {
   delete: (id: number) => api.delete(`/routes/${id}/`),
   getStatistics: () => api.get('/routes/statistics/'),
 };
+export const logRoutes = {
+  getAll: () => {
+    console.log('api  ',api)
+    rts = api.get('/routes/');
+  // getById: (id: number) => api.get(`/routes/${id}/`),
+  // create: (data: any) => api.post('/routes/', data),
+  // update: (id: number, data: any) => api.put(`/routes/${id}/`, data),
+  // delete: (id: number) => api.delete(`/routes/${id}/`),
+  // getStatistics: () => api.get('/routes/statistics/'),
+};
 
 export default api;
