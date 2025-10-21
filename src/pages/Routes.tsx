@@ -1,8 +1,23 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Search, Eye, Edit, User, MapPin, Users, Loader2 } from "lucide-react";
+import {
+  Container,
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  TextField,
+  IconButton,
+  InputAdornment,
+  CircularProgress,
+} from "@mui/material";
+import {
+  Search as SearchIcon,
+  Visibility as ViewIcon,
+  Edit as EditIcon,
+  PersonOutline as PersonIcon,
+  LocationOn as LocationIcon,
+  Group as GroupIcon,
+} from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
 import { useToast } from "@/hooks/use-toast";
@@ -58,79 +73,130 @@ export default function Routes() {
 
   if (loading) {
     return (
-      <div className="container mx-auto py-8 flex justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
+      <Container maxWidth="xl" sx={{ py: 8, display: "flex", justifyContent: "center" }}>
+        <CircularProgress size={48} />
+      </Container>
     );
   }
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="mb-8">
-        <h1 className="text-4xl font-semibold mb-2">Routes Management</h1>
-        <p className="text-muted-foreground mb-6">Manage delivery routes and assignments</p>
+    <Container maxWidth="xl" sx={{ py: 4, px: 2 }}>
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
+          Routes Management
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+          Manage delivery routes and assignments
+        </Typography>
 
-        <div className="relative max-w-2xl">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search routes by code, description, or delivery person..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
-        </div>
-      </div>
+        <TextField
+          fullWidth
+          placeholder="Search routes by code, description, or delivery person..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          sx={{ maxWidth: 672 }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(4, 1fr)",
+          },
+          gap: 3,
+        }}
+      >
         {filteredRoutes.map((route) => (
-          <Card key={route.id} className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-primary mb-1">{route.area_code}</h3>
-                  <p className="text-sm text-muted-foreground">{route.area_code_description}</p>
-                </div>
-                <div className="flex gap-1">
-                  <Button size="icon" variant="ghost" className="h-8 w-8">
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button size="icon" variant="ghost" className="h-8 w-8">
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
+          <Card
+            key={route.id}
+            elevation={3}
+            sx={{
+              height: "100%",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              "&:hover": {
+                transform: "translateY(-4px)",
+                boxShadow: 6,
+              },
+            }}
+          >
+            <CardContent>
+              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2 }}>
+                <Box>
+                  <Typography variant="h6" sx={{ fontWeight: 600, color: "primary.main" }}>
+                    {route.area_code}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {route.area_code_description}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", gap: 0.5 }}>
+                  <IconButton size="small" color="primary">
+                    <ViewIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" color="secondary">
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                </Box>
+              </Box>
 
-              <div className="flex gap-2 mb-4">
-                <div className="flex-1 text-center p-3 bg-info-light rounded-lg">
-                  <MapPin className="h-5 w-5 mx-auto mb-1 text-info" />
-                  <p className="text-lg font-semibold">{route.area_count}</p>
-                  <p className="text-xs text-muted-foreground">Areas</p>
-                </div>
-                <div className="flex-1 text-center p-3 bg-success-light rounded-lg">
-                  <Users className="h-5 w-5 mx-auto mb-1 text-success" />
-                  <p className="text-lg font-semibold">{route.consumer_count}</p>
-                  <p className="text-xs text-muted-foreground">Consumers</p>
-                </div>
-              </div>
+              <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+                <Box sx={{ flex: 1, textAlign: "center", p: 1.5, bgcolor: "info.light", borderRadius: 1 }}>
+                  <LocationIcon color="info" sx={{ mb: 0.5 }} />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    {route.area_count}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    Areas
+                  </Typography>
+                </Box>
+                <Box sx={{ flex: 1, textAlign: "center", p: 1.5, bgcolor: "success.light", borderRadius: 1 }}>
+                  <GroupIcon color="success" sx={{ mb: 0.5 }} />
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    {route.consumer_count}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    Consumers
+                  </Typography>
+                </Box>
+              </Box>
 
-              <div
-                className={`flex items-center gap-2 p-3 rounded-lg ${
-                  route.delivery_person_name ? "bg-secondary" : "bg-warning-light"
-                }`}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  p: 1.5,
+                  bgcolor: route.delivery_person_name ? "grey.100" : "warning.light",
+                  borderRadius: 1,
+                }}
               >
-                <User className="h-4 w-4" />
-                <p className="text-sm font-medium">{route.delivery_person_name || "Unassigned"}</p>
-              </div>
+                <PersonIcon fontSize="small" />
+                <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                  {route.delivery_person_name || "Unassigned"}
+                </Typography>
+              </Box>
             </CardContent>
           </Card>
         ))}
-      </div>
+      </Box>
 
       {filteredRoutes.length === 0 && (
-        <div className="text-center py-16">
-          <p className="text-lg text-muted-foreground">No routes found</p>
-        </div>
+        <Box sx={{ textAlign: "center", py: 16 }}>
+          <Typography variant="h6" color="text.secondary">
+            No routes found
+          </Typography>
+        </Box>
       )}
-    </div>
+    </Container>
   );
 }
