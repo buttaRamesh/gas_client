@@ -37,9 +37,13 @@ export default function Routes() {
     try {
       setLoading(true);
       const response = await routesApi.getAll();
-      setRoutes(response.data);
-      setFilteredRoutes(response.data);
+      const data = Array.isArray(response.data) ? response.data : [];
+      setRoutes(data);
+      setFilteredRoutes(data);
     } catch (err: any) {
+      console.error('Failed to fetch routes:', err);
+      setRoutes([]);
+      setFilteredRoutes([]);
       toast({
         title: 'Error',
         description: err.message || 'Failed to fetch routes',
