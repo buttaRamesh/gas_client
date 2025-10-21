@@ -133,7 +133,7 @@ export default function Routes() {
             <CardContent>
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2 }}>
                 <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 600, color: "primary.main" }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600, color: "text.primary" }}>
                     {route.area_code}-{route.area_code_description}
                   </Typography>
                 </Box>
