@@ -37,7 +37,7 @@ export default function Routes() {
     try {
       setLoading(true);
       const response = await routesApi.getAll();
-      const data = Array.isArray(response.data) ? response.data : [];
+      const data = Array.isArray(response.data?.results) ? response.data.results : [];
       console.log("routes");
       console.log(data);
       setRoutes(data);
