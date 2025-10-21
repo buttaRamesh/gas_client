@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search, Eye, Edit, User, MapPin, Users, Loader2 } from 'lucide-react';
-import { routesApi } from '@/services/api';
-import { Route } from '@/types/routes';
-import { useToast } from '@/hooks/use-toast';
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search, Eye, Edit, User, MapPin, Users, Loader2 } from "lucide-react";
+import { routesApi } from "@/services/api";
+import { Route } from "@/types/routes";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Routes() {
   const [routes, setRoutes] = useState<Route[]>([]);
   const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
@@ -19,7 +19,7 @@ export default function Routes() {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.trim() === '') {
+    if (searchQuery.trim() === "") {
       setFilteredRoutes(routes);
     } else {
       const query = searchQuery.toLowerCase();
@@ -27,7 +27,7 @@ export default function Routes() {
         (route) =>
           route.area_code.toLowerCase().includes(query) ||
           route.area_code_description.toLowerCase().includes(query) ||
-          route.delivery_person_name?.toLowerCase().includes(query)
+          route.delivery_person_name?.toLowerCase().includes(query),
       );
       setFilteredRoutes(filtered);
     }
@@ -38,16 +38,18 @@ export default function Routes() {
       setLoading(true);
       const response = await routesApi.getAll();
       const data = Array.isArray(response.data) ? response.data : [];
+      console.log("routes");
+      console.log(data);
       setRoutes(data);
       setFilteredRoutes(data);
     } catch (err: any) {
-      console.error('Failed to fetch routes:', err);
+      console.error("Failed to fetch routes:", err);
       setRoutes([]);
       setFilteredRoutes([]);
       toast({
-        title: 'Error',
-        description: err.message || 'Failed to fetch routes',
-        variant: 'destructive',
+        title: "Error",
+        description: err.message || "Failed to fetch routes",
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -66,9 +68,7 @@ export default function Routes() {
     <div className="container mx-auto py-8 px-4">
       <div className="mb-8">
         <h1 className="text-4xl font-semibold mb-2">Routes Management</h1>
-        <p className="text-muted-foreground mb-6">
-          Manage delivery routes and assignments
-        </p>
+        <p className="text-muted-foreground mb-6">Manage delivery routes and assignments</p>
 
         <div className="relative max-w-2xl">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -83,19 +83,12 @@ export default function Routes() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {filteredRoutes.map((route) => (
-          <Card
-            key={route.id}
-            className="h-full transition-all hover:-translate-y-1 hover:shadow-lg"
-          >
+          <Card key={route.id} className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="text-xl font-semibold text-primary mb-1">
-                    {route.area_code}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {route.area_code_description}
-                  </p>
+                  <h3 className="text-xl font-semibold text-primary mb-1">{route.area_code}</h3>
+                  <p className="text-sm text-muted-foreground">{route.area_code_description}</p>
                 </div>
                 <div className="flex gap-1">
                   <Button size="icon" variant="ghost" className="h-8 w-8">
@@ -122,15 +115,11 @@ export default function Routes() {
 
               <div
                 className={`flex items-center gap-2 p-3 rounded-lg ${
-                  route.delivery_person_name
-                    ? 'bg-secondary'
-                    : 'bg-yellow-50 dark:bg-yellow-950'
+                  route.delivery_person_name ? "bg-secondary" : "bg-yellow-50 dark:bg-yellow-950"
                 }`}
               >
                 <User className="h-4 w-4" />
-                <p className="text-sm font-medium">
-                  {route.delivery_person_name || 'Unassigned'}
-                </p>
+                <p className="text-sm font-medium">{route.delivery_person_name || "Unassigned"}</p>
               </div>
             </CardContent>
           </Card>
