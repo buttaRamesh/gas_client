@@ -119,52 +119,131 @@ export default function Routes() {
         {filteredRoutes.map((route) => (
           <Card
             key={route.id}
-            elevation={3}
+            elevation={0}
             sx={{
               height: "100%",
-              transition: "transform 0.2s, box-shadow 0.2s",
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+              border: "1px solid",
+              borderColor: "divider",
+              borderRadius: 3,
+              overflow: "hidden",
+              position: "relative",
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "4px",
+                background: "linear-gradient(90deg, #2196F3 0%, #21CBF3 100%)",
+              },
               "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: 6,
+                transform: "translateY(-8px)",
+                boxShadow: "0 12px 24px rgba(33, 150, 243, 0.15)",
+                borderColor: "primary.main",
               },
             }}
           >
-            <CardContent>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2 }}>
-                <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 600, color: "primary.main" }}>
+            <CardContent sx={{ p: 3 }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 3 }}>
+                <Box sx={{ flex: 1 }}>
+                  <Typography 
+                    variant="h5" 
+                    sx={{ 
+                      fontWeight: 700, 
+                      color: "primary.main",
+                      mb: 0.5,
+                      letterSpacing: "-0.02em"
+                    }}
+                  >
                     {route.area_code}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      color: "text.secondary",
+                      lineHeight: 1.4,
+                      fontSize: "0.875rem"
+                    }}
+                  >
                     {route.area_code_description}
                   </Typography>
                 </Box>
-                <Box sx={{ display: "flex", gap: 0.5 }}>
-                  <IconButton size="small" color="primary">
+                <Box sx={{ display: "flex", gap: 0.5, ml: 1 }}>
+                  <IconButton 
+                    size="small" 
+                    sx={{
+                      color: "primary.main",
+                      bgcolor: "primary.lighter",
+                      transition: "all 0.2s",
+                      "&:hover": {
+                        bgcolor: "primary.main",
+                        color: "white",
+                        transform: "scale(1.1)"
+                      }
+                    }}
+                  >
                     <ViewIcon fontSize="small" />
                   </IconButton>
-                  <IconButton size="small" color="secondary">
+                  <IconButton 
+                    size="small"
+                    sx={{
+                      color: "secondary.main",
+                      bgcolor: "secondary.lighter",
+                      transition: "all 0.2s",
+                      "&:hover": {
+                        bgcolor: "secondary.main",
+                        color: "white",
+                        transform: "scale(1.1)"
+                      }
+                    }}
+                  >
                     <EditIcon fontSize="small" />
                   </IconButton>
                 </Box>
               </Box>
 
-              <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-                <Box sx={{ flex: 1, textAlign: "center", p: 1.5, bgcolor: "info.light", borderRadius: 1 }}>
-                  <LocationIcon color="info" sx={{ mb: 0.5 }} />
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+                <Box 
+                  sx={{ 
+                    flex: 1, 
+                    textAlign: "center", 
+                    p: 2, 
+                    background: "linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%)",
+                    borderRadius: 2,
+                    transition: "transform 0.2s",
+                    "&:hover": {
+                      transform: "scale(1.05)"
+                    }
+                  }}
+                >
+                  <LocationIcon sx={{ color: "#1976D2", fontSize: 28, mb: 1 }} />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "#1565C0", mb: 0.5 }}>
                     {route.area_count}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.5px" }}>
                     Areas
                   </Typography>
                 </Box>
-                <Box sx={{ flex: 1, textAlign: "center", p: 1.5, bgcolor: "success.light", borderRadius: 1 }}>
-                  <GroupIcon color="success" sx={{ mb: 0.5 }} />
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                <Box 
+                  sx={{ 
+                    flex: 1, 
+                    textAlign: "center", 
+                    p: 2, 
+                    background: "linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%)",
+                    borderRadius: 2,
+                    transition: "transform 0.2s",
+                    "&:hover": {
+                      transform: "scale(1.05)"
+                    }
+                  }}
+                >
+                  <GroupIcon sx={{ color: "#388E3C", fontSize: 28, mb: 1 }} />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "#2E7D32", mb: 0.5 }}>
                     {route.consumer_count}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.5px" }}>
                     Consumers
                   </Typography>
                 </Box>
@@ -174,14 +253,38 @@ export default function Routes() {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 1,
-                  p: 1.5,
-                  bgcolor: route.delivery_person_name ? "grey.100" : "warning.light",
-                  borderRadius: 1,
+                  gap: 1.5,
+                  p: 2,
+                  background: route.delivery_person_name 
+                    ? "linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%)"
+                    : "linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%)",
+                  borderRadius: 2,
+                  border: "1px solid",
+                  borderColor: route.delivery_person_name ? "#CE93D8" : "#FFB74D",
                 }}
               >
-                <PersonIcon fontSize="small" />
-                <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                <Box
+                  sx={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    bgcolor: route.delivery_person_name ? "#9C27B0" : "#F57C00",
+                    color: "white",
+                  }}
+                >
+                  <PersonIcon fontSize="small" />
+                </Box>
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    fontWeight: 600,
+                    color: route.delivery_person_name ? "#6A1B9A" : "#E65100",
+                    flex: 1
+                  }}
+                >
                   {route.delivery_person_name || "Unassigned"}
                 </Typography>
               </Box>
