@@ -11,11 +11,18 @@ export default function Index() {
         <p className="text-gray-600 mb-8">
           Gas Cylinder Management System
         </p>
-        <Link to="/demo">
-          <Button size="lg">
-            View Layout Demo →
-          </Button>
-        </Link>
+        <div className="flex gap-4 justify-center">
+          <Link to="/routes">
+            <Button size="lg">
+              Routes Management →
+            </Button>
+          </Link>
+          <Link to="/demo">
+            <Button size="lg" variant="outline">
+              View Layout Demo
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
+  baseURL: 'http://localhost:8000/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -31,5 +31,15 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// Routes API
+export const routesApi = {
+  getAll: () => api.get('/routes/'),
+  getById: (id: number) => api.get(`/routes/${id}/`),
+  create: (data: any) => api.post('/routes/', data),
+  update: (id: number, data: any) => api.put(`/routes/${id}/`, data),
+  delete: (id: number) => api.delete(`/routes/${id}/`),
+  getStatistics: () => api.get('/routes/statistics/'),
+};
 
 export default api;
