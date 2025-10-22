@@ -61,6 +61,12 @@ const RouteAreas = () => {
   }, [searchQuery, filterStatus]);
 
   useEffect(() => {
+    if (!loading && searchQuery) {
+      searchInputRef.current?.focus();
+    }
+  }, [loading]);
+
+  useEffect(() => {
     if (currentPage > 0 && currentPage <= totalPages) {
       fetchAreas(currentPage);
     }
