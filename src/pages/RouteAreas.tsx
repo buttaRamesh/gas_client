@@ -169,7 +169,7 @@ const RouteAreas = () => {
                 Manage all route areas and their assignments
               </p>
             </div>
-            <Button onClick={() => navigate('/route-areas/new')}>
+            <Button variant="success" onClick={() => navigate('/route-areas/new')}>
               <Plus className="mr-2 h-4 w-4" />
               Create Area
             </Button>
