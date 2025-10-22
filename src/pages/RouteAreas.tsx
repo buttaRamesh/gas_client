@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { areasApi } from '@/services/api';
 import { Area } from '@/types/routes';
@@ -35,6 +35,7 @@ import { CircularProgress } from '@mui/material';
 const RouteAreas = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [areas, setAreas] = useState<Area[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -165,6 +166,7 @@ const RouteAreas = () => {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
+              ref={searchInputRef}
               placeholder="Search by area name or code..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
