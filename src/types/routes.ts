@@ -6,3 +6,11 @@ export interface Route {
   consumer_count: number;
   delivery_person_name: string | null;
 }
+
+export interface Area {
+  id: number;
+  area_name: string;
+  area_code: string;
+  consumer_count: number;
+  route_id: number;
+}

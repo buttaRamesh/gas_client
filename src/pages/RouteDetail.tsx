@@ -9,6 +9,13 @@ import {
   CircularProgress,
   IconButton,
   Chip,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@mui/material";
 import {
   ArrowBack as BackIcon,
@@ -16,21 +23,25 @@ import {
   LocationOn as LocationIcon,
   Group as GroupIcon,
   Edit as EditIcon,
+  Place as PlaceIcon,
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
-import { Route } from "@/types/routes";
+import { Route, Area } from "@/types/routes";
 import { useToast } from "@/hooks/use-toast";
 
 export default function RouteDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [route, setRoute] = useState<Route | null>(null);
+  const [areas, setAreas] = useState<Area[]>([]);
   const [loading, setLoading] = useState(true);
+  const [areasLoading, setAreasLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
     if (id) {
       fetchRoute(parseInt(id));
+      fetchAreas(parseInt(id));
     }
   }, [id]);
 
@@ -49,6 +60,29 @@ export default function RouteDetail() {
       navigate("/routes");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchAreas = async (routeId: number) => {
+    try {
+      setAreasLoading(true);
+      const response = await routesApi.getAreas(routeId);
+      const data = Array.isArray(response.data?.results) 
+        ? response.data.results 
+        : Array.isArray(response.data) 
+        ? response.data 
+        : [];
+      setAreas(data);
+    } catch (err: any) {
+      console.error("Failed to fetch areas:", err);
+      setAreas([]);
+      toast({
+        title: "Warning",
+        description: "Could not load areas for this route",
+        variant: "destructive",
+      });
+    } finally {
+      setAreasLoading(false);
     }
   };
 
@@ -197,6 +231,70 @@ export default function RouteDetail() {
               </CardContent>
             </Card>
           </Box>
+
+          <Card elevation={3} sx={{ bgcolor: "grey.200" }}>
+            <CardContent>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+                <PlaceIcon color="primary" />
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  Areas Covered
+                </Typography>
+              </Box>
+
+              {areasLoading ? (
+                <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+                  <CircularProgress size={32} />
+                </Box>
+              ) : areas.length > 0 ? (
+                <TableContainer component={Paper} sx={{ bgcolor: "background.paper" }}>
+                  <Table>
+                    <TableHead>
+                      <TableRow sx={{ bgcolor: "grey.100" }}>
+                        <TableCell sx={{ fontWeight: 600 }}>Area Name</TableCell>
+                        <TableCell sx={{ fontWeight: 600 }}>Area Code</TableCell>
+                        <TableCell sx={{ fontWeight: 600 }} align="right">Consumers</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {areas.map((area) => (
+                        <TableRow 
+                          key={area.id}
+                          sx={{ 
+                            '&:hover': { bgcolor: 'grey.50' },
+                            '&:last-child td, &:last-child th': { border: 0 }
+                          }}
+                        >
+                          <TableCell>{area.area_name}</TableCell>
+                          <TableCell>
+                            <Chip 
+                              label={area.area_code} 
+                              size="small" 
+                              variant="outlined"
+                            />
+                          </TableCell>
+                          <TableCell align="right">
+                            <Chip 
+                              icon={<GroupIcon />}
+                              label={area.consumer_count} 
+                              size="small" 
+                              color="success"
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              ) : (
+                <Box sx={{ textAlign: "center", py: 4 }}>
+                  <PlaceIcon sx={{ fontSize: 48, color: "text.disabled", mb: 1 }} />
+                  <Typography variant="body1" color="text.secondary">
+                    No areas assigned to this route
+                  </Typography>
+                </Box>
+              )}
+            </CardContent>
+          </Card>
         </Box>
       </Container>
     </Box>

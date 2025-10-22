@@ -40,5 +40,14 @@ export const routesApi = {
   update: (id: number, data: any) => api.put(`/routes/${id}/`, data),
   delete: (id: number) => api.delete(`/routes/${id}/`),
   getStatistics: () => api.get('/routes/statistics/'),
+  getAreas: (id: number) => api.get(`/routes/${id}/areas/`),
 };
+
+// Areas API
+export const areasApi = {
+  getAll: () => api.get('/areas/'),
+  getById: (id: number) => api.get(`/areas/${id}/`),
+  getByRoute: (routeId: number) => api.get(`/areas/?route_id=${routeId}`),
+};
+
 export default api;
