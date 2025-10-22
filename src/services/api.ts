@@ -46,6 +46,7 @@ export const routesApi = {
 export const areasApi = {
   getAll: (page?: number, search?: string) => {
     const params = new URLSearchParams();
+    params.append('page_size', '10');
     if (page) params.append('page', page.toString());
     if (search?.trim()) params.append('search', search.trim());
     return api.get(`/route-areas/?${params.toString()}`);
@@ -55,6 +56,7 @@ export const areasApi = {
   getAvailable: (page?: number, search?: string) => {
     const params = new URLSearchParams();
     params.append('assigned', 'false');
+    params.append('page_size', '10');
     if (page) params.append('page', page.toString());
     if (search?.trim()) params.append('search', search.trim());
     return api.get(`/route-areas/?${params.toString()}`);
