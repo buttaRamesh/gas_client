@@ -64,7 +64,7 @@ export default function LayoutDemo() {
   const [view, setView] = useState<'table' | 'cards'>('table');
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
     <Container maxWidth="xl">
       <Box sx={{ mb: 4, textAlign: 'center' }}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
