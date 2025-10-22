@@ -81,7 +81,7 @@ export default function RouteDetail() {
               {route.area_code} - {route.area_code_description}
             </Typography>
           </Box>
-          <IconButton sx={{ bgcolor: "background.paper" }}>
+          <IconButton sx={{ bgcolor: "background.paper" }} onClick={() => navigate(`/routes/${id}/edit`)}>
             <EditIcon />
           </IconButton>
         </Box>

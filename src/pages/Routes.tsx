@@ -144,7 +144,7 @@ export default function Routes() {
                   <IconButton size="small" color="primary" onClick={() => navigate(`/routes/${route.id}`)}>
                     <ViewIcon fontSize="small" />
                   </IconButton>
-                  <IconButton size="small" color="secondary">
+                  <IconButton size="small" color="secondary" onClick={() => navigate(`/routes/${route.id}/edit`)}>
                     <EditIcon fontSize="small" />
                   </IconButton>
                 </Box>
