@@ -11,7 +11,9 @@ export interface Route {
 export interface Area {
   id: number;
   area_name: string;
-  area_code: string;
-  consumer_count: number;
-  route_id: number;
+  area_code?: string;
+  consumer_count?: number;
+  route: number | null;
+  route_code?: string;
+  route_description?: string;
 }

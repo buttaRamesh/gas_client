@@ -55,7 +55,7 @@ const RouteAreas = () => {
             ? response.data 
             : [];
         console.log('API Response (assigned filter):', allAreas);
-        data = allAreas.filter((area: Area) => area.route_id);
+        data = allAreas.filter((area: Area) => area.route);
       } else if (filterStatus === 'unassigned') {
         response = await areasApi.getAvailable();
         data = Array.isArray(response.data?.results) 
@@ -179,31 +179,31 @@ const RouteAreas = () => {
                   <TableCell>{area.area_code}</TableCell>
                   <TableCell>{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
                   <TableCell>
-                    {area.route_id ? (
+                    {area.route ? (
                       <Button
                         variant="link"
                         className="p-0 h-auto"
-                        onClick={() => navigate(`/routes/${area.route_id}`)}
+                        onClick={() => navigate(`/routes/${area.route}`)}
                       >
-                        Route #{area.route_id}
+                        {area.route_code || `Route #${area.route}`}
                       </Button>
                     ) : (
                       <span className="text-muted-foreground">-</span>
                     )}
                   </TableCell>
                   <TableCell>
-                    {area.route_id ? (
+                    {area.route ? (
                       <Badge variant="default">Assigned</Badge>
                     ) : (
                       <Badge variant="secondary">Unassigned</Badge>
                     )}
                   </TableCell>
                   <TableCell className="text-right">
-                    {area.route_id && (
+                    {area.route && (
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => navigate(`/routes/${area.route_id}/edit`)}
+                        onClick={() => navigate(`/routes/${area.route}/edit`)}
                       >
                         View Route
                       </Button>
