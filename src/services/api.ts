@@ -61,6 +61,7 @@ export const areasApi = {
     if (search?.trim()) params.append('search', search.trim());
     return api.get(`/route-areas/?${params.toString()}`);
   },
+  create: (data: any) => api.post('/route-areas/', data),
   assignToRoute: (areaId: number, routeId: number) => api.post(`/route-areas/${areaId}/assign_to_route/`, { route: routeId }),
   removeFromRoute: (areaId: number) => api.post(`/route-areas/${areaId}/unassign_from_route/`),
 };

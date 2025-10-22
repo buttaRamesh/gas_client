@@ -11,6 +11,7 @@ import RouteDetail from "./pages/RouteDetail";
 import RouteEdit from "./pages/RouteEdit";
 import RouteCreate from "./pages/RouteCreate";
 import RouteAreas from "./pages/RouteAreas";
+import RouteAreaCreate from "./pages/RouteAreaCreate";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/routes/:id" element={<RouteDetail />} />
           <Route path="/routes/:id/edit" element={<RouteEdit />} />
           <Route path="/route-areas" element={<RouteAreas />} />
+          <Route path="/route-areas/new" element={<RouteAreaCreate />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

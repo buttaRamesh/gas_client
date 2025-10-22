@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/pagination';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Search } from 'lucide-react';
+import { ArrowLeft, Search, Plus } from 'lucide-react';
 import { CircularProgress } from '@mui/material';
 
 const RouteAreas = () => {
@@ -162,10 +162,18 @@ const RouteAreas = () => {
             Back to Routes
           </Button>
           
-          <h1 className="text-3xl font-bold mb-2">Route Areas</h1>
-          <p className="text-muted-foreground">
-            Manage all route areas and their assignments
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Route Areas</h1>
+              <p className="text-muted-foreground">
+                Manage all route areas and their assignments
+              </p>
+            </div>
+            <Button onClick={() => navigate('/route-areas/new')}>
+              <Plus className="mr-2 h-4 w-4" />
+              Create Area
+            </Button>
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
