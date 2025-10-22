@@ -44,12 +44,12 @@ export const routesApi = {
 
 // Areas API
 export const areasApi = {
-  getAll: () => api.get('/areas/'),
-  getById: (id: number) => api.get(`/areas/${id}/`),
-  getByRoute: (routeId: number) => api.get(`/areas/?route_id=${routeId}`),
-  getAvailable: () => api.get('/areas/?route_id__isnull=true'),
-  assignToRoute: (areaId: number, routeId: number) => api.patch(`/areas/${areaId}/`, { route_id: routeId }),
-  removeFromRoute: (areaId: number) => api.patch(`/areas/${areaId}/`, { route_id: null }),
+  getAll: () => api.get('/route-areas/'),
+  getById: (id: number) => api.get(`/route-areas/${id}/`),
+  getByRoute: (routeId: number) => api.get(`/route-areas/?route=${routeId}`),
+  getAvailable: () => api.get('/route-areas/?assigned=false'),
+  assignToRoute: (areaId: number, routeId: number) => api.post(`/route-areas/${areaId}/assign_to_route/`, { route: routeId }),
+  removeFromRoute: (areaId: number) => api.post(`/route-areas/${areaId}/unassign_from_route/`),
 };
 
 export default api;
