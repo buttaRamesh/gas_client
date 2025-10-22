@@ -174,7 +174,7 @@ const RouteAreas = () => {
                 filteredAreas.map((area, index) => (
                   <TableRow 
                     key={area.id} 
-                    className={`hover:bg-muted/40 transition-colors ${index % 2 === 0 ? 'bg-background' : 'bg-muted/20'}`}
+                    className={`hover:bg-muted/50 transition-colors ${index % 2 === 0 ? 'bg-background' : 'bg-muted/30'}`}
                   >
                     <TableCell className="font-medium py-3">{area.area_name}</TableCell>
                     <TableCell className="py-3">{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
