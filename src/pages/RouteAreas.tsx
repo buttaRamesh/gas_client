@@ -160,14 +160,13 @@ const RouteAreas = () => {
               <TableHead>Area Name</TableHead>
               <TableHead>Consumer Count</TableHead>
               <TableHead>Route</TableHead>
-              <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredAreas.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
                   No areas found
                 </TableCell>
               </TableRow>
@@ -187,13 +186,6 @@ const RouteAreas = () => {
                       </Button>
                     ) : (
                       <span className="text-muted-foreground">-</span>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {area.route ? (
-                      <Badge variant="default">Assigned</Badge>
-                    ) : (
-                      <Badge variant="secondary">Unassigned</Badge>
                     )}
                   </TableCell>
                   <TableCell className="text-right">
