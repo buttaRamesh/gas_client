@@ -40,7 +40,6 @@ export const routesApi = {
   update: (id: number, data: any) => api.put(`/routes/${id}/`, data),
   delete: (id: number) => api.delete(`/routes/${id}/`),
   getStatistics: () => api.get('/routes/statistics/'),
-  getAreas: (id: number) => api.get(`/routes/${id}/areas/`),
 };
 
 // Areas API

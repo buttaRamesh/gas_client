@@ -33,15 +33,12 @@ export default function RouteDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [route, setRoute] = useState<Route | null>(null);
-  const [areas, setAreas] = useState<Area[]>([]);
   const [loading, setLoading] = useState(true);
-  const [areasLoading, setAreasLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
     if (id) {
       fetchRoute(parseInt(id));
-      fetchAreas(parseInt(id));
     }
   }, [id]);
 
@@ -60,29 +57,6 @@ export default function RouteDetail() {
       navigate("/routes");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const fetchAreas = async (routeId: number) => {
-    try {
-      setAreasLoading(true);
-      const response = await routesApi.getAreas(routeId);
-      const data = Array.isArray(response.data?.results) 
-        ? response.data.results 
-        : Array.isArray(response.data) 
-        ? response.data 
-        : [];
-      setAreas(data);
-    } catch (err: any) {
-      console.error("Failed to fetch areas:", err);
-      setAreas([]);
-      toast({
-        title: "Warning",
-        description: "Could not load areas for this route",
-        variant: "destructive",
-      });
-    } finally {
-      setAreasLoading(false);
     }
   };
 
@@ -241,11 +215,7 @@ export default function RouteDetail() {
                 </Typography>
               </Box>
 
-              {areasLoading ? (
-                <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-                  <CircularProgress size={32} />
-                </Box>
-              ) : areas.length > 0 ? (
+              {route.areas && route.areas.length > 0 ? (
                 <TableContainer component={Paper} sx={{ bgcolor: "background.paper" }}>
                   <Table>
                     <TableHead>
@@ -256,7 +226,7 @@ export default function RouteDetail() {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {areas.map((area) => (
+                      {route.areas?.map((area) => (
                         <TableRow 
                           key={area.id}
                           sx={{ 
