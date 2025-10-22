@@ -80,7 +80,8 @@ export default function Routes() {
   }
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4, px: 2 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
+    <Container maxWidth="xl" sx={{ px: 2 }}>
       <Box sx={{ mb: 4 }}>
         <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
           Routes Management
@@ -196,5 +197,6 @@ export default function Routes() {
         </Box>
       )}
     </Container>
+    </Box>
   );
 }
