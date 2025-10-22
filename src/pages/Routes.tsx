@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Box,
@@ -23,6 +24,7 @@ import { Route } from "@/types/routes";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Routes() {
+  const navigate = useNavigate();
   const [routes, setRoutes] = useState<Route[]>([]);
   const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -139,7 +141,7 @@ export default function Routes() {
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", gap: 0.5 }}>
-                  <IconButton size="small" color="primary">
+                  <IconButton size="small" color="primary" onClick={() => navigate(`/routes/${route.id}`)}>
                     <ViewIcon fontSize="small" />
                   </IconButton>
                   <IconButton size="small" color="secondary">
