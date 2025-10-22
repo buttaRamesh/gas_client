@@ -78,7 +78,7 @@ export default function RouteDetail() {
     <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
       <Container maxWidth="lg">
         <Box sx={{ mb: 4, display: "flex", alignItems: "center", gap: 2 }}>
-          <IconButton onClick={() => navigate("/routes")} sx={{ bgcolor: "background.paper" }}>
+          <IconButton onClick={() => navigate(-1)} sx={{ bgcolor: "background.paper" }}>
             <BackIcon />
           </IconButton>
           <Box sx={{ flex: 1 }}>
