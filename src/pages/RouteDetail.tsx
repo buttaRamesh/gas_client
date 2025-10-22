@@ -217,14 +217,18 @@ export default function RouteDetail() {
 
               {route.areas && route.areas.length > 0 ? (
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-                  {route.areas.map((area) => (
-                    <Chip
-                      key={area.id}
-                      label={area.area_name}
-                      variant="outlined"
-                      sx={{ bgcolor: "background.paper" }}
-                    />
-                  ))}
+                  {route.areas.map((area, index) => {
+                    const colors = ['primary', 'secondary', 'success', 'info', 'warning'] as const;
+                    const color = colors[index % colors.length];
+                    return (
+                      <Chip
+                        key={area.id}
+                        label={area.area_name}
+                        color={color}
+                        variant="outlined"
+                      />
+                    );
+                  })}
                 </Box>
               ) : (
                 <Box sx={{ textAlign: "center", py: 4 }}>
