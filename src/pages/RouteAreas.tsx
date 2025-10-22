@@ -183,7 +183,7 @@ const RouteAreas = () => {
                         <Button
                           variant="link"
                           className="p-0 h-auto text-info hover:text-info/80"
-                          onClick={() => navigate(`/routes/${area.route}`)}
+                          onClick={() => navigate(`/routes/${area.route}`, { state: { from: 'route-areas' } })}
                         >
                           {area.route_code || `Route #${area.route}`}
                         </Button>

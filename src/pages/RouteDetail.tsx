@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   Container,
   Box,
@@ -32,9 +32,15 @@ import { useToast } from "@/hooks/use-toast";
 export default function RouteDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [route, setRoute] = useState<Route | null>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+
+  const handleBack = () => {
+    const fromAreas = location.state?.from === 'route-areas';
+    navigate(fromAreas ? '/route-areas' : '/routes');
+  };
 
   useEffect(() => {
     if (id) {
@@ -78,7 +84,7 @@ export default function RouteDetail() {
     <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
       <Container maxWidth="lg">
         <Box sx={{ mb: 4, display: "flex", alignItems: "center", gap: 2 }}>
-          <IconButton onClick={() => navigate(-1)} sx={{ bgcolor: "background.paper" }}>
+          <IconButton onClick={handleBack} sx={{ bgcolor: "background.paper" }}>
             <BackIcon />
           </IconButton>
           <Box sx={{ flex: 1 }}>
