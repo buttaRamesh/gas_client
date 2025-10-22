@@ -113,101 +113,103 @@ const RouteAreas = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 max-w-7xl">
-      <div className="mb-6">
-        <Button
-          variant="ghost"
-          onClick={() => navigate('/routes')}
-          className="mb-4"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Routes
-        </Button>
-        
-        <h1 className="text-3xl font-bold mb-2">Route Areas</h1>
-        <p className="text-muted-foreground">
-          Manage all route areas and their assignments
-        </p>
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search by area name or code..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto p-6 max-w-7xl">
+        <div className="mb-6">
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/routes')}
+            className="mb-4"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Routes
+          </Button>
+          
+          <h1 className="text-3xl font-bold mb-2">Route Areas</h1>
+          <p className="text-muted-foreground">
+            Manage all route areas and their assignments
+          </p>
         </div>
-        
-        <Select value={filterStatus} onValueChange={(value: any) => setFilterStatus(value)}>
-          <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="Filter by status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Areas</SelectItem>
-            <SelectItem value="assigned">Assigned</SelectItem>
-            <SelectItem value="unassigned">Unassigned</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
 
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Area Name</TableHead>
-              <TableHead>Consumer Count</TableHead>
-              <TableHead>Route</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredAreas.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
-                  No areas found
-                </TableCell>
+        <div className="flex flex-col sm:flex-row gap-4 mb-6">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search by area name or code..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          
+          <Select value={filterStatus} onValueChange={(value: any) => setFilterStatus(value)}>
+            <SelectTrigger className="w-full sm:w-[180px]">
+              <SelectValue placeholder="Filter by status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Areas</SelectItem>
+              <SelectItem value="assigned">Assigned</SelectItem>
+              <SelectItem value="unassigned">Unassigned</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="rounded-lg border bg-card shadow-sm overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/50 hover:bg-muted/50">
+                <TableHead className="font-semibold">Area Name</TableHead>
+                <TableHead className="font-semibold">Consumer Count</TableHead>
+                <TableHead className="font-semibold">Route</TableHead>
+                <TableHead className="text-right font-semibold">Actions</TableHead>
               </TableRow>
-            ) : (
-              filteredAreas.map((area) => (
-                <TableRow key={area.id}>
-                  <TableCell className="font-medium">{area.area_name}</TableCell>
-                  <TableCell>{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
-                  <TableCell>
-                    {area.route ? (
-                      <Button
-                        variant="link"
-                        className="p-0 h-auto"
-                        onClick={() => navigate(`/routes/${area.route}`)}
-                      >
-                        {area.route_code || `Route #${area.route}`}
-                      </Button>
-                    ) : (
-                      <span className="text-muted-foreground">-</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {area.route && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => navigate(`/routes/${area.route}/edit`)}
-                      >
-                        View Route
-                      </Button>
-                    )}
+            </TableHeader>
+            <TableBody>
+              {filteredAreas.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
+                    No areas found
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              ) : (
+                filteredAreas.map((area) => (
+                  <TableRow key={area.id} className="hover:bg-muted/30 transition-colors">
+                    <TableCell className="font-medium">{area.area_name}</TableCell>
+                    <TableCell>{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
+                    <TableCell>
+                      {area.route ? (
+                        <Button
+                          variant="link"
+                          className="p-0 h-auto text-info hover:text-info/80"
+                          onClick={() => navigate(`/routes/${area.route}`)}
+                        >
+                          {area.route_code || `Route #${area.route}`}
+                        </Button>
+                      ) : (
+                        <span className="text-muted-foreground">-</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {area.route && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => navigate(`/routes/${area.route}/edit`)}
+                        >
+                          View Route
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
 
-      <div className="mt-4 text-sm text-muted-foreground">
-        Showing {filteredAreas.length} of {areas.length} areas
+        <div className="mt-4 text-sm text-muted-foreground">
+          Showing {filteredAreas.length} of {areas.length} areas
+        </div>
       </div>
     </div>
   );
