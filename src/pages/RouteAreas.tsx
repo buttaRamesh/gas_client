@@ -19,6 +19,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Search } from 'lucide-react';
@@ -32,48 +40,57 @@ const RouteAreas = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'assigned' | 'unassigned'>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-    fetchAreas();
+    setCurrentPage(1);
+    fetchAreas(1);
   }, [filterStatus]);
+
+  useEffect(() => {
+    fetchAreas(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     filterAreas();
   }, [areas, searchQuery]);
 
-  const fetchAreas = async () => {
+  const fetchAreas = async (page: number) => {
     try {
       setLoading(true);
       let response;
       let data: Area[] = [];
       
       if (filterStatus === 'assigned') {
-        response = await areasApi.getAll();
+        response = await areasApi.getAll(page);
         const allAreas = Array.isArray(response.data?.results) 
           ? response.data.results 
           : Array.isArray(response.data) 
             ? response.data 
             : [];
-        console.log('API Response (assigned filter):', allAreas);
         data = allAreas.filter((area: Area) => area.route);
       } else if (filterStatus === 'unassigned') {
-        response = await areasApi.getAvailable();
+        response = await areasApi.getAvailable(page);
         data = Array.isArray(response.data?.results) 
           ? response.data.results 
           : Array.isArray(response.data) 
             ? response.data 
             : [];
-        console.log('API Response (unassigned filter):', data);
       } else {
-        response = await areasApi.getAll();
+        response = await areasApi.getAll(page);
         data = Array.isArray(response.data?.results) 
           ? response.data.results 
           : Array.isArray(response.data) 
             ? response.data 
             : [];
-        console.log('API Response (all):', data);
-        console.log('Sample area object:', data[0]);
       }
+      
+      // Extract pagination metadata
+      const count = response.data?.count || data.length;
+      setTotalCount(count);
+      setTotalPages(Math.ceil(count / 10)); // Assuming 10 items per page
       
       setAreas(data);
       setFilteredAreas(data);
@@ -198,8 +215,52 @@ const RouteAreas = () => {
           </Table>
         </div>
 
-        <div className="mt-4 text-sm text-muted-foreground">
-          Showing {filteredAreas.length} of {areas.length} areas
+        <div className="mt-4 flex items-center justify-between">
+          <div className="text-sm text-muted-foreground">
+            Showing {((currentPage - 1) * 10) + 1}-{Math.min(currentPage * 10, totalCount)} of {totalCount} areas
+          </div>
+          
+          {totalPages > 1 && (
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious 
+                    onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+                    className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                  />
+                </PaginationItem>
+                
+                {[...Array(totalPages)].map((_, i) => {
+                  const page = i + 1;
+                  if (
+                    page === 1 ||
+                    page === totalPages ||
+                    (page >= currentPage - 1 && page <= currentPage + 1)
+                  ) {
+                    return (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          onClick={() => setCurrentPage(page)}
+                          isActive={currentPage === page}
+                          className="cursor-pointer"
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  }
+                  return null;
+                })}
+                
+                <PaginationItem>
+                  <PaginationNext 
+                    onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
+                    className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </div>
       </div>
     </div>
