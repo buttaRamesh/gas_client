@@ -44,10 +44,21 @@ export const routesApi = {
 
 // Areas API
 export const areasApi = {
-  getAll: (page?: number) => api.get(`/route-areas/${page ? `?page=${page}` : ''}`),
+  getAll: (page?: number, search?: string) => {
+    const params = new URLSearchParams();
+    if (page) params.append('page', page.toString());
+    if (search?.trim()) params.append('search', search.trim());
+    return api.get(`/route-areas/?${params.toString()}`);
+  },
   getById: (id: number) => api.get(`/route-areas/${id}/`),
   getByRoute: (routeId: number) => api.get(`/route-areas/?route=${routeId}`),
-  getAvailable: (page?: number) => api.get(`/route-areas/?assigned=false${page ? `&page=${page}` : ''}`),
+  getAvailable: (page?: number, search?: string) => {
+    const params = new URLSearchParams();
+    params.append('assigned', 'false');
+    if (page) params.append('page', page.toString());
+    if (search?.trim()) params.append('search', search.trim());
+    return api.get(`/route-areas/?${params.toString()}`);
+  },
   assignToRoute: (areaId: number, routeId: number) => api.post(`/route-areas/${areaId}/assign_to_route/`, { route: routeId }),
   removeFromRoute: (areaId: number) => api.post(`/route-areas/${areaId}/unassign_from_route/`),
 };

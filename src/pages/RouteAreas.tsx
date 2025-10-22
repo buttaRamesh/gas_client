@@ -36,7 +36,6 @@ const RouteAreas = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [areas, setAreas] = useState<Area[]>([]);
-  const [filteredAreas, setFilteredAreas] = useState<Area[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'assigned' | 'unassigned'>('all');
@@ -47,15 +46,13 @@ const RouteAreas = () => {
   useEffect(() => {
     setCurrentPage(1);
     fetchAreas(1);
-  }, [filterStatus]);
+  }, [filterStatus, searchQuery]);
 
   useEffect(() => {
-    fetchAreas(currentPage);
+    if (currentPage > 0 && currentPage <= totalPages) {
+      fetchAreas(currentPage);
+    }
   }, [currentPage]);
-
-  useEffect(() => {
-    filterAreas();
-  }, [areas, searchQuery]);
 
   const fetchAreas = async (page: number) => {
     try {
@@ -63,8 +60,14 @@ const RouteAreas = () => {
       let response;
       let data: Area[] = [];
       
+      const params = new URLSearchParams();
+      if (searchQuery.trim()) {
+        params.append('search', searchQuery.trim());
+      }
+      params.append('page', page.toString());
+      
       if (filterStatus === 'assigned') {
-        response = await areasApi.getAll(page);
+        response = await areasApi.getAll(page, searchQuery);
         const allAreas = Array.isArray(response.data?.results) 
           ? response.data.results 
           : Array.isArray(response.data) 
@@ -72,14 +75,14 @@ const RouteAreas = () => {
             : [];
         data = allAreas.filter((area: Area) => area.route);
       } else if (filterStatus === 'unassigned') {
-        response = await areasApi.getAvailable(page);
+        response = await areasApi.getAvailable(page, searchQuery);
         data = Array.isArray(response.data?.results) 
           ? response.data.results 
           : Array.isArray(response.data) 
             ? response.data 
             : [];
       } else {
-        response = await areasApi.getAll(page);
+        response = await areasApi.getAll(page, searchQuery);
         data = Array.isArray(response.data?.results) 
           ? response.data.results 
           : Array.isArray(response.data) 
@@ -90,14 +93,25 @@ const RouteAreas = () => {
       // Extract pagination metadata
       const count = response.data?.count || data.length;
       setTotalCount(count);
-      setTotalPages(Math.ceil(count / 10)); // Assuming 10 items per page
+      const pages = Math.ceil(count / 10);
+      setTotalPages(pages);
       
-      setAreas(data);
-      setFilteredAreas(data);
-    } catch (error) {
+      // Reset to page 1 if current page is invalid
+      if (page > pages && pages > 0) {
+        setCurrentPage(1);
+      } else {
+        setAreas(data);
+      }
+    } catch (error: any) {
       console.error('Error fetching areas:', error);
+      
+      // Handle invalid page error
+      if (error.response?.status === 404 && error.response?.data?.detail === 'Invalid page.') {
+        setCurrentPage(1);
+        return;
+      }
+      
       setAreas([]);
-      setFilteredAreas([]);
       toast({
         title: 'Error',
         description: 'Failed to fetch route areas',
@@ -108,18 +122,6 @@ const RouteAreas = () => {
     }
   };
 
-  const filterAreas = () => {
-    if (!searchQuery.trim()) {
-      setFilteredAreas(areas);
-      return;
-    }
-
-    const filtered = areas.filter((area) =>
-      area.area_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      area.area_code.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredAreas(filtered);
-  };
 
   if (loading) {
     return (
@@ -181,14 +183,14 @@ const RouteAreas = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredAreas.length === 0 ? (
+              {areas.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">
                     No areas found
                   </TableCell>
                 </TableRow>
               ) : (
-                filteredAreas.map((area, index) => (
+                areas.map((area, index) => (
                   <TableRow 
                     key={area.id} 
                     className={`hover:bg-muted/50 transition-colors ${index % 2 === 0 ? 'bg-background' : 'bg-muted/30'}`}
@@ -217,7 +219,7 @@ const RouteAreas = () => {
 
         <div className="mt-4 flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
-            Showing {((currentPage - 1) * 10) + 1}-{Math.min(currentPage * 10, totalCount)} of {totalCount} areas
+            {totalCount > 0 && `Showing ${((currentPage - 1) * 10) + 1}-${Math.min(currentPage * 10, totalCount)} of ${totalCount} areas`}
           </div>
           
           {totalPages > 1 && (
