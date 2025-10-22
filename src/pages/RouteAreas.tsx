@@ -158,25 +158,27 @@ const RouteAreas = () => {
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50 hover:bg-muted/50">
-                <TableHead className="font-semibold">Area Name</TableHead>
-                <TableHead className="font-semibold">Consumer Count</TableHead>
-                <TableHead className="font-semibold">Route</TableHead>
-                <TableHead className="text-right font-semibold">Actions</TableHead>
+                <TableHead className="font-semibold py-3">Area Name</TableHead>
+                <TableHead className="font-semibold py-3">Consumer Count</TableHead>
+                <TableHead className="font-semibold py-3">Route</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredAreas.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
+                  <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">
                     No areas found
                   </TableCell>
                 </TableRow>
               ) : (
-                filteredAreas.map((area) => (
-                  <TableRow key={area.id} className="hover:bg-muted/30 transition-colors">
-                    <TableCell className="font-medium">{area.area_name}</TableCell>
-                    <TableCell>{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
-                    <TableCell>
+                filteredAreas.map((area, index) => (
+                  <TableRow 
+                    key={area.id} 
+                    className={`hover:bg-muted/40 transition-colors ${index % 2 === 0 ? 'bg-background' : 'bg-muted/20'}`}
+                  >
+                    <TableCell className="font-medium py-3">{area.area_name}</TableCell>
+                    <TableCell className="py-3">{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
+                    <TableCell className="py-3">
                       {area.route ? (
                         <Button
                           variant="link"
@@ -187,17 +189,6 @@ const RouteAreas = () => {
                         </Button>
                       ) : (
                         <span className="text-muted-foreground">-</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {area.route && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => navigate(`/routes/${area.route}/edit`)}
-                        >
-                          View Route
-                        </Button>
                       )}
                     </TableCell>
                   </TableRow>
