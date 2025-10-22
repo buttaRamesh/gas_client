@@ -16,13 +16,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, MapPin, Hash, Users, Route as RouteIcon } from 'lucide-react';
+import { ArrowLeft, MapPin, Route as RouteIcon } from 'lucide-react';
 import { CircularProgress } from '@mui/material';
 
 const areaSchema = z.object({
   area_name: z.string().min(1, 'Area name is required'),
-  area_code: z.string().optional(),
-  consumer_count: z.coerce.number().min(0, 'Consumer count must be positive').optional(),
   route: z.coerce.number().nullable().optional(),
 });
 
@@ -45,8 +43,6 @@ const RouteAreaCreate = () => {
     resolver: zodResolver(areaSchema),
     defaultValues: {
       area_name: '',
-      area_code: '',
-      consumer_count: 0,
       route: null,
     },
   });
@@ -85,8 +81,6 @@ const RouteAreaCreate = () => {
       
       const payload = {
         area_name: data.area_name,
-        area_code: data.area_code || '',
-        consumer_count: data.consumer_count || 0,
         route: data.route || null,
       };
 
@@ -166,44 +160,6 @@ const RouteAreaCreate = () => {
                 {errors.area_name && (
                   <p className="text-sm text-destructive mt-2 flex items-center gap-1">
                     <span className="font-medium">⚠</span> {errors.area_name.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="area_code" className="flex items-center gap-2 text-base font-medium">
-                  <Hash className="w-4 h-4 text-primary" />
-                  Area Code
-                </Label>
-                <Input
-                  id="area_code"
-                  {...register('area_code')}
-                  placeholder="e.g., DT-001"
-                  className="mt-1 h-12 text-base border-border/50 focus:border-primary transition-colors"
-                />
-                {errors.area_code && (
-                  <p className="text-sm text-destructive mt-2 flex items-center gap-1">
-                    <span className="font-medium">⚠</span> {errors.area_code.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="consumer_count" className="flex items-center gap-2 text-base font-medium">
-                  <Users className="w-4 h-4 text-primary" />
-                  Consumer Count
-                </Label>
-                <Input
-                  id="consumer_count"
-                  type="number"
-                  {...register('consumer_count')}
-                  placeholder="Enter number of consumers"
-                  className="mt-1 h-12 text-base border-border/50 focus:border-primary transition-colors"
-                  min="0"
-                />
-                {errors.consumer_count && (
-                  <p className="text-sm text-destructive mt-2 flex items-center gap-1">
-                    <span className="font-medium">⚠</span> {errors.consumer_count.message}
                   </p>
                 )}
               </div>
