@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   TextField,
+  Button,
   IconButton,
   InputAdornment,
   CircularProgress,
@@ -18,6 +19,7 @@ import {
   PersonOutline as PersonIcon,
   LocationOn as LocationIcon,
   Group as GroupIcon,
+  Add as AddIcon,
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
@@ -89,22 +91,36 @@ export default function Routes() {
           <Typography variant="h4" sx={{ fontWeight: 600 }}>
             Routes Management
           </Typography>
-          <IconButton 
-            color="primary" 
-            onClick={() => navigate('/route-areas')}
-            sx={{ 
-              bgcolor: 'primary.main',
-              color: 'white',
-              '&:hover': { bgcolor: 'primary.dark' },
-              px: 2,
-              borderRadius: 2
-            }}
-          >
-            <LocationIcon sx={{ mr: 1 }} />
-            <Typography variant="button" sx={{ fontSize: '0.875rem' }}>
-              View All Areas
-            </Typography>
-          </IconButton>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={() => navigate('/routes/new')}
+              sx={{ 
+                bgcolor: 'success.main',
+                color: 'white',
+                '&:hover': { bgcolor: 'success.dark' },
+              }}
+            >
+              Create Route
+            </Button>
+            <IconButton 
+              color="primary" 
+              onClick={() => navigate('/route-areas')}
+              sx={{ 
+                bgcolor: 'primary.main',
+                color: 'white',
+                '&:hover': { bgcolor: 'primary.dark' },
+                px: 2,
+                borderRadius: 2
+              }}
+            >
+              <LocationIcon sx={{ mr: 1 }} />
+              <Typography variant="button" sx={{ fontSize: '0.875rem' }}>
+                View All Areas
+              </Typography>
+            </IconButton>
+          </Box>
         </Box>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
           Manage delivery routes and assignments
