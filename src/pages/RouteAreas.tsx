@@ -110,9 +110,8 @@ const RouteAreas = () => {
       
       // Extract pagination metadata
       const count = response.data?.count || data.length;
-      const pageSize = data.length > 0 ? data.length : 20; // Use actual page size from response
       setTotalCount(count);
-      const pages = Math.ceil(count / pageSize);
+      const pages = Math.ceil(count / 10); // 10 items per page
       setTotalPages(pages);
       
       // Reset to page 1 if current page is invalid
@@ -239,11 +238,7 @@ const RouteAreas = () => {
 
         <div className="mt-4 flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
-            {totalCount > 0 && (
-              <>
-                Page {currentPage} of {totalPages} ({totalCount} total areas)
-              </>
-            )}
+            {totalCount > 0 && `Showing ${((currentPage - 1) * 10) + 1}-${Math.min(currentPage * 10, totalCount)} of ${totalCount} areas`}
           </div>
           
           {totalPages > 1 && (
