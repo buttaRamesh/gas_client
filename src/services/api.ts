@@ -47,6 +47,9 @@ export const areasApi = {
   getAll: () => api.get('/areas/'),
   getById: (id: number) => api.get(`/areas/${id}/`),
   getByRoute: (routeId: number) => api.get(`/areas/?route_id=${routeId}`),
+  getAvailable: () => api.get('/areas/?route_id__isnull=true'),
+  assignToRoute: (areaId: number, routeId: number) => api.patch(`/areas/${areaId}/`, { route_id: routeId }),
+  removeFromRoute: (areaId: number) => api.patch(`/areas/${areaId}/`, { route_id: null }),
 };
 
 export default api;
