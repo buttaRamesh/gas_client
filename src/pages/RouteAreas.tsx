@@ -45,8 +45,19 @@ const RouteAreas = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-    fetchAreas(1);
-  }, [filterStatus, searchQuery]);
+  }, [filterStatus]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (currentPage === 1) {
+        fetchAreas(1);
+      } else {
+        setCurrentPage(1);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, filterStatus]);
 
   useEffect(() => {
     if (currentPage > 0 && currentPage <= totalPages) {
