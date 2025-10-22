@@ -85,9 +85,27 @@ export default function Routes() {
     <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
     <Container maxWidth="xl" sx={{ px: 2 }}>
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
-          Routes Management
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+          <Typography variant="h4" sx={{ fontWeight: 600 }}>
+            Routes Management
+          </Typography>
+          <IconButton 
+            color="primary" 
+            onClick={() => navigate('/route-areas')}
+            sx={{ 
+              bgcolor: 'primary.main',
+              color: 'white',
+              '&:hover': { bgcolor: 'primary.dark' },
+              px: 2,
+              borderRadius: 2
+            }}
+          >
+            <LocationIcon sx={{ mr: 1 }} />
+            <Typography variant="button" sx={{ fontSize: '0.875rem' }}>
+              View All Areas
+            </Typography>
+          </IconButton>
+        </Box>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
           Manage delivery routes and assignments
         </Typography>
