@@ -158,7 +158,6 @@ const RouteAreas = () => {
           <TableHeader>
             <TableRow>
               <TableHead>Area Name</TableHead>
-              <TableHead>Area Code</TableHead>
               <TableHead>Consumer Count</TableHead>
               <TableHead>Route</TableHead>
               <TableHead>Status</TableHead>
@@ -168,7 +167,7 @@ const RouteAreas = () => {
           <TableBody>
             {filteredAreas.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
                   No areas found
                 </TableCell>
               </TableRow>
@@ -176,7 +175,6 @@ const RouteAreas = () => {
               filteredAreas.map((area) => (
                 <TableRow key={area.id}>
                   <TableCell className="font-medium">{area.area_name}</TableCell>
-                  <TableCell>{area.area_code}</TableCell>
                   <TableCell>{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
                   <TableCell>
                     {area.route ? (
