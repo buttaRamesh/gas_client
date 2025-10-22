@@ -54,6 +54,7 @@ const RouteAreas = () => {
           : Array.isArray(response.data) 
             ? response.data 
             : [];
+        console.log('API Response (assigned filter):', allAreas);
         data = allAreas.filter((area: Area) => area.route_id);
       } else if (filterStatus === 'unassigned') {
         response = await areasApi.getAvailable();
@@ -62,6 +63,7 @@ const RouteAreas = () => {
           : Array.isArray(response.data) 
             ? response.data 
             : [];
+        console.log('API Response (unassigned filter):', data);
       } else {
         response = await areasApi.getAll();
         data = Array.isArray(response.data?.results) 
@@ -69,6 +71,8 @@ const RouteAreas = () => {
           : Array.isArray(response.data) 
             ? response.data 
             : [];
+        console.log('API Response (all):', data);
+        console.log('Sample area object:', data[0]);
       }
       
       setAreas(data);
