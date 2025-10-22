@@ -157,7 +157,7 @@ const RouteAreas = () => {
         <div className="rounded-lg border bg-card shadow-sm overflow-hidden">
           <Table>
             <TableHeader>
-              <TableRow className="bg-muted/50 hover:bg-muted/50">
+              <TableRow className="bg-muted hover:bg-muted">
                 <TableHead className="font-semibold py-3">Area Name</TableHead>
                 <TableHead className="font-semibold py-3">Consumer Count</TableHead>
                 <TableHead className="font-semibold py-3">Route</TableHead>
