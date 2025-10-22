@@ -45,20 +45,38 @@ const RouteAreas = () => {
     try {
       setLoading(true);
       let response;
+      let data: Area[] = [];
       
       if (filterStatus === 'assigned') {
         response = await areasApi.getAll();
-        response.data = response.data.filter((area: Area) => area.route_id);
+        const allAreas = Array.isArray(response.data?.results) 
+          ? response.data.results 
+          : Array.isArray(response.data) 
+            ? response.data 
+            : [];
+        data = allAreas.filter((area: Area) => area.route_id);
       } else if (filterStatus === 'unassigned') {
         response = await areasApi.getAvailable();
+        data = Array.isArray(response.data?.results) 
+          ? response.data.results 
+          : Array.isArray(response.data) 
+            ? response.data 
+            : [];
       } else {
         response = await areasApi.getAll();
+        data = Array.isArray(response.data?.results) 
+          ? response.data.results 
+          : Array.isArray(response.data) 
+            ? response.data 
+            : [];
       }
       
-      setAreas(response.data);
-      setFilteredAreas(response.data);
+      setAreas(data);
+      setFilteredAreas(data);
     } catch (error) {
       console.error('Error fetching areas:', error);
+      setAreas([]);
+      setFilteredAreas([]);
       toast({
         title: 'Error',
         description: 'Failed to fetch route areas',
