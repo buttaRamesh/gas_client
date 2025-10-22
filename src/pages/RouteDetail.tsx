@@ -216,45 +216,16 @@ export default function RouteDetail() {
               </Box>
 
               {route.areas && route.areas.length > 0 ? (
-                <TableContainer component={Paper} sx={{ bgcolor: "background.paper" }}>
-                  <Table>
-                    <TableHead>
-                      <TableRow sx={{ bgcolor: "grey.100" }}>
-                        <TableCell sx={{ fontWeight: 600 }}>Area Name</TableCell>
-                        <TableCell sx={{ fontWeight: 600 }}>Area Code</TableCell>
-                        <TableCell sx={{ fontWeight: 600 }} align="right">Consumers</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {route.areas?.map((area) => (
-                        <TableRow 
-                          key={area.id}
-                          sx={{ 
-                            '&:hover': { bgcolor: 'grey.50' },
-                            '&:last-child td, &:last-child th': { border: 0 }
-                          }}
-                        >
-                          <TableCell>{area.area_name}</TableCell>
-                          <TableCell>
-                            <Chip 
-                              label={area.area_code} 
-                              size="small" 
-                              variant="outlined"
-                            />
-                          </TableCell>
-                          <TableCell align="right">
-                            <Chip 
-                              icon={<GroupIcon />}
-                              label={area.consumer_count} 
-                              size="small" 
-                              color="success"
-                            />
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                  {route.areas.map((area) => (
+                    <Chip
+                      key={area.id}
+                      label={area.area_name}
+                      variant="outlined"
+                      sx={{ bgcolor: "background.paper" }}
+                    />
+                  ))}
+                </Box>
               ) : (
                 <Box sx={{ textAlign: "center", py: 4 }}>
                   <PlaceIcon sx={{ fontSize: 48, color: "text.disabled", mb: 1 }} />
