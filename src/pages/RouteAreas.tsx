@@ -173,7 +173,7 @@ const RouteAreas = () => {
                 <TableRow key={area.id}>
                   <TableCell className="font-medium">{area.area_name}</TableCell>
                   <TableCell>{area.area_code}</TableCell>
-                  <TableCell>{area.consumer_count.toLocaleString()}</TableCell>
+                  <TableCell>{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
                   <TableCell>
                     {area.route_id ? (
                       <Button
