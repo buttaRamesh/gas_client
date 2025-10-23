@@ -4,33 +4,33 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#0080ff', // Bright Blue
-      dark: '#0066cc',
-      light: '#3399ff',
+      main: '#2d8659', // Forest Green
+      dark: '#1e5e3d',
+      light: '#48a574',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#1a3a52', // Deep Navy
-      dark: '#0f2433',
-      light: '#2e5470',
+      main: '#1f9d7a', // Teal
+      dark: '#167a5f',
+      light: '#4bb091',
       contrastText: '#ffffff',
     },
     info: {
-      main: '#33cccc', // Cyan
-      dark: '#29a3a3',
-      light: '#5cd6d6',
+      main: '#0099cc', // Blue
+      dark: '#007aa3',
+      light: '#33add6',
       contrastText: '#ffffff',
     },
     success: {
-      main: '#28a745',
-      dark: '#1e7e34',
-      light: '#48b461',
+      main: '#2d8659',
+      dark: '#1e5e3d',
+      light: '#48a574',
       contrastText: '#ffffff',
     },
     warning: {
-      main: '#ffc107',
-      dark: '#e0a800',
-      light: '#ffcd38',
+      main: '#ffcc00', // Bright Yellow
+      dark: '#cca300',
+      light: '#ffd633',
       contrastText: '#000000',
     },
     error: {
@@ -40,13 +40,13 @@ export const theme = createTheme({
       contrastText: '#ffffff',
     },
     background: {
-      default: '#f5f8fa',
+      default: '#f7faf8',
       paper: '#ffffff',
     },
     grey: {
-      100: '#f0f4f7',
-      200: '#e8edf2',
-      300: '#d6dfe6',
+      100: '#f0f5f2',
+      200: '#e6eeea',
+      300: '#d4e3db',
     },
   },
   typography: {
