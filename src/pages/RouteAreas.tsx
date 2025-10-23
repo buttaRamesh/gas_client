@@ -33,6 +33,7 @@ import {
   ArrowDownward as ArrowDownwardIcon,
 } from '@mui/icons-material';
 import { useToast } from '@/hooks/use-toast';
+import { EnhancedTable, ColumnDef } from '@/components/EnhancedTable';
 
 type SortField = 'area_name' | 'consumer_count' | 'route';
 type SortOrder = 'asc' | 'desc';
@@ -144,34 +145,6 @@ const RouteAreas = () => {
     }
   };
 
-  const handleSort = (field: SortField) => {
-    const newOrder = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
-    setSortField(field);
-    setSortOrder(newOrder);
-    
-    const sorted = [...areas].sort((a, b) => {
-      let aVal: any = a[field];
-      let bVal: any = b[field];
-      
-      if (field === 'consumer_count') {
-        aVal = a.consumer_count || 0;
-        bVal = b.consumer_count || 0;
-      } else if (field === 'route') {
-        aVal = a.route_code || a.route || '';
-        bVal = b.route_code || b.route || '';
-      } else {
-        aVal = String(aVal || '').toLowerCase();
-        bVal = String(bVal || '').toLowerCase();
-      }
-      
-      if (aVal < bVal) return newOrder === 'asc' ? -1 : 1;
-      if (aVal > bVal) return newOrder === 'asc' ? 1 : -1;
-      return 0;
-    });
-    
-    setAreas(sorted);
-  };
-
   const handleDelete = async (area: Area, event: React.MouseEvent) => {
     event.stopPropagation();
     if (!window.confirm(`Are you sure you want to delete area "${area.area_name}"? This action cannot be undone.`)) {
@@ -194,6 +167,99 @@ const RouteAreas = () => {
       });
     }
   };
+
+  const columns: ColumnDef<Area>[] = [
+    {
+      id: 'area_name',
+      label: 'Area Name',
+      sortable: true,
+      getValue: (row) => row.area_name,
+      render: (row) => (
+        <Typography sx={{ fontWeight: 500, fontSize: '0.9rem' }}>
+          {row.area_name}
+        </Typography>
+      ),
+    },
+    {
+      id: 'consumer_count',
+      label: 'Consumer Count',
+      sortable: true,
+      getValue: (row) => row.consumer_count || 0,
+      render: (row) => (
+        <Chip
+          label={row.consumer_count ? row.consumer_count.toLocaleString() : '0'}
+          size="small"
+          sx={{
+            fontWeight: 600,
+            bgcolor: 'info.light',
+            color: 'info.main',
+          }}
+        />
+      ),
+    },
+    {
+      id: 'route',
+      label: 'Route',
+      sortable: true,
+      getValue: (row) => row.route_code || row.route || '',
+      render: (row) =>
+        row.route ? (
+          <Chip
+            label={row.route_code || `Route #${row.route}`}
+            size="small"
+            clickable
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/routes/${row.route}`, { state: { from: 'route-areas' } });
+            }}
+            sx={{
+              fontWeight: 600,
+              bgcolor: 'success.light',
+              color: 'success.main',
+              '&:hover': { bgcolor: 'success.main', color: 'white' },
+              transition: 'all 0.2s',
+            }}
+          />
+        ) : (
+          <Chip
+            label="Unassigned"
+            size="small"
+            sx={{
+              bgcolor: 'warning.light',
+              color: 'warning.main',
+              fontWeight: 600,
+            }}
+          />
+        ),
+    },
+    {
+      id: 'actions',
+      label: 'Actions',
+      align: 'right',
+      sortable: false,
+      render: (row) => (
+        <IconButton
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete(row, e);
+          }}
+          sx={{
+            color: 'error.main',
+            bgcolor: 'error.light',
+            '&:hover': {
+              bgcolor: 'error.main',
+              color: 'white',
+              transform: 'scale(1.1)',
+            },
+            transition: 'all 0.2s',
+          }}
+        >
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      ),
+    },
+  ];
 
   if (loading) {
     return (
@@ -263,159 +329,14 @@ const RouteAreas = () => {
           </FormControl>
         </Box>
 
-        <TableContainer component={Paper} elevation={3} sx={{ borderRadius: 2 }}>
-          <Table>
-            <TableHead>
-              <TableRow 
-                sx={{ 
-                  bgcolor: 'primary.main',
-                  '& .MuiTableCell-root': {
-                    color: 'white',
-                    fontWeight: 700,
-                    fontSize: '0.875rem',
-                    borderBottom: 'none',
-                  }
-                }}
-              >
-                <TableCell 
-                  sx={{ 
-                    cursor: 'pointer',
-                    userSelect: 'none',
-                    '&:hover': { bgcolor: 'primary.dark' },
-                    transition: 'background-color 0.2s',
-                  }}
-                  onClick={() => handleSort('area_name')}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    Area Name
-                    {sortField === 'area_name' && (
-                      sortOrder === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />
-                    )}
-                  </Box>
-                </TableCell>
-                <TableCell 
-                  sx={{ 
-                    cursor: 'pointer',
-                    userSelect: 'none',
-                    '&:hover': { bgcolor: 'primary.dark' },
-                    transition: 'background-color 0.2s',
-                  }}
-                  onClick={() => handleSort('consumer_count')}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    Consumer Count
-                    {sortField === 'consumer_count' && (
-                      sortOrder === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />
-                    )}
-                  </Box>
-                </TableCell>
-                <TableCell 
-                  sx={{ 
-                    cursor: 'pointer',
-                    userSelect: 'none',
-                    '&:hover': { bgcolor: 'primary.dark' },
-                    transition: 'background-color 0.2s',
-                  }}
-                  onClick={() => handleSort('route')}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    Route
-                    {sortField === 'route' && (
-                      sortOrder === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />
-                    )}
-                  </Box>
-                </TableCell>
-                <TableCell align="right">Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {areas.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={4} align="center" sx={{ py: 8 }}>
-                    <Typography color="text.secondary">No areas found</Typography>
-                  </TableCell>
-                </TableRow>
-              ) : (
-                areas.map((area, index) => (
-                  <TableRow 
-                    key={area.id}
-                    sx={{ 
-                      bgcolor: index % 2 === 0 ? 'background.paper' : 'action.hover',
-                      '&:hover': { 
-                        bgcolor: 'primary.light',
-                        transform: 'scale(1.01)',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                        '& .MuiTableCell-root': {
-                          color: 'primary.contrastText',
-                        },
-                      },
-                      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <TableCell sx={{ fontWeight: 500, fontSize: '0.9rem' }}>{area.area_name}</TableCell>
-                    <TableCell>
-                      <Chip 
-                        label={area.consumer_count ? area.consumer_count.toLocaleString() : '0'}
-                        size="small"
-                        sx={{ 
-                          fontWeight: 600,
-                          bgcolor: 'info.light',
-                          color: 'info.main',
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      {area.route ? (
-                        <Chip
-                          label={area.route_code || `Route #${area.route}`}
-                          size="small"
-                          clickable
-                          onClick={() => navigate(`/routes/${area.route}`, { state: { from: 'route-areas' } })}
-                          sx={{ 
-                            fontWeight: 600,
-                            bgcolor: 'success.light',
-                            color: 'success.main',
-                            '&:hover': { bgcolor: 'success.main', color: 'white' },
-                            transition: 'all 0.2s',
-                          }}
-                        />
-                      ) : (
-                        <Chip 
-                          label="Unassigned" 
-                          size="small"
-                          sx={{
-                            bgcolor: 'warning.light',
-                            color: 'warning.main',
-                            fontWeight: 600,
-                          }}
-                        />
-                      )}
-                    </TableCell>
-                    <TableCell align="right">
-                      <IconButton
-                        size="small"
-                        onClick={(e) => handleDelete(area, e)}
-                        sx={{ 
-                          color: 'error.main',
-                          bgcolor: 'error.light',
-                          '&:hover': { 
-                            bgcolor: 'error.main',
-                            color: 'white',
-                            transform: 'scale(1.1)',
-                          },
-                          transition: 'all 0.2s',
-                        }}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <EnhancedTable
+          columns={columns}
+          data={areas}
+          getRowKey={(row) => row.id}
+          emptyMessage="No areas found"
+          striped={true}
+          hoverable={true}
+        />
 
         <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="body2" color="text.secondary">
