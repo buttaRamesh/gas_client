@@ -15,8 +15,15 @@ import {
   CircularProgress,
   IconButton,
   Chip,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TableSortLabel,
 } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import {
   ArrowBack as ArrowBackIcon,
   Search as SearchIcon,
@@ -24,6 +31,9 @@ import {
   Delete as DeleteIcon,
 } from '@mui/icons-material';
 import { useToast } from '@/hooks/use-toast';
+
+type SortField = 'area_name' | 'consumer_count' | 'route';
+type SortOrder = 'asc' | 'desc';
 
 const RouteAreas = () => {
   const navigate = useNavigate();
@@ -33,10 +43,8 @@ const RouteAreas = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'assigned' | 'unassigned'>('all');
-  const [paginationModel, setPaginationModel] = useState({
-    pageSize: 10,
-    page: 0,
-  });
+  const [sortField, setSortField] = useState<SortField>('area_name');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
 
   useEffect(() => {
     fetchAreas();
@@ -86,14 +94,44 @@ const RouteAreas = () => {
     }
   };
 
-  const handleDelete = async (id: number) => {
-    const area = areas.find(a => a.id === id);
-    if (!area || !window.confirm(`Are you sure you want to delete area "${area.area_name}"? This action cannot be undone.`)) {
+  const handleSort = (field: SortField) => {
+    const isAsc = sortField === field && sortOrder === 'asc';
+    setSortOrder(isAsc ? 'desc' : 'asc');
+    setSortField(field);
+  };
+
+  const sortedAreas = [...areas].sort((a, b) => {
+    let aVal: any;
+    let bVal: any;
+
+    if (sortField === 'consumer_count') {
+      aVal = a.consumer_count || 0;
+      bVal = b.consumer_count || 0;
+    } else if (sortField === 'route') {
+      aVal = a.route_code || a.route || '';
+      bVal = b.route_code || b.route || '';
+    } else {
+      aVal = String(a[sortField] || '').toLowerCase();
+      bVal = String(b[sortField] || '').toLowerCase();
+    }
+
+    if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const filteredAreas = sortedAreas.filter(area =>
+    area.area_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleDelete = async (area: Area, event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (!window.confirm(`Are you sure you want to delete area "${area.area_name}"? This action cannot be undone.`)) {
       return;
     }
 
     try {
-      await areasApi.delete(id);
+      await areasApi.delete(area.id);
       toast({
         title: "Success",
         description: "Area deleted successfully",
@@ -108,102 +146,6 @@ const RouteAreas = () => {
       });
     }
   };
-
-  const columns: GridColDef[] = [
-    {
-      field: 'area_name',
-      headerName: 'Area Name',
-      flex: 1,
-      minWidth: 200,
-      renderCell: (params) => (
-        <Typography sx={{ fontWeight: 500 }}>
-          {params.value}
-        </Typography>
-      ),
-    },
-    {
-      field: 'consumer_count',
-      headerName: 'Consumer Count',
-      width: 180,
-      renderCell: (params) => (
-        <Chip
-          label={params.value ? params.value.toLocaleString() : '0'}
-          size="small"
-          sx={{
-            fontWeight: 600,
-            bgcolor: 'info.light',
-            color: 'info.main',
-          }}
-        />
-      ),
-    },
-    {
-      field: 'route',
-      headerName: 'Route',
-      width: 200,
-      renderCell: (params) => {
-        const area = params.row as Area;
-        return area.route ? (
-          <Chip
-            label={area.route_code || `Route #${area.route}`}
-            size="small"
-            clickable
-            onClick={() => navigate(`/routes/${area.route}`, { state: { from: 'route-areas' } })}
-            sx={{
-              fontWeight: 600,
-              bgcolor: 'success.light',
-              color: 'success.main',
-              '&:hover': { bgcolor: 'success.main', color: 'white' },
-              transition: 'all 0.2s',
-            }}
-          />
-        ) : (
-          <Chip
-            label="Unassigned"
-            size="small"
-            sx={{
-              bgcolor: 'warning.light',
-              color: 'warning.main',
-              fontWeight: 600,
-            }}
-          />
-        );
-      },
-    },
-    {
-      field: 'actions',
-      headerName: 'Actions',
-      width: 120,
-      sortable: false,
-      align: 'right',
-      headerAlign: 'right',
-      renderCell: (params) => (
-        <IconButton
-          size="small"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleDelete(params.row.id);
-          }}
-          sx={{
-            color: 'error.main',
-            bgcolor: 'error.light',
-            '&:hover': {
-              bgcolor: 'error.main',
-              color: 'white',
-              transform: 'scale(1.1)',
-            },
-            transition: 'all 0.2s',
-          }}
-        >
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-      ),
-    },
-  ];
-
-  const filteredAreas = areas.filter(area =>
-    area.area_name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   if (loading) {
     return (
@@ -273,61 +215,176 @@ const RouteAreas = () => {
           </FormControl>
         </Box>
 
-        <Box sx={{ height: 600, width: '100%' }}>
-          <DataGrid
-            rows={filteredAreas}
-            columns={columns}
-            paginationModel={paginationModel}
-            onPaginationModelChange={setPaginationModel}
-            pageSizeOptions={[5, 10, 25, 50]}
-            disableRowSelectionOnClick
-            sx={{
-              border: 'none',
-              borderRadius: 2,
-              bgcolor: 'background.paper',
-              '& .MuiDataGrid-columnHeaders': {
-                bgcolor: 'primary.main',
-                color: 'white',
-                fontSize: '0.875rem',
-                fontWeight: 700,
-                borderBottom: 'none',
-              },
-              '& .MuiDataGrid-columnHeaderTitle': {
-                fontWeight: 700,
-              },
-              '& .MuiDataGrid-row': {
-                '&:nth-of-type(even)': {
-                  bgcolor: 'action.hover',
-                },
-                '&:hover': {
-                  bgcolor: 'primary.light',
-                  transform: 'scale(1.01)',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  '& .MuiDataGrid-cell': {
-                    color: 'primary.contrastText',
+        <TableContainer component={Paper} elevation={3} sx={{ borderRadius: 2 }}>
+          <Table>
+            <TableHead>
+              <TableRow
+                sx={{
+                  bgcolor: 'primary.main',
+                  '& .MuiTableCell-root': {
+                    color: 'white',
+                    fontWeight: 700,
+                    fontSize: '0.875rem',
+                    borderBottom: 'none',
                   },
-                },
-                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                cursor: 'pointer',
-              },
-              '& .MuiDataGrid-cell': {
-                fontSize: '0.9rem',
-                borderBottom: '1px solid',
-                borderColor: 'divider',
-              },
-              '& .MuiDataGrid-footerContainer': {
-                borderTop: '2px solid',
-                borderColor: 'divider',
-              },
-              '& .MuiDataGrid-iconSeparator': {
-                color: 'white',
-              },
-              '& .MuiDataGrid-sortIcon': {
-                color: 'white',
-              },
-            }}
-          />
-        </Box>
+                }}
+              >
+                <TableCell>
+                  <TableSortLabel
+                    active={sortField === 'area_name'}
+                    direction={sortField === 'area_name' ? sortOrder : 'asc'}
+                    onClick={() => handleSort('area_name')}
+                    sx={{
+                      '& .MuiTableSortLabel-icon': {
+                        color: 'white !important',
+                      },
+                      '&:hover': {
+                        color: 'white',
+                      },
+                      '&.Mui-active': {
+                        color: 'white',
+                      },
+                    }}
+                  >
+                    <Typography sx={{ color: 'white', fontWeight: 700 }}>Area Name</Typography>
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={sortField === 'consumer_count'}
+                    direction={sortField === 'consumer_count' ? sortOrder : 'asc'}
+                    onClick={() => handleSort('consumer_count')}
+                    sx={{
+                      '& .MuiTableSortLabel-icon': {
+                        color: 'white !important',
+                      },
+                      '&:hover': {
+                        color: 'white',
+                      },
+                      '&.Mui-active': {
+                        color: 'white',
+                      },
+                    }}
+                  >
+                    <Typography sx={{ color: 'white', fontWeight: 700 }}>Consumer Count</Typography>
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={sortField === 'route'}
+                    direction={sortField === 'route' ? sortOrder : 'asc'}
+                    onClick={() => handleSort('route')}
+                    sx={{
+                      '& .MuiTableSortLabel-icon': {
+                        color: 'white !important',
+                      },
+                      '&:hover': {
+                        color: 'white',
+                      },
+                      '&.Mui-active': {
+                        color: 'white',
+                      },
+                    }}
+                  >
+                    <Typography sx={{ color: 'white', fontWeight: 700 }}>Route</Typography>
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell align="right">
+                  <Typography sx={{ color: 'white', fontWeight: 700 }}>Actions</Typography>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredAreas.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={4} align="center" sx={{ py: 8 }}>
+                    <Typography color="text.secondary">No areas found</Typography>
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredAreas.map((area, index) => (
+                  <TableRow
+                    key={area.id}
+                    sx={{
+                      bgcolor: index % 2 === 0 ? 'background.paper' : 'action.hover',
+                      '&:hover': {
+                        bgcolor: 'primary.light',
+                        '& .MuiTableCell-root': {
+                          color: 'primary.contrastText',
+                        },
+                      },
+                      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <TableCell sx={{ fontWeight: 500, fontSize: '0.9rem' }}>
+                      {area.area_name}
+                    </TableCell>
+                    <TableCell>
+                      <Chip
+                        label={area.consumer_count ? area.consumer_count.toLocaleString() : '0'}
+                        size="small"
+                        sx={{
+                          fontWeight: 600,
+                          bgcolor: 'info.light',
+                          color: 'info.main',
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      {area.route ? (
+                        <Chip
+                          label={area.route_code || `Route #${area.route}`}
+                          size="small"
+                          clickable
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/routes/${area.route}`, { state: { from: 'route-areas' } });
+                          }}
+                          sx={{
+                            fontWeight: 600,
+                            bgcolor: 'success.light',
+                            color: 'success.main',
+                            '&:hover': { bgcolor: 'success.main', color: 'white' },
+                            transition: 'all 0.2s',
+                          }}
+                        />
+                      ) : (
+                        <Chip
+                          label="Unassigned"
+                          size="small"
+                          sx={{
+                            bgcolor: 'warning.light',
+                            color: 'warning.main',
+                            fontWeight: 600,
+                          }}
+                        />
+                      )}
+                    </TableCell>
+                    <TableCell align="right">
+                      <IconButton
+                        size="small"
+                        onClick={(e) => handleDelete(area, e)}
+                        sx={{
+                          color: 'error.main',
+                          bgcolor: 'error.light',
+                          '&:hover': {
+                            bgcolor: 'error.main',
+                            color: 'white',
+                            transform: 'scale(1.1)',
+                          },
+                          transition: 'all 0.2s',
+                        }}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Container>
     </Box>
   );
