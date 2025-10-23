@@ -232,11 +232,7 @@ const RouteAreaCreate = () => {
                     variant="contained"
                     disabled={loading}
                     startIcon={loading ? <CircularProgress size={20} /> : <SaveIcon />}
-                    sx={{ 
-                      px: 4,
-                      bgcolor: 'success.main',
-                      '&:hover': { bgcolor: 'success.dark' },
-                    }}
+                    sx={{ px: 4 }}
                   >
                     {loading ? 'Creating...' : 'Create Area'}
                   </Button>
