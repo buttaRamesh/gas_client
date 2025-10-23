@@ -305,7 +305,7 @@ const RouteAreas = () => {
                   <TableRow
                     key={area.id}
                     sx={{
-                      height: '40px',
+                      height: '38px',
                       bgcolor: index % 2 === 0 ? 'background.paper' : 'action.hover',
                       '&:hover': {
                         bgcolor: 'action.selected',
