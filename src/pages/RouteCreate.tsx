@@ -94,23 +94,15 @@ export default function RouteCreate() {
     try {
       setLoading(true);
       
-      // Create the route
+      // Create the route with assigned areas
       const routeResponse = await routesApi.create({
         area_code: data.area_code,
         area_code_description: data.area_code_description,
         delivery_person_name: data.delivery_person_name || null,
+        areas: selectedAreas.map(area => area.id),
       });
 
       const newRouteId = routeResponse.data.id;
-
-      // Assign selected areas to the new route
-      if (selectedAreas.length > 0) {
-        await Promise.all(
-          selectedAreas.map((area) =>
-            areasApi.assignToRoute(area.id, newRouteId)
-          )
-        );
-      }
 
       toast({
         title: "Success",
