@@ -14,7 +14,6 @@ import {
   FormControl,
   CircularProgress,
   IconButton,
-  Chip,
   Table,
   TableBody,
   TableCell,
@@ -320,45 +319,40 @@ const RouteAreas = () => {
                     <TableCell sx={{ fontWeight: 500, fontSize: '0.9rem' }}>
                       {area.area_name}
                     </TableCell>
-                    <TableCell>
-                      <Chip
-                        label={area.consumer_count ? area.consumer_count.toLocaleString() : '0'}
-                        size="small"
-                        sx={{
-                          fontWeight: 600,
-                          bgcolor: 'info.light',
-                          color: 'info.main',
-                        }}
-                      />
+                    <TableCell sx={{ fontWeight: 500, fontSize: '0.9rem' }}>
+                      {area.consumer_count ? area.consumer_count.toLocaleString() : '0'}
                     </TableCell>
                     <TableCell>
                       {area.route ? (
-                        <Chip
-                          label={area.route_code || `Route #${area.route}`}
-                          size="small"
-                          clickable
+                        <Typography
+                          component="span"
                           onClick={(e) => {
                             e.stopPropagation();
                             navigate(`/routes/${area.route}`, { state: { from: 'route-areas' } });
                           }}
                           sx={{
-                            fontWeight: 600,
-                            bgcolor: 'success.light',
-                            color: 'success.main',
-                            '&:hover': { bgcolor: 'success.main', color: 'white' },
+                            fontWeight: 500,
+                            color: 'info.main',
+                            cursor: 'pointer',
+                            '&:hover': {
+                              textDecoration: 'underline',
+                              color: 'info.dark',
+                            },
                             transition: 'all 0.2s',
                           }}
-                        />
+                        >
+                          {area.route_code || `Route #${area.route}`}
+                        </Typography>
                       ) : (
-                        <Chip
-                          label="Unassigned"
-                          size="small"
+                        <Typography
+                          component="span"
                           sx={{
-                            bgcolor: 'warning.light',
-                            color: 'warning.main',
-                            fontWeight: 600,
+                            fontWeight: 500,
+                            color: 'text.secondary',
                           }}
-                        />
+                        >
+                          Unassigned
+                        </Typography>
                       )}
                     </TableCell>
                     <TableCell align="right">
