@@ -3,6 +3,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { theme } from "./theme/theme";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LayoutDemo from "./pages/LayoutDemo";
@@ -18,28 +21,31 @@ import RouteHistory from "./pages/RouteHistory";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/demo" element={<LayoutDemo />} />
-          <Route path="/routes" element={<RoutesPage />} />
-          <Route path="/routes/statistics" element={<RouteStatistics />} />
-          <Route path="/routes/history" element={<RouteHistory />} />
-          <Route path="/routes/new" element={<RouteCreate />} />
-          <Route path="/routes/:id" element={<RouteDetail />} />
-          <Route path="/routes/:id/edit" element={<RouteEdit />} />
-          <Route path="/route-areas" element={<RouteAreas />} />
-          <Route path="/route-areas/new" element={<RouteAreaCreate />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/demo" element={<LayoutDemo />} />
+            <Route path="/routes" element={<RoutesPage />} />
+            <Route path="/routes/statistics" element={<RouteStatistics />} />
+            <Route path="/routes/history" element={<RouteHistory />} />
+            <Route path="/routes/new" element={<RouteCreate />} />
+            <Route path="/routes/:id" element={<RouteDetail />} />
+            <Route path="/routes/:id/edit" element={<RouteEdit />} />
+            <Route path="/route-areas" element={<RouteAreas />} />
+            <Route path="/route-areas/new" element={<RouteAreaCreate />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;
