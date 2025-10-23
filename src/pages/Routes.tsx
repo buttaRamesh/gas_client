@@ -309,17 +309,17 @@ export default function Routes() {
                     flex: 1, 
                     textAlign: "center", 
                     p: 2, 
-                    bgcolor: "info.light", 
+                    bgcolor: "info.main", 
                     borderRadius: 2,
                     border: "1px solid",
-                    borderColor: "info.main",
+                    borderColor: "info.dark",
                   }}
                 >
-                  <LocationIcon sx={{ mb: 0.5, color: "info.main" }} />
-                  <Typography variant="h5" sx={{ fontWeight: 700, color: "info.main" }}>
+                  <LocationIcon sx={{ mb: 0.5, color: "white" }} />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "white" }}>
                     {route.area_count}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "info.dark", fontWeight: 500 }}>
+                  <Typography variant="caption" sx={{ color: "white", fontWeight: 500, opacity: 0.9 }}>
                     Areas
                   </Typography>
                 </Box>
@@ -328,17 +328,17 @@ export default function Routes() {
                     flex: 1, 
                     textAlign: "center", 
                     p: 2, 
-                    bgcolor: "success.light", 
+                    bgcolor: "success.main", 
                     borderRadius: 2,
                     border: "1px solid",
-                    borderColor: "success.main",
+                    borderColor: "success.dark",
                   }}
                 >
-                  <GroupIcon sx={{ mb: 0.5, color: "success.main" }} />
-                  <Typography variant="h5" sx={{ fontWeight: 700, color: "success.main" }}>
+                  <GroupIcon sx={{ mb: 0.5, color: "white" }} />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "white" }}>
                     {route.consumer_count}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "success.dark", fontWeight: 500 }}>
+                  <Typography variant="caption" sx={{ color: "white", fontWeight: 500, opacity: 0.9 }}>
                     Consumers
                   </Typography>
                 </Box>
