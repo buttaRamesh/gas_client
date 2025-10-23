@@ -219,12 +219,14 @@ const RouteAreas = () => {
             <TableHead>
               <TableRow
                 sx={{
+                  height: '38px',
                   bgcolor: 'primary.main',
                   '& .MuiTableCell-root': {
                     color: 'white',
                     fontWeight: 700,
                     fontSize: '0.875rem',
                     borderBottom: 'none',
+                    padding: '8px 16px',
                   },
                 }}
               >
