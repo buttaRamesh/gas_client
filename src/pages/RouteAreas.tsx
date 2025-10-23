@@ -193,7 +193,6 @@ const RouteAreas = () => {
               variant="contained"
               startIcon={<AddIcon />}
               onClick={() => navigate('/route-areas/new')}
-              sx={{ bgcolor: 'success.main', '&:hover': { bgcolor: 'success.dark' } }}
             >
               Create Area
             </Button>
