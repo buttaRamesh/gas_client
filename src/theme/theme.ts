@@ -4,25 +4,25 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#ff6600', // Industrial Orange
-      dark: '#cc5200',
-      light: '#ff8533',
+      main: '#0080ff', // Bright Blue
+      dark: '#0066cc',
+      light: '#3399ff',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#3d4247', // Dark Gray
-      dark: '#2a2d31',
-      light: '#5a5f66',
+      main: '#1a3a52', // Deep Navy
+      dark: '#0f2433',
+      light: '#2e5470',
       contrastText: '#ffffff',
     },
     info: {
-      main: '#0099ff', // Electric Blue
-      dark: '#0077cc',
-      light: '#33adff',
+      main: '#33cccc', // Cyan
+      dark: '#29a3a3',
+      light: '#5cd6d6',
       contrastText: '#ffffff',
     },
     success: {
-      main: '#28a745', // Green for success states
+      main: '#28a745',
       dark: '#1e7e34',
       light: '#48b461',
       contrastText: '#ffffff',
@@ -40,13 +40,13 @@ export const theme = createTheme({
       contrastText: '#ffffff',
     },
     background: {
-      default: '#fafafa',
+      default: '#f5f8fa',
       paper: '#ffffff',
     },
     grey: {
-      100: '#f5f5f5',
-      200: '#eeeeee',
-      300: '#e0e0e0',
+      100: '#f0f4f7',
+      200: '#e8edf2',
+      300: '#d6dfe6',
     },
   },
   typography: {
