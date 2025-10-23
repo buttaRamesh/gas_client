@@ -206,53 +206,151 @@ export default function Routes() {
         {filteredRoutes.map((route) => (
           <Card
             key={route.id}
-            elevation={3}
+            elevation={2}
             sx={{
               height: "100%",
-              bgcolor: "grey.200",
-              transition: "transform 0.2s, box-shadow 0.2s",
+              bgcolor: "background.paper",
+              borderRadius: 2,
+              overflow: "hidden",
+              cursor: "pointer",
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              border: "1px solid",
+              borderColor: "divider",
               "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: 6,
+                transform: "translateY(-8px)",
+                boxShadow: "0 12px 24px -10px rgba(0, 0, 0, 0.2)",
+                borderColor: "primary.main",
               },
             }}
+            onClick={() => navigate(`/routes/${route.id}`)}
           >
-            <CardContent>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2 }}>
-                <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 600, color: "text.primary" }}>
-                    {route.area_code}-{route.area_code_description}
+            <CardContent sx={{ p: 2.5 }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2.5 }}>
+                <Box sx={{ flex: 1 }}>
+                  <Typography 
+                    variant="overline" 
+                    sx={{ 
+                      color: "primary.main", 
+                      fontWeight: 700,
+                      fontSize: "0.7rem",
+                      letterSpacing: 1,
+                    }}
+                  >
+                    {route.area_code}
+                  </Typography>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      fontWeight: 600, 
+                      color: "text.primary",
+                      fontSize: "1rem",
+                      mt: 0.5,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {route.area_code_description}
                   </Typography>
                 </Box>
-                <Box sx={{ display: "flex", gap: 0.5 }}>
-                  <IconButton size="small" color="primary" onClick={() => navigate(`/routes/${route.id}`)}>
+                <Box sx={{ display: "flex", gap: 0.5, ml: 1 }}>
+                  <IconButton 
+                    size="small" 
+                    color="primary" 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/routes/${route.id}`);
+                    }}
+                    sx={{
+                      transition: "all 0.2s",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                        bgcolor: "primary.light",
+                      }
+                    }}
+                  >
                     <ViewIcon fontSize="small" />
                   </IconButton>
-                  <IconButton size="small" color="secondary" onClick={() => navigate(`/routes/${route.id}/edit`)}>
+                  <IconButton 
+                    size="small" 
+                    color="secondary" 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/routes/${route.id}/edit`);
+                    }}
+                    sx={{
+                      transition: "all 0.2s",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                        bgcolor: "secondary.light",
+                      }
+                    }}
+                  >
                     <EditIcon fontSize="small" />
                   </IconButton>
-                  <IconButton size="small" color="error" onClick={(e) => handleDelete(route, e)}>
+                  <IconButton 
+                    size="small" 
+                    color="error" 
+                    onClick={(e) => handleDelete(route, e)}
+                    sx={{
+                      transition: "all 0.2s",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                        bgcolor: "error.light",
+                      }
+                    }}
+                  >
                     <DeleteIcon fontSize="small" />
                   </IconButton>
                 </Box>
               </Box>
 
-              <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-                <Box sx={{ flex: 1, textAlign: "center", p: 1.5, bgcolor: "info.light", borderRadius: 1 }}>
-                  <LocationIcon color="info" sx={{ mb: 0.5 }} />
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              <Box sx={{ display: "flex", gap: 1.5, mb: 2.5 }}>
+                <Box 
+                  sx={{ 
+                    flex: 1, 
+                    textAlign: "center", 
+                    p: 2, 
+                    bgcolor: "info.light", 
+                    borderRadius: 2,
+                    border: "1px solid",
+                    borderColor: "info.main",
+                    transition: "all 0.2s",
+                    "&:hover": {
+                      bgcolor: "info.main",
+                      "& .MuiSvgIcon-root": { color: "white" },
+                      "& .MuiTypography-root": { color: "white" },
+                    }
+                  }}
+                >
+                  <LocationIcon sx={{ mb: 0.5, color: "info.main", transition: "color 0.2s" }} />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "info.main", transition: "color 0.2s" }}>
                     {route.area_count}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" sx={{ color: "info.dark", fontWeight: 500, transition: "color 0.2s" }}>
                     Areas
                   </Typography>
                 </Box>
-                <Box sx={{ flex: 1, textAlign: "center", p: 1.5, bgcolor: "success.light", borderRadius: 1 }}>
-                  <GroupIcon color="success" sx={{ mb: 0.5 }} />
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                <Box 
+                  sx={{ 
+                    flex: 1, 
+                    textAlign: "center", 
+                    p: 2, 
+                    bgcolor: "success.light", 
+                    borderRadius: 2,
+                    border: "1px solid",
+                    borderColor: "success.main",
+                    transition: "all 0.2s",
+                    "&:hover": {
+                      bgcolor: "success.main",
+                      "& .MuiSvgIcon-root": { color: "white" },
+                      "& .MuiTypography-root": { color: "white" },
+                    }
+                  }}
+                >
+                  <GroupIcon sx={{ mb: 0.5, color: "success.main", transition: "color 0.2s" }} />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "success.main", transition: "color 0.2s" }}>
                     {route.consumer_count}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" sx={{ color: "success.dark", fontWeight: 500, transition: "color 0.2s" }}>
                     Consumers
                   </Typography>
                 </Box>
@@ -262,16 +360,35 @@ export default function Routes() {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 1,
+                  gap: 1.5,
                   p: 1.5,
-                  bgcolor: route.delivery_person_name ? "grey.100" : "warning.light",
-                  borderRadius: 1,
+                  bgcolor: route.delivery_person_name ? "primary.light" : "warning.light",
+                  borderRadius: 2,
+                  border: "1px solid",
+                  borderColor: route.delivery_person_name ? "primary.main" : "warning.main",
                 }}
               >
-                <PersonIcon fontSize="small" />
-                <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                  {route.delivery_person_name || "Unassigned"}
-                </Typography>
+                <Box
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    bgcolor: route.delivery_person_name ? "primary.main" : "warning.main",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PersonIcon sx={{ fontSize: 18, color: "white" }} />
+                </Box>
+                <Box sx={{ flex: 1 }}>
+                  <Typography variant="caption" sx={{ color: "text.secondary", display: "block", fontSize: "0.65rem" }}>
+                    Delivery Person
+                  </Typography>
+                  <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
+                    {route.delivery_person_name || "Unassigned"}
+                  </Typography>
+                </Box>
               </Box>
             </CardContent>
           </Card>
