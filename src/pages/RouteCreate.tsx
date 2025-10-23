@@ -238,6 +238,11 @@ export default function RouteCreate() {
                     variant="contained"
                     startIcon={loading ? <CircularProgress size={20} /> : <SaveIcon />}
                     disabled={loading}
+                    sx={{ 
+                      px: 4,
+                      bgcolor: 'success.main',
+                      '&:hover': { bgcolor: 'success.dark' },
+                    }}
                   >
                     {loading ? "Creating..." : "Create Route"}
                   </Button>
