@@ -102,7 +102,13 @@ export default function RouteCreate() {
         areas: selectedAreas.map(area => area.id),
       });
 
-      const newRouteId = routeResponse.data.id;
+      console.log("Route creation response:", routeResponse.data);
+
+      const newRouteId = routeResponse.data?.id;
+
+      if (!newRouteId) {
+        throw new Error("Route created but no ID returned from server");
+      }
 
       toast({
         title: "Success",
@@ -114,7 +120,7 @@ export default function RouteCreate() {
       console.error("Failed to create route:", err);
       toast({
         title: "Error",
-        description: err.response?.data?.message || "Failed to create route",
+        description: err.response?.data?.message || err.message || "Failed to create route",
         variant: "destructive",
       });
     } finally {
