@@ -20,6 +20,7 @@ import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
 import { useToast } from "@/hooks/use-toast";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
+import { useTheme as useMuiTheme } from '@mui/material/styles';
 
 interface Statistics {
   total_routes: number;
@@ -29,11 +30,10 @@ interface Statistics {
   unassigned_routes: number;
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
-
 export default function RouteStatistics() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const muiTheme = useMuiTheme();
   const [loading, setLoading] = useState(true);
   const [routes, setRoutes] = useState<Route[]>([]);
   const [statistics, setStatistics] = useState<Statistics>({
@@ -43,6 +43,15 @@ export default function RouteStatistics() {
     assigned_routes: 0,
     unassigned_routes: 0,
   });
+
+  // Get theme colors for charts
+  const chartColors = {
+    primary: muiTheme.palette.primary.main,
+    secondary: muiTheme.palette.secondary.main,
+    info: muiTheme.palette.info.main,
+    success: muiTheme.palette.success.main,
+    warning: muiTheme.palette.warning.main,
+  };
 
   useEffect(() => {
     fetchData();
@@ -283,7 +292,7 @@ export default function RouteStatistics() {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="areas" fill="#0088FE" />
+                  <Bar dataKey="areas" fill={chartColors.info} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -300,7 +309,7 @@ export default function RouteStatistics() {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="consumers" fill="#00C49F" />
+                  <Bar dataKey="consumers" fill={chartColors.success} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -323,11 +332,11 @@ export default function RouteStatistics() {
                       `${name}: ${(percent * 100).toFixed(0)}%`
                     }
                     outerRadius={80}
-                    fill="#8884d8"
+                    fill={chartColors.primary}
                     dataKey="value"
                   >
                     {getAssignmentData().map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={index === 0 ? chartColors.primary : chartColors.warning} />
                     ))}
                   </Pie>
                   <Tooltip />
