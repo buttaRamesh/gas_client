@@ -52,6 +52,12 @@ export const professionalBlueTheme = createTheme({
   },
   typography: {
     fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    h1: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h2: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h3: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h4: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h5: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h6: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
   },
 });
 
@@ -107,6 +113,12 @@ export const energyGreenTheme = createTheme({
   },
   typography: {
     fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    h1: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h2: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h3: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h4: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h5: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h6: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
   },
 });
 
@@ -162,6 +174,12 @@ export const deepBlueTechTheme = createTheme({
   },
   typography: {
     fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    h1: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h2: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h3: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h4: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h5: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h6: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
   },
 });
 
@@ -217,6 +235,12 @@ export const calmSlateTheme = createTheme({
   },
   typography: {
     fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    h1: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h2: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h3: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h4: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h5: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h6: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
   },
 });
 
@@ -272,6 +296,12 @@ export const industrialOrangeTheme = createTheme({
   },
   typography: {
     fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    h1: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h2: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h3: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h4: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h5: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
+    h6: { fontFamily: '"Space Grotesk", "Inter", sans-serif' },
   },
 });
 
