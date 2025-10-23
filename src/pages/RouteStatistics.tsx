@@ -19,12 +19,7 @@ import {
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
 import { useToast } from "@/hooks/use-toast";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 
 interface Statistics {
   total_routes: number;
@@ -287,7 +282,7 @@ export default function RouteStatistics() {
                 <BarChart data={getTopRoutesByAreas()}>
                   <XAxis dataKey="name" />
                   <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Tooltip />
                   <Bar dataKey="areas" fill="#0088FE" />
                 </BarChart>
               </ResponsiveContainer>
@@ -304,7 +299,7 @@ export default function RouteStatistics() {
                 <BarChart data={getTopRoutesByConsumers()}>
                   <XAxis dataKey="name" />
                   <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Tooltip />
                   <Bar dataKey="consumers" fill="#00C49F" />
                 </BarChart>
               </ResponsiveContainer>
@@ -335,7 +330,7 @@ export default function RouteStatistics() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <ChartTooltip />
+                  <Tooltip />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
