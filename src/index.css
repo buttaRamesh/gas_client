@@ -8,40 +8,40 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Deep Blue Tech Theme - Modern & Sophisticated */
-    --background: 220 14% 96%;
-    --foreground: 221 39% 11%;
+    /* Calm Slate Theme - Minimal & Elegant */
+    --background: 0 0% 98%;
+    --foreground: 215 25% 27%;
 
     --card: 0 0% 100%;
-    --card-foreground: 221 39% 11%;
+    --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 221 39% 11%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 221 83% 53%;
+    --primary: 215 25% 27%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 221 39% 11%;
+    --secondary: 215 20% 65%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 14% 91%;
-    --muted-foreground: 221 25% 45%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 215 15% 50%;
 
-    --accent: 271 91% 65%;
+    --accent: 173 80% 40%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 88%;
-    --input: 220 13% 88%;
-    --ring: 221 83% 53%;
+    --border: 215 15% 88%;
+    --input: 215 15% 88%;
+    --ring: 215 25% 27%;
 
     --radius: 0.5rem;
 
-    --info: 221 83% 53%;
+    --info: 210 50% 50%;
     --info-foreground: 0 0% 100%;
-    --info-light: 221 83% 95%;
+    --info-light: 210 50% 95%;
 
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
@@ -51,49 +51,49 @@ All colors MUST be HSL.
     --warning-foreground: 0 0% 100%;
     --warning-light: 38 92% 95%;
 
-    --sidebar-background: 221 39% 8%;
-    --sidebar-foreground: 220 14% 95%;
-    --sidebar-primary: 221 83% 53%;
+    --sidebar-background: 215 25% 20%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 173 80% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 221 35% 12%;
+    --sidebar-accent: 215 20% 25%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 221 35% 10%;
-    --sidebar-ring: 221 83% 53%;
+    --sidebar-border: 215 20% 18%;
+    --sidebar-ring: 173 80% 40%;
   }
 
   .dark {
-    /* Dark Mode - Deep Blue Tech Theme */
-    --background: 221 39% 5%;
-    --foreground: 220 14% 95%;
+    /* Dark Mode - Calm Slate Theme */
+    --background: 215 25% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 221 35% 8%;
-    --card-foreground: 220 14% 95%;
+    --card: 215 20% 12%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 221 35% 8%;
-    --popover-foreground: 220 14% 95%;
+    --popover: 215 20% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 221 83% 60%;
+    --primary: 215 25% 35%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 221 30% 18%;
+    --secondary: 215 20% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 221 30% 12%;
-    --muted-foreground: 221 15% 65%;
+    --muted: 215 20% 18%;
+    --muted-foreground: 215 10% 65%;
 
-    --accent: 271 91% 70%;
+    --accent: 173 80% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 221 30% 18%;
-    --input: 221 30% 18%;
-    --ring: 221 83% 60%;
+    --border: 215 20% 22%;
+    --input: 215 20% 22%;
+    --ring: 215 25% 35%;
 
-    --info: 221 83% 60%;
+    --info: 210 50% 55%;
     --info-foreground: 0 0% 100%;
-    --info-light: 221 83% 20%;
+    --info-light: 210 50% 20%;
 
     --success: 142 70% 45%;
     --success-foreground: 0 0% 100%;
@@ -103,14 +103,14 @@ All colors MUST be HSL.
     --warning-foreground: 0 0% 100%;
     --warning-light: 38 92% 20%;
 
-    --sidebar-background: 221 39% 6%;
-    --sidebar-foreground: 220 14% 90%;
-    --sidebar-primary: 221 83% 60%;
+    --sidebar-background: 215 25% 10%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 173 80% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 221 35% 10%;
+    --sidebar-accent: 215 20% 15%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 221 35% 8%;
-    --sidebar-ring: 221 83% 60%;
+    --sidebar-border: 215 20% 12%;
+    --sidebar-ring: 173 80% 45%;
   }
 }
 
