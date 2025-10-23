@@ -24,6 +24,7 @@ import {
   Group as GroupIcon,
   Edit as EditIcon,
   Place as PlaceIcon,
+  Delete as DeleteIcon,
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route, Area } from "@/types/routes";
@@ -35,6 +36,7 @@ export default function RouteDetail() {
   const location = useLocation();
   const [route, setRoute] = useState<Route | null>(null);
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState(false);
   const { toast } = useToast();
 
   const handleBack = () => {
@@ -63,6 +65,31 @@ export default function RouteDetail() {
       navigate("/routes");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!route || !window.confirm(`Are you sure you want to delete route "${route.area_code}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      setDeleting(true);
+      await routesApi.delete(route.id);
+      toast({
+        title: "Success",
+        description: "Route deleted successfully",
+      });
+      navigate("/routes");
+    } catch (err: any) {
+      console.error("Failed to delete route:", err);
+      toast({
+        title: "Error",
+        description: err.response?.data?.message || "Failed to delete route",
+        variant: "destructive",
+      });
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -97,6 +124,13 @@ export default function RouteDetail() {
           </Box>
           <IconButton sx={{ bgcolor: "background.paper" }} onClick={() => navigate(`/routes/${id}/edit`)}>
             <EditIcon />
+          </IconButton>
+          <IconButton 
+            sx={{ bgcolor: "error.light", color: "error.main", '&:hover': { bgcolor: "error.main", color: "white" } }} 
+            onClick={handleDelete}
+            disabled={deleting}
+          >
+            <DeleteIcon />
           </IconButton>
         </Box>
 

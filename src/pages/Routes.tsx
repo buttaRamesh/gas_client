@@ -16,6 +16,7 @@ import {
   Search as SearchIcon,
   Visibility as ViewIcon,
   Edit as EditIcon,
+  Delete as DeleteIcon,
   PersonOutline as PersonIcon,
   LocationOn as LocationIcon,
   Group as GroupIcon,
@@ -72,6 +73,29 @@ export default function Routes() {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (route: Route, event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (!window.confirm(`Are you sure you want to delete route "${route.area_code}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      await routesApi.delete(route.id);
+      toast({
+        title: "Success",
+        description: "Route deleted successfully",
+      });
+      fetchRoutes();
+    } catch (err: any) {
+      console.error("Failed to delete route:", err);
+      toast({
+        title: "Error",
+        description: err.response?.data?.message || "Failed to delete route",
+        variant: "destructive",
+      });
     }
   };
 
@@ -180,6 +204,9 @@ export default function Routes() {
                   </IconButton>
                   <IconButton size="small" color="secondary" onClick={() => navigate(`/routes/${route.id}/edit`)}>
                     <EditIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" color="error" onClick={(e) => handleDelete(route, e)}>
+                    <DeleteIcon fontSize="small" />
                   </IconButton>
                 </Box>
               </Box>

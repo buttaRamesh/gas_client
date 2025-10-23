@@ -62,6 +62,8 @@ export const areasApi = {
     return api.get(`/route-areas/?${params.toString()}`);
   },
   create: (data: any) => api.post('/route-areas/', data),
+  update: (id: number, data: any) => api.put(`/route-areas/${id}/`, data),
+  delete: (id: number) => api.delete(`/route-areas/${id}/`),
   assignToRoute: (areaId: number, routeId: number) => api.post(`/route-areas/${areaId}/assign_to_route/`, { route: routeId }),
   removeFromRoute: (areaId: number) => api.post(`/route-areas/${areaId}/unassign_from_route/`),
 };

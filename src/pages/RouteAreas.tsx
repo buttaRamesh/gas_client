@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/pagination';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Search, Plus } from 'lucide-react';
+import { ArrowLeft, Search, Plus, Trash2 } from 'lucide-react';
 import { CircularProgress } from '@mui/material';
 
 const RouteAreas = () => {
@@ -140,6 +140,29 @@ const RouteAreas = () => {
     }
   };
 
+  const handleDelete = async (area: Area, event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (!window.confirm(`Are you sure you want to delete area "${area.area_name}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      await areasApi.delete(area.id);
+      toast({
+        title: "Success",
+        description: "Area deleted successfully",
+      });
+      fetchAreas(currentPage);
+    } catch (err: any) {
+      console.error("Failed to delete area:", err);
+      toast({
+        title: "Error",
+        description: err.response?.data?.message || "Failed to delete area",
+        variant: "destructive",
+      });
+    }
+  };
+
 
   if (loading) {
     return (
@@ -207,12 +230,13 @@ const RouteAreas = () => {
                 <TableHead className="font-semibold py-3">Area Name</TableHead>
                 <TableHead className="font-semibold py-3">Consumer Count</TableHead>
                 <TableHead className="font-semibold py-3">Route</TableHead>
+                <TableHead className="font-semibold py-3 text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {areas.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">
+                  <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
                     No areas found
                   </TableCell>
                 </TableRow>
@@ -236,6 +260,16 @@ const RouteAreas = () => {
                       ) : (
                         <span className="text-muted-foreground">-</span>
                       )}
+                    </TableCell>
+                    <TableCell className="py-3 text-right">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => handleDelete(area, e)}
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))
