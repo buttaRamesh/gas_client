@@ -16,6 +16,12 @@ const themes = [
     colors: ['#2d8659', '#1f9d7a', '#ffcc00'],
   },
   {
+    id: 'industrial-orange' as const,
+    name: 'Industrial Orange',
+    description: 'Bold & Modern',
+    colors: ['#ff6600', '#3d4247', '#0099ff'],
+  },
+  {
     id: 'deep-blue-tech' as const,
     name: 'Deep Blue Tech',
     description: 'Modern & Sophisticated',
@@ -54,7 +60,7 @@ export default function Settings() {
                 gridTemplateColumns: {
                   xs: '1fr',
                   sm: 'repeat(2, 1fr)',
-                  md: 'repeat(4, 1fr)',
+                  lg: 'repeat(5, 1fr)',
                 },
                 gap: 3,
               }}

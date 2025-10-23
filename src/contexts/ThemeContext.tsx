@@ -4,10 +4,11 @@ import {
   professionalBlueTheme, 
   energyGreenTheme, 
   deepBlueTechTheme, 
-  calmSlateTheme 
+  calmSlateTheme,
+  industrialOrangeTheme
 } from '@/theme/theme';
 
-type ThemeOption = 'professional-blue' | 'energy-green' | 'deep-blue-tech' | 'calm-slate';
+type ThemeOption = 'professional-blue' | 'energy-green' | 'deep-blue-tech' | 'calm-slate' | 'industrial-orange';
 
 interface ThemeContextType {
   currentTheme: ThemeOption;
@@ -29,6 +30,7 @@ const themeMap = {
   'energy-green': energyGreenTheme,
   'deep-blue-tech': deepBlueTechTheme,
   'calm-slate': calmSlateTheme,
+  'industrial-orange': industrialOrangeTheme,
 };
 
 interface ThemeProviderProps {
