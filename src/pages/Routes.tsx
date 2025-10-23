@@ -313,19 +313,13 @@ export default function Routes() {
                     borderRadius: 2,
                     border: "1px solid",
                     borderColor: "info.main",
-                    transition: "all 0.2s",
-                    "&:hover": {
-                      bgcolor: "info.main",
-                      "& .MuiSvgIcon-root": { color: "white" },
-                      "& .MuiTypography-root": { color: "white" },
-                    }
                   }}
                 >
-                  <LocationIcon sx={{ mb: 0.5, color: "info.main", transition: "color 0.2s" }} />
-                  <Typography variant="h5" sx={{ fontWeight: 700, color: "info.main", transition: "color 0.2s" }}>
+                  <LocationIcon sx={{ mb: 0.5, color: "info.main" }} />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "info.main" }}>
                     {route.area_count}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "info.dark", fontWeight: 500, transition: "color 0.2s" }}>
+                  <Typography variant="caption" sx={{ color: "info.dark", fontWeight: 500 }}>
                     Areas
                   </Typography>
                 </Box>
@@ -338,19 +332,13 @@ export default function Routes() {
                     borderRadius: 2,
                     border: "1px solid",
                     borderColor: "success.main",
-                    transition: "all 0.2s",
-                    "&:hover": {
-                      bgcolor: "success.main",
-                      "& .MuiSvgIcon-root": { color: "white" },
-                      "& .MuiTypography-root": { color: "white" },
-                    }
                   }}
                 >
-                  <GroupIcon sx={{ mb: 0.5, color: "success.main", transition: "color 0.2s" }} />
-                  <Typography variant="h5" sx={{ fontWeight: 700, color: "success.main", transition: "color 0.2s" }}>
+                  <GroupIcon sx={{ mb: 0.5, color: "success.main" }} />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "success.main" }}>
                     {route.consumer_count}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: "success.dark", fontWeight: 500, transition: "color 0.2s" }}>
+                  <Typography variant="caption" sx={{ color: "success.dark", fontWeight: 500 }}>
                     Consumers
                   </Typography>
                 </Box>
