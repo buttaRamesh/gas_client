@@ -305,7 +305,7 @@ const RouteAreas = () => {
                   <TableRow
                     key={area.id}
                     sx={{
-                      height: '48px',
+                      height: '40px',
                       bgcolor: index % 2 === 0 ? 'background.paper' : 'action.hover',
                       '&:hover': {
                         bgcolor: 'action.selected',
@@ -316,7 +316,7 @@ const RouteAreas = () => {
                       transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                       cursor: 'pointer',
                       '& .MuiTableCell-root': {
-                        padding: '12px 16px',
+                        padding: '8px 16px',
                       },
                     }}
                   >
