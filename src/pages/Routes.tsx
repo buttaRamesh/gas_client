@@ -21,6 +21,8 @@ import {
   LocationOn as LocationIcon,
   Group as GroupIcon,
   Add as AddIcon,
+  BarChart as BarChartIcon,
+  History as HistoryIcon,
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
@@ -116,6 +118,30 @@ export default function Routes() {
             Routes Management
           </Typography>
           <Box sx={{ display: 'flex', gap: 2 }}>
+            <Button
+              variant="contained"
+              startIcon={<BarChartIcon />}
+              onClick={() => navigate('/routes/statistics')}
+              sx={{ 
+                bgcolor: 'info.main',
+                color: 'white',
+                '&:hover': { bgcolor: 'info.dark' },
+              }}
+            >
+              Statistics
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<HistoryIcon />}
+              onClick={() => navigate('/routes/history')}
+              sx={{ 
+                bgcolor: 'secondary.main',
+                color: 'white',
+                '&:hover': { bgcolor: 'secondary.dark' },
+              }}
+            >
+              History
+            </Button>
             <Button
               variant="contained"
               startIcon={<AddIcon />}

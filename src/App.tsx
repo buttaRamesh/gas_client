@@ -12,6 +12,8 @@ import RouteEdit from "./pages/RouteEdit";
 import RouteCreate from "./pages/RouteCreate";
 import RouteAreas from "./pages/RouteAreas";
 import RouteAreaCreate from "./pages/RouteAreaCreate";
+import RouteStatistics from "./pages/RouteStatistics";
+import RouteHistory from "./pages/RouteHistory";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +27,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/demo" element={<LayoutDemo />} />
           <Route path="/routes" element={<RoutesPage />} />
+          <Route path="/routes/statistics" element={<RouteStatistics />} />
+          <Route path="/routes/history" element={<RouteHistory />} />
           <Route path="/routes/new" element={<RouteCreate />} />
           <Route path="/routes/:id" element={<RouteDetail />} />
           <Route path="/routes/:id/edit" element={<RouteEdit />} />
