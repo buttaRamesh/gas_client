@@ -50,6 +50,19 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   const muiTheme = themeMap[currentTheme];
 
+  // Update CSS variables when theme changes
+  useEffect(() => {
+    const root = document.documentElement;
+    const palette = muiTheme.palette;
+    
+    // Convert RGB to HSL and update CSS variables
+    const bgColor = palette.background.default;
+    const textColor = palette.text.primary;
+    
+    root.style.setProperty('--background', bgColor);
+    root.style.setProperty('--foreground', textColor);
+  }, [currentTheme, muiTheme]);
+
   return (
     <ThemeContext.Provider value={{ currentTheme, setTheme }}>
       <MuiThemeProvider theme={muiTheme}>
