@@ -147,9 +147,9 @@ export default function Routes() {
               startIcon={<AddIcon />}
               onClick={() => navigate('/routes/new')}
               sx={{ 
-                bgcolor: 'success.main',
+                bgcolor: 'primary.main',
                 color: 'white',
-                '&:hover': { bgcolor: 'success.dark' },
+                '&:hover': { bgcolor: 'primary.dark' },
               }}
             >
               Create Route
