@@ -1,34 +1,82 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { Container, Box, Typography, Button } from '@mui/material';
+import { 
+  LocalShipping as RoutesIcon,
+  Settings as SettingsIcon,
+  ViewModule as DemoIcon,
+} from '@mui/icons-material';
 
 export default function Index() {
+  const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          EnergyPath Portal
-        </h1>
-        <p className="text-gray-600 mb-8">
-          Gas Cylinder Management System
-        </p>
-        <div className="flex gap-4 justify-center flex-wrap">
-          <Link to="/routes">
-            <Button size="lg">
-              Routes Management →
+    <Box sx={{ 
+      minHeight: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      bgcolor: 'grey.100',
+    }}>
+      <Container maxWidth="md">
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography 
+            variant="h3" 
+            sx={{ 
+              fontWeight: 700, 
+              mb: 2,
+              color: 'text.primary',
+            }}
+          >
+            EnergyPath Portal
+          </Typography>
+          <Typography 
+            variant="h6" 
+            color="text.secondary" 
+            sx={{ mb: 6 }}
+          >
+            Gas Cylinder Management System
+          </Typography>
+          <Box sx={{ 
+            display: 'flex', 
+            gap: 2, 
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}>
+            <Button
+              variant="contained"
+              size="large"
+              startIcon={<RoutesIcon />}
+              onClick={() => navigate('/routes')}
+              sx={{ 
+                px: 4,
+                py: 1.5,
+                bgcolor: 'primary.main',
+                '&:hover': { bgcolor: 'primary.dark' },
+              }}
+            >
+              Routes Management
             </Button>
-          </Link>
-          <Link to="/settings">
-            <Button size="lg" variant="outline">
+            <Button
+              variant="outlined"
+              size="large"
+              startIcon={<SettingsIcon />}
+              onClick={() => navigate('/settings')}
+              sx={{ px: 4, py: 1.5 }}
+            >
               Settings
             </Button>
-          </Link>
-          <Link to="/demo">
-            <Button size="lg" variant="outline">
+            <Button
+              variant="outlined"
+              size="large"
+              startIcon={<DemoIcon />}
+              onClick={() => navigate('/demo')}
+              sx={{ px: 4, py: 1.5 }}
+            >
               View Layout Demo
             </Button>
-          </Link>
-        </div>
-      </div>
-    </div>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 }

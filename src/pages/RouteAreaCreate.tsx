@@ -5,19 +5,28 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { areasApi, routesApi } from '@/services/api';
 import { Route } from '@/types/routes';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardContent,
   Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  MenuItem,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+  CircularProgress,
+} from '@mui/material';
+import {
+  ArrowBack as ArrowBackIcon,
+  Save as SaveIcon,
+  LocationOn as MapPinIcon,
+  Route as RouteIcon,
+} from '@mui/icons-material';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, MapPin, Route as RouteIcon } from 'lucide-react';
-import { CircularProgress } from '@mui/material';
 
 const areaSchema = z.object({
   area_name: z.string().min(1, 'Area name is required'),
@@ -106,132 +115,138 @@ const RouteAreaCreate = () => {
 
   if (loadingRoutes) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <CircularProgress />
-      </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <CircularProgress size={48} />
+      </Box>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      <div className="container mx-auto p-6 max-w-4xl">
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
+      <Container maxWidth="md">
         <Button
-          variant="ghost"
+          startIcon={<ArrowBackIcon />}
           onClick={() => navigate('/route-areas')}
-          className="mb-6 hover:bg-muted/50 transition-colors"
+          sx={{ mb: 3 }}
         >
-          <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Route Areas
         </Button>
 
-        <div className="mb-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-            <MapPin className="w-8 h-8 text-primary" />
-          </div>
-          <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+        <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Box
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 64,
+              height: 64,
+              borderRadius: '50%',
+              bgcolor: 'primary.light',
+              mb: 2,
+            }}
+          >
+            <MapPinIcon sx={{ fontSize: 32, color: 'primary.main' }} />
+          </Box>
+          <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
             Create Route Area
-          </h1>
-          <p className="text-muted-foreground text-lg">
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
             Add a new area to your delivery system
-          </p>
-        </div>
+          </Typography>
+        </Box>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm shadow-lg p-8 space-y-6">
-            <div className="flex items-center gap-3 pb-4 border-b border-border/50">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-primary" />
-              </div>
-              <h2 className="text-2xl font-semibold">Area Information</h2>
-            </div>
+        <Card elevation={3}>
+          <CardContent sx={{ p: 4 }}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pb: 2, borderBottom: 1, borderColor: 'divider' }}>
+                  <Box
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: 2,
+                      bgcolor: 'primary.light',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <MapPinIcon sx={{ color: 'primary.main' }} />
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    Area Information
+                  </Typography>
+                </Box>
 
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="area_name" className="flex items-center gap-2 text-base font-medium">
-                  <MapPin className="w-4 h-4 text-primary" />
-                  Area Name <span className="text-destructive">*</span>
-                </Label>
-                <Input
-                  id="area_name"
+                <TextField
+                  label="Area Name"
                   {...register('area_name')}
+                  error={!!errors.area_name}
+                  helperText={errors.area_name?.message}
+                  fullWidth
+                  required
                   placeholder="e.g., Downtown District"
-                  className="mt-1 h-12 text-base border-border/50 focus:border-primary transition-colors"
-                />
-                {errors.area_name && (
-                  <p className="text-sm text-destructive mt-2 flex items-center gap-1">
-                    <span className="font-medium">⚠</span> {errors.area_name.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="route" className="flex items-center gap-2 text-base font-medium">
-                  <RouteIcon className="w-4 h-4 text-primary" />
-                  Assign to Route <span className="text-muted-foreground text-sm font-normal">(Optional)</span>
-                </Label>
-                <Select
-                  value={selectedRoute?.toString() || 'none'}
-                  onValueChange={(value) => {
-                    if (value === 'none') {
-                      setValue('route', null);
-                    } else {
-                      setValue('route', parseInt(value));
-                    }
+                  InputProps={{
+                    startAdornment: (
+                      <MapPinIcon sx={{ mr: 1, color: 'primary.main' }} />
+                    ),
                   }}
-                >
-                  <SelectTrigger className="mt-1 h-12 text-base border-border/50 focus:border-primary transition-colors">
-                    <SelectValue placeholder="Select a route to assign" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-card border-border/50">
-                    <SelectItem value="none" className="text-base">
-                      <span className="text-muted-foreground">No route assigned</span>
-                    </SelectItem>
-                    {routes.map((route) => (
-                      <SelectItem key={route.id} value={route.id.toString()} className="text-base">
-                        <div className="flex items-center gap-2">
-                          <RouteIcon className="w-4 h-4 text-primary" />
-                          <span>{route.area_code} - {route.area_code_description}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
+                />
 
-          <div className="flex gap-4 justify-end pt-2">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => navigate('/route-areas')}
-              disabled={loading}
-              className="h-12 px-6 text-base border-border/50 hover:bg-muted/50"
-            >
-              Cancel
-            </Button>
-            <Button 
-              type="submit" 
-              disabled={loading}
-              variant="success"
-              className="h-12 px-8 text-base shadow-lg hover:shadow-xl transition-shadow"
-            >
-              {loading ? (
-                <>
-                  <CircularProgress size={18} className="mr-2" />
-                  Creating Area...
-                </>
-              ) : (
-                <>
-                  <MapPin className="mr-2 h-4 w-4" />
-                  Create Area
-                </>
-              )}
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
+                <FormControl fullWidth error={!!errors.route}>
+                  <InputLabel>Assign to Route (Optional)</InputLabel>
+                  <Select
+                    value={selectedRoute?.toString() || ''}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setValue('route', value ? parseInt(value) : null);
+                    }}
+                    label="Assign to Route (Optional)"
+                    startAdornment={<RouteIcon sx={{ mr: 1, color: 'primary.main' }} />}
+                  >
+                    <MenuItem value="">
+                      <em>No route assigned</em>
+                    </MenuItem>
+                    {routes.map((route) => (
+                      <MenuItem key={route.id} value={route.id.toString()}>
+                        {route.area_code} - {route.area_code_description}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {errors.route && (
+                    <FormHelperText>{errors.route.message}</FormHelperText>
+                  )}
+                </FormControl>
+
+                <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end', mt: 2 }}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate('/route-areas')}
+                    disabled={loading}
+                    sx={{ px: 3 }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={loading}
+                    startIcon={loading ? <CircularProgress size={20} /> : <SaveIcon />}
+                    sx={{ 
+                      px: 4,
+                      bgcolor: 'success.main',
+                      '&:hover': { bgcolor: 'success.dark' },
+                    }}
+                  >
+                    {loading ? 'Creating...' : 'Create Area'}
+                  </Button>
+                </Box>
+              </Box>
+            </form>
+          </CardContent>
+        </Card>
+      </Container>
+    </Box>
   );
 };
 

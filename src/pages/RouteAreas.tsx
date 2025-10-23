@@ -2,35 +2,35 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { areasApi } from '@/services/api';
 import { Area } from '@/types/routes';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
+  Container,
+  Box,
+  Typography,
+  Button,
+  TextField,
+  InputAdornment,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
-  TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import {
+  Paper,
   Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
+  MenuItem,
+  FormControl,
   Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
-import { Badge } from '@/components/ui/badge';
+  CircularProgress,
+  IconButton,
+  Chip,
+} from '@mui/material';
+import {
+  ArrowBack as ArrowBackIcon,
+  Search as SearchIcon,
+  Add as AddIcon,
+  Delete as DeleteIcon,
+} from '@mui/icons-material';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Search, Plus, Trash2 } from 'lucide-react';
-import { CircularProgress } from '@mui/material';
 
 const RouteAreas = () => {
   const navigate = useNavigate();
@@ -108,13 +108,11 @@ const RouteAreas = () => {
             : [];
       }
       
-      // Extract pagination metadata
       const count = response.data?.count || data.length;
       setTotalCount(count);
-      const pages = Math.ceil(count / 10); // 10 items per page
+      const pages = Math.ceil(count / 10);
       setTotalPages(pages);
       
-      // Reset to page 1 if current page is invalid
       if (page > pages && pages > 0) {
         setCurrentPage(1);
       } else {
@@ -123,7 +121,6 @@ const RouteAreas = () => {
     } catch (error: any) {
       console.error('Error fetching areas:', error);
       
-      // Handle invalid page error
       if (error.response?.status === 404 && error.response?.data?.detail === 'Invalid page.') {
         setCurrentPage(1);
         return;
@@ -163,160 +160,159 @@ const RouteAreas = () => {
     }
   };
 
-
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <CircularProgress />
-      </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <CircularProgress size={48} />
+      </Box>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto p-6 max-w-7xl">
-        <div className="mb-6">
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
+      <Container maxWidth="xl">
+        <Box sx={{ mb: 4 }}>
           <Button
-            variant="ghost"
+            startIcon={<ArrowBackIcon />}
             onClick={() => navigate('/routes')}
-            className="mb-4"
+            sx={{ mb: 2 }}
           >
-            <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Routes
           </Button>
           
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">Route Areas</h1>
-              <p className="text-muted-foreground">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+            <Box>
+              <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
+                Route Areas
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
                 Manage all route areas and their assignments
-              </p>
-            </div>
-            <Button variant="success" onClick={() => navigate('/route-areas/new')}>
-              <Plus className="mr-2 h-4 w-4" />
+              </Typography>
+            </Box>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={() => navigate('/route-areas/new')}
+              sx={{ bgcolor: 'success.main', '&:hover': { bgcolor: 'success.dark' } }}
+            >
               Create Area
             </Button>
-          </div>
-        </div>
+          </Box>
+        </Box>
 
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              ref={searchInputRef}
-              placeholder="Search by area name or code..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, mb: 3 }}>
+          <TextField
+            fullWidth
+            inputRef={searchInputRef}
+            placeholder="Search by area name or code..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
           
-          <Select value={filterStatus} onValueChange={(value: any) => setFilterStatus(value)}>
-            <SelectTrigger className="w-full sm:w-[180px]">
-              <SelectValue placeholder="Filter by status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Areas</SelectItem>
-              <SelectItem value="assigned">Assigned</SelectItem>
-              <SelectItem value="unassigned">Unassigned</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+          <FormControl sx={{ minWidth: { xs: '100%', sm: 180 } }}>
+            <Select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value as any)}
+              displayEmpty
+            >
+              <MenuItem value="all">All Areas</MenuItem>
+              <MenuItem value="assigned">Assigned</MenuItem>
+              <MenuItem value="unassigned">Unassigned</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
-        <div className="rounded-lg border bg-card shadow-sm overflow-hidden">
+        <TableContainer component={Paper} elevation={2}>
           <Table>
-            <TableHeader>
-              <TableRow className="bg-muted hover:bg-muted">
-                <TableHead className="font-semibold py-3">Area Name</TableHead>
-                <TableHead className="font-semibold py-3">Consumer Count</TableHead>
-                <TableHead className="font-semibold py-3">Route</TableHead>
-                <TableHead className="font-semibold py-3 text-right">Actions</TableHead>
+            <TableHead>
+              <TableRow sx={{ bgcolor: 'grey.200' }}>
+                <TableCell sx={{ fontWeight: 600 }}>Area Name</TableCell>
+                <TableCell sx={{ fontWeight: 600 }}>Consumer Count</TableCell>
+                <TableCell sx={{ fontWeight: 600 }}>Route</TableCell>
+                <TableCell sx={{ fontWeight: 600 }} align="right">Actions</TableCell>
               </TableRow>
-            </TableHeader>
+            </TableHead>
             <TableBody>
               {areas.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">
-                    No areas found
+                  <TableCell colSpan={4} align="center" sx={{ py: 8 }}>
+                    <Typography color="text.secondary">No areas found</Typography>
                   </TableCell>
                 </TableRow>
               ) : (
-                areas.map((area, index) => (
+                areas.map((area) => (
                   <TableRow 
-                    key={area.id} 
-                    className={`hover:bg-muted/50 transition-colors ${index % 2 === 0 ? 'bg-background' : 'bg-muted/30'}`}
+                    key={area.id}
+                    sx={{ 
+                      '&:hover': { bgcolor: 'grey.100' },
+                      transition: 'background-color 0.2s',
+                    }}
                   >
-                    <TableCell className="font-medium py-3">{area.area_name}</TableCell>
-                    <TableCell className="py-3">{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
-                    <TableCell className="py-3">
+                    <TableCell sx={{ fontWeight: 500 }}>{area.area_name}</TableCell>
+                    <TableCell>{area.consumer_count ? area.consumer_count.toLocaleString() : '0'}</TableCell>
+                    <TableCell>
                       {area.route ? (
                         <Button
-                          variant="link"
-                          className="p-0 h-auto text-info hover:text-info/80"
+                          variant="text"
+                          size="small"
                           onClick={() => navigate(`/routes/${area.route}`, { state: { from: 'route-areas' } })}
+                          sx={{ 
+                            p: 0,
+                            minWidth: 'auto',
+                            color: 'info.main',
+                            '&:hover': { color: 'info.dark' },
+                          }}
                         >
                           {area.route_code || `Route #${area.route}`}
                         </Button>
                       ) : (
-                        <span className="text-muted-foreground">-</span>
+                        <Typography variant="body2" color="text.secondary">-</Typography>
                       )}
                     </TableCell>
-                    <TableCell className="py-3 text-right">
-                      <Button
-                        variant="ghost"
-                        size="sm"
+                    <TableCell align="right">
+                      <IconButton
+                        size="small"
                         onClick={(e) => handleDelete(area, e)}
-                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                        sx={{ 
+                          color: 'error.main',
+                          '&:hover': { bgcolor: 'error.light' },
+                        }}
                       >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                        <DeleteIcon />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 ))
               )}
             </TableBody>
           </Table>
-        </div>
+        </TableContainer>
 
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-sm text-muted-foreground">
+        <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="body2" color="text.secondary">
             {totalCount > 0 && `Showing ${((currentPage - 1) * 10) + 1}-${Math.min(currentPage * 10, totalCount)} of ${totalCount} areas`}
-          </div>
+          </Typography>
           
           {totalPages > 1 && (
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious 
-                    onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
-                    className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
-                  />
-                </PaginationItem>
-                
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      onClick={() => setCurrentPage(page)}
-                      isActive={currentPage === page}
-                      className="cursor-pointer"
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
-                
-                <PaginationItem>
-                  <PaginationNext 
-                    onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
-                    className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={(_, page) => setCurrentPage(page)}
+              color="primary"
+              showFirstButton
+              showLastButton
+            />
           )}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
