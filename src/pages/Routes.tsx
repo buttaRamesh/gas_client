@@ -209,7 +209,7 @@ export default function Routes() {
             elevation={2}
             sx={{
               height: "100%",
-              background: "linear-gradient(to bottom right, hsl(var(--card)) 0%, hsl(var(--muted) / 0.3) 100%)",
+              background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--accent) / 0.05) 50%, hsl(var(--primary) / 0.05) 100%)",
               borderRadius: 2,
               overflow: "hidden",
               cursor: "pointer",
@@ -219,8 +219,8 @@ export default function Routes() {
               "&:hover": {
                 transform: "translateY(-8px)",
                 boxShadow: "0 12px 24px -10px rgba(0, 0, 0, 0.2)",
-                borderColor: "primary.main",
-                background: "linear-gradient(to bottom right, hsl(var(--card)) 0%, hsl(var(--primary) / 0.08) 100%)",
+                borderColor: "accent.main",
+                background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--accent) / 0.12) 50%, hsl(var(--primary) / 0.12) 100%)",
               },
             }}
             onClick={() => navigate(`/routes/${route.id}`)}
