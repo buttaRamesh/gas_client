@@ -192,6 +192,11 @@ const RouteAreas = () => {
             placeholder="Search by area name or code..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            sx={{
+              '& .MuiInputBase-root': {
+                height: '38px',
+              },
+            }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -206,6 +211,9 @@ const RouteAreas = () => {
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value as any)}
               displayEmpty
+              sx={{
+                height: '38px',
+              }}
             >
               <MenuItem value="all">All Areas</MenuItem>
               <MenuItem value="assigned">Assigned</MenuItem>
