@@ -22,6 +22,7 @@ import {
   TableRow,
   Paper,
   TableSortLabel,
+  TablePagination,
 } from '@mui/material';
 import {
   ArrowBack as ArrowBackIcon,
@@ -44,6 +45,8 @@ const RouteAreas = () => {
   const [filterStatus, setFilterStatus] = useState<'all' | 'assigned' | 'unassigned'>('all');
   const [sortField, setSortField] = useState<SortField>('area_name');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     fetchAreas();
@@ -122,6 +125,20 @@ const RouteAreas = () => {
   const filteredAreas = sortedAreas.filter(area =>
     area.area_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const paginatedAreas = filteredAreas.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   const handleDelete = async (area: Area, event: React.MouseEvent) => {
     event.stopPropagation();
@@ -304,14 +321,14 @@ const RouteAreas = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredAreas.length === 0 ? (
+              {paginatedAreas.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={4} align="center" sx={{ py: 8 }}>
                     <Typography color="text.secondary">No areas found</Typography>
                   </TableCell>
                 </TableRow>
               ) : (
-                filteredAreas.map((area, index) => (
+                paginatedAreas.map((area, index) => (
                   <TableRow
                     key={area.id}
                     sx={{
@@ -392,6 +409,15 @@ const RouteAreas = () => {
               )}
             </TableBody>
           </Table>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50]}
+            component="div"
+            count={filteredAreas.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </TableContainer>
       </Container>
     </Box>
