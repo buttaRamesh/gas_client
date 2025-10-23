@@ -54,13 +54,27 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   useEffect(() => {
     const root = document.documentElement;
     const palette = muiTheme.palette;
+    const typography = muiTheme.typography;
     
-    // Convert RGB to HSL and update CSS variables
+    // Update color variables
     const bgColor = palette.background.default;
     const textColor = palette.text.primary;
     
     root.style.setProperty('--background', bgColor);
     root.style.setProperty('--foreground', textColor);
+    
+    // Update font variables based on theme
+    const fontMap: Record<ThemeOption, { sans: string; heading: string }> = {
+      'professional-blue': { sans: 'Inter', heading: 'Space Grotesk' },
+      'energy-green': { sans: 'Inter', heading: 'Outfit' },
+      'deep-blue-tech': { sans: 'IBM Plex Sans', heading: 'IBM Plex Mono' },
+      'calm-slate': { sans: 'Inter', heading: 'Space Grotesk' },
+      'industrial-orange': { sans: 'Roboto', heading: 'Roboto Condensed' },
+    };
+    
+    const fonts = fontMap[currentTheme];
+    root.style.setProperty('--font-sans', fonts.sans);
+    root.style.setProperty('--font-heading', fonts.heading);
   }, [currentTheme, muiTheme]);
 
   return (

@@ -9,6 +9,9 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Calm Slate Theme - Minimal & Elegant */
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+    
     --background: 0 0% 98%;
     --foreground: 215 25% 27%;
 
