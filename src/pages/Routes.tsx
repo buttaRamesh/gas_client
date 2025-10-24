@@ -97,7 +97,6 @@ export default function Routes() {
     <Container maxWidth="xl" sx={{ px: 2 }}>
       <PageHeader
         title="Routes Management"
-        description="Manage delivery routes and assignments"
         showSearch
         searchValue={searchQuery}
         searchPlaceholder="Search routes by code, description, or delivery person..."
@@ -283,6 +282,9 @@ export default function Routes() {
                   <PersonIcon sx={{ fontSize: 18, color: "white" }} />
                 </Box>
                 <Box sx={{ flex: 1 }}>
+                  <Typography variant="caption" sx={{ color: "text.secondary", display: "block", fontSize: "0.65rem" }}>
+                    Delivery Person
+                  </Typography>
                   <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
                     {route.delivery_person_name || "Unassigned"}
                   </Typography>
