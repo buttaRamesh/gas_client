@@ -112,33 +112,33 @@ const RouteAreaCreate = () => {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#f8fafc', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'hsl(var(--background))', py: 4 }}>
       <Container maxWidth={false} sx={{ width: "80%", mx: "auto" }}>
         <PageHeader title="Create Route Area" />
 
         <Card 
           elevation={3}
           sx={{
-            background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.03) 100%)",
-            border: "1px solid rgba(20, 184, 166, 0.15)",
+            background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsla(var(--card-gradient-end), 0.03) 100%)",
+            border: "1px solid hsla(var(--primary), 0.15)",
           }}
         >
           <CardContent sx={{ p: 4 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3.5 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pb: 2.5, borderBottom: 1, borderColor: 'rgba(20, 184, 166, 0.2)' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pb: 2.5, borderBottom: 1, borderColor: 'hsla(var(--primary), 0.2)' }}>
                   <Box
                     sx={{
                       width: 44,
                       height: 44,
                       borderRadius: 2,
-                      bgcolor: 'rgba(20, 184, 166, 0.1)',
+                      bgcolor: 'hsla(var(--primary), 0.1)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}
                   >
-                    <MapPinIcon sx={{ color: 'rgb(20, 184, 166)', fontSize: 24 }} />
+                    <MapPinIcon sx={{ color: 'hsl(var(--primary))', fontSize: 24 }} />
                   </Box>
                   <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1.125rem' }}>
                     Area Information
@@ -158,16 +158,16 @@ const RouteAreaCreate = () => {
                       fontSize: "1rem",
                       fontWeight: 500,
                       "&:hover fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.5)",
+                        borderColor: "hsla(var(--primary), 0.5)",
                       },
                       "&.Mui-focused fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.8)",
+                        borderColor: "hsl(var(--primary))",
                       },
                     },
                   }}
                   InputProps={{
                     startAdornment: (
-                      <MapPinIcon sx={{ mr: 1, color: 'rgba(20, 184, 166, 0.7)' }} />
+                      <MapPinIcon sx={{ mr: 1, color: 'hsla(var(--primary), 0.7)' }} />
                     ),
                   }}
                 />
@@ -180,10 +180,10 @@ const RouteAreaCreate = () => {
                       fontSize: "1rem",
                       fontWeight: 500,
                       "&:hover fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.5)",
+                        borderColor: "hsla(var(--primary), 0.5)",
                       },
                       "&.Mui-focused fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.8)",
+                        borderColor: "hsl(var(--primary))",
                       },
                     },
                   }}
@@ -196,7 +196,7 @@ const RouteAreaCreate = () => {
                       setValue('route', value ? parseInt(value) : null);
                     }}
                     label="Assign to Route (Optional)"
-                    startAdornment={<RouteIcon sx={{ mr: 1, color: 'rgba(20, 184, 166, 0.7)' }} />}
+                    startAdornment={<RouteIcon sx={{ mr: 1, color: 'hsla(var(--primary), 0.7)' }} />}
                   >
                     <MenuItem value="">
                       <em>No route assigned</em>
@@ -222,11 +222,11 @@ const RouteAreaCreate = () => {
                       py: 1.25,
                       fontSize: "0.95rem",
                       fontWeight: 600,
-                      borderColor: "rgba(20, 184, 166, 0.4)",
-                      color: "rgb(20, 184, 166)",
+                      borderColor: "hsla(var(--primary), 0.4)",
+                      color: "hsl(var(--primary))",
                       "&:hover": {
-                        borderColor: "rgb(20, 184, 166)",
-                        bgcolor: "rgba(20, 184, 166, 0.05)",
+                        borderColor: "hsl(var(--primary))",
+                        bgcolor: "hsla(var(--primary), 0.05)",
                       },
                     }}
                   >
@@ -242,9 +242,9 @@ const RouteAreaCreate = () => {
                       py: 1.25,
                       fontSize: "0.95rem",
                       fontWeight: 600,
-                      bgcolor: "rgb(20, 184, 166)",
+                      bgcolor: "hsl(var(--primary))",
                       "&:hover": {
-                        bgcolor: "rgb(17, 153, 138)",
+                        bgcolor: "hsl(var(--primary-dark))",
                       },
                     }}
                   >

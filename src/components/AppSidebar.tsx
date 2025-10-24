@@ -60,7 +60,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
     <Box sx={{ 
       width: collapsed ? 80 : 280, 
       height: '100vh', 
-      bgcolor: '#1c1917',
+      bgcolor: 'hsl(var(--sidebar-background))',
       position: 'fixed',
       left: 0,
       top: 0,
@@ -75,16 +75,16 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
         bgcolor: 'rgba(0,0,0,0.1)',
       },
       '&::-webkit-scrollbar-thumb': {
-        bgcolor: '#fbbf24',
+        bgcolor: 'hsl(var(--sidebar-primary))',
         borderRadius: '4px',
       },
     }}>
       <Box sx={{ 
         p: 3,
-        background: 'linear-gradient(135deg, #78350f 0%, #92400e 100%)',
-        color: 'white',
+        background: 'linear-gradient(135deg, hsl(var(--sidebar-accent)) 0%, hsl(var(--sidebar-background)) 100%)',
+        color: 'hsl(var(--sidebar-foreground))',
         position: 'relative',
-        borderBottom: '2px solid #d97706',
+        borderBottom: '2px solid hsl(var(--sidebar-primary))',
         display: 'flex',
         flexDirection: 'column',
         alignItems: collapsed ? 'center' : 'flex-start',
@@ -95,21 +95,21 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
               width: 60, 
               height: 60, 
               mb: 2,
-              bgcolor: '#fbbf24',
-              color: '#78350f',
-              boxShadow: '0 4px 14px rgba(251,191,36,0.5)'
+              bgcolor: 'hsl(var(--sidebar-primary))',
+              color: 'hsl(var(--sidebar-primary-foreground))',
+              boxShadow: '0 4px 14px hsla(var(--sidebar-primary), 0.5)'
             }}>
               <Storefront sx={{ fontSize: 32 }} />
             </Avatar>
             <Typography variant="h5" fontWeight="800" sx={{ 
-              background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+              background: 'linear-gradient(135deg, hsl(var(--sidebar-primary)) 0%, hsl(var(--primary-light)) 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               mb: 0.5
             }}>
               UKB Gas Agency
             </Typography>
-            <Typography variant="caption" sx={{ color: '#fcd34d' }}>
+            <Typography variant="caption" sx={{ color: 'hsl(var(--primary-light))' }}>
               Gas Cylinder Management
             </Typography>
           </>
@@ -118,9 +118,9 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
           <Avatar sx={{ 
             width: 48, 
             height: 48,
-            bgcolor: '#fbbf24',
-            color: '#78350f',
-            boxShadow: '0 4px 14px rgba(251,191,36,0.5)'
+            bgcolor: 'hsl(var(--sidebar-primary))',
+            color: 'hsl(var(--sidebar-primary-foreground))',
+            boxShadow: '0 4px 14px hsla(var(--sidebar-primary), 0.5)'
           }}>
             <Storefront sx={{ fontSize: 28 }} />
           </Avatar>
@@ -139,10 +139,10 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
             minHeight: 40,
             width: 40,
             borderRadius: 1,
-            bgcolor: 'rgba(251,191,36,0.1)',
-            color: '#fbbf24',
+            bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+            color: 'hsl(var(--sidebar-primary))',
             '&:hover': {
-              bgcolor: 'rgba(251,191,36,0.2)',
+              bgcolor: 'hsla(var(--sidebar-primary), 0.2)',
             }
           }}
         >
@@ -156,16 +156,16 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
           sx={{ 
             mb: 1.5,
             borderRadius: 2,
-            bgcolor: isActive('/') ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.1)',
-            color: 'white',
-            border: '1px solid rgba(251,191,36,0.3)',
+            bgcolor: isActive('/') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+            color: 'hsl(var(--sidebar-foreground))',
+            border: '1px solid hsla(var(--sidebar-primary), 0.3)',
             '&:hover': { 
-              bgcolor: 'rgba(251,191,36,0.15)',
-              boxShadow: '0 0 20px rgba(251,191,36,0.2)'
+              bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+              boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
             }
           }}
         >
-          <ListItemIcon><Home sx={{ color: '#fbbf24' }} /></ListItemIcon>
+          <ListItemIcon><Home sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
           {!collapsed && <ListItemText primary={<Typography fontWeight="600">Dashboard</Typography>} />}
         </ListItemButton>
 
@@ -174,17 +174,17 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
           sx={{ 
             mb: 1.5,
             borderRadius: 2,
-            bgcolor: isRouteActive() ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.1)',
-            color: 'white',
-            border: '1px solid rgba(251,191,36,0.3)',
+            bgcolor: isRouteActive() ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+            color: 'hsl(var(--sidebar-foreground))',
+            border: '1px solid hsla(var(--sidebar-primary), 0.3)',
             '&:hover': { 
-              bgcolor: 'rgba(251,191,36,0.15)',
-              boxShadow: '0 0 20px rgba(251,191,36,0.2)'
+              bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+              boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
             }
           }}
         >
           <ListItemIcon>
-            <LocalShipping sx={{ color: '#fbbf24' }} />
+            <LocalShipping sx={{ color: 'hsl(var(--sidebar-primary))' }} />
           </ListItemIcon>
           {!collapsed && (
             <>
@@ -195,8 +195,8 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                 label="Main" 
                 size="small" 
                 sx={{ 
-                  bgcolor: '#fbbf24',
-                  color: '#78350f',
+                  bgcolor: 'hsl(var(--sidebar-primary))',
+                  color: 'hsl(var(--sidebar-primary-foreground))',
                   fontWeight: 700,
                   fontSize: '0.7rem'
                 }} 
@@ -213,12 +213,12 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                 sx={{ 
                   pl: 4, 
                   borderRadius: 1.5, 
-                  color: 'white',
-                  bgcolor: isActive('/routes') ? 'rgba(251,191,36,0.1)' : 'transparent',
-                  '&:hover': { bgcolor: 'rgba(251,191,36,0.1)' } 
+                  color: 'hsl(var(--sidebar-foreground))',
+                  bgcolor: isActive('/routes') ? 'hsla(var(--sidebar-primary), 0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'hsla(var(--sidebar-primary), 0.1)' } 
                 }}
               >
-                <ListItemIcon sx={{ color: '#fcd34d' }}><Route fontSize="small" /></ListItemIcon>
+                <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><Route fontSize="small" /></ListItemIcon>
                 <ListItemText primary={<Typography variant="body2">All Routes</Typography>} />
               </ListItemButton>
               <ListItemButton 
@@ -226,12 +226,12 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                 sx={{ 
                   pl: 4, 
                   borderRadius: 1.5, 
-                  color: 'white',
-                  bgcolor: isActive('/routes/new') ? 'rgba(251,191,36,0.1)' : 'transparent',
-                  '&:hover': { bgcolor: 'rgba(251,191,36,0.1)' } 
+                  color: 'hsl(var(--sidebar-foreground))',
+                  bgcolor: isActive('/routes/new') ? 'hsla(var(--sidebar-primary), 0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'hsla(var(--sidebar-primary), 0.1)' } 
                 }}
               >
-                <ListItemIcon sx={{ color: '#fcd34d' }}><Add fontSize="small" /></ListItemIcon>
+                <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><Add fontSize="small" /></ListItemIcon>
                 <ListItemText primary={<Typography variant="body2">Create Route</Typography>} />
               </ListItemButton>
               <ListItemButton 
@@ -239,12 +239,12 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                 sx={{ 
                   pl: 4, 
                   borderRadius: 1.5, 
-                  color: 'white',
-                  bgcolor: isActive('/routes/statistics') ? 'rgba(251,191,36,0.1)' : 'transparent',
-                  '&:hover': { bgcolor: 'rgba(251,191,36,0.1)' } 
+                  color: 'hsl(var(--sidebar-foreground))',
+                  bgcolor: isActive('/routes/statistics') ? 'hsla(var(--sidebar-primary), 0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'hsla(var(--sidebar-primary), 0.1)' } 
                 }}
               >
-                <ListItemIcon sx={{ color: '#fcd34d' }}><BarChart fontSize="small" /></ListItemIcon>
+                <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><BarChart fontSize="small" /></ListItemIcon>
                 <ListItemText primary={<Typography variant="body2">Statistics</Typography>} />
               </ListItemButton>
               <ListItemButton 
@@ -252,12 +252,12 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                 sx={{ 
                   pl: 4, 
                   borderRadius: 1.5, 
-                  color: 'white',
-                  bgcolor: isActive('/routes/history') ? 'rgba(251,191,36,0.1)' : 'transparent',
-                  '&:hover': { bgcolor: 'rgba(251,191,36,0.1)' } 
+                  color: 'hsl(var(--sidebar-foreground))',
+                  bgcolor: isActive('/routes/history') ? 'hsla(var(--sidebar-primary), 0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'hsla(var(--sidebar-primary), 0.1)' } 
                 }}
               >
-                <ListItemIcon sx={{ color: '#fcd34d' }}><History fontSize="small" /></ListItemIcon>
+                <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><History fontSize="small" /></ListItemIcon>
                 <ListItemText primary={<Typography variant="body2">History</Typography>} />
               </ListItemButton>
             </List>
@@ -269,16 +269,16 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
           sx={{ 
             mb: 1.5,
             borderRadius: 2,
-            bgcolor: isRouteAreaActive() ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.1)',
-            color: 'white',
-            border: '1px solid rgba(251,191,36,0.3)',
+            bgcolor: isRouteAreaActive() ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+            color: 'hsl(var(--sidebar-foreground))',
+            border: '1px solid hsla(var(--sidebar-primary), 0.3)',
             '&:hover': { 
-              bgcolor: 'rgba(251,191,36,0.15)',
-              boxShadow: '0 0 20px rgba(251,191,36,0.2)'
+              bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+              boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
             }
           }}
         >
-          <ListItemIcon><LocationOn sx={{ color: '#fbbf24' }} /></ListItemIcon>
+          <ListItemIcon><LocationOn sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
           {!collapsed && (
             <>
               <ListItemText primary={<Typography fontWeight="600">Route Areas</Typography>} />
@@ -294,12 +294,12 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                 sx={{ 
                   pl: 4, 
                   borderRadius: 1.5, 
-                  color: 'white',
-                  bgcolor: isActive('/route-areas') ? 'rgba(251,191,36,0.1)' : 'transparent',
-                  '&:hover': { bgcolor: 'rgba(251,191,36,0.1)' } 
+                  color: 'hsl(var(--sidebar-foreground))',
+                  bgcolor: isActive('/route-areas') ? 'hsla(var(--sidebar-primary), 0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'hsla(var(--sidebar-primary), 0.1)' } 
                 }}
               >
-                <ListItemIcon sx={{ color: '#fcd34d' }}><Map fontSize="small" /></ListItemIcon>
+                <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><Map fontSize="small" /></ListItemIcon>
                 <ListItemText primary={<Typography variant="body2">All Route Areas</Typography>} />
               </ListItemButton>
               <ListItemButton 
@@ -307,12 +307,12 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                 sx={{ 
                   pl: 4, 
                   borderRadius: 1.5, 
-                  color: 'white',
-                  bgcolor: isActive('/route-areas/new') ? 'rgba(251,191,36,0.1)' : 'transparent',
-                  '&:hover': { bgcolor: 'rgba(251,191,36,0.1)' } 
+                  color: 'hsl(var(--sidebar-foreground))',
+                  bgcolor: isActive('/route-areas/new') ? 'hsla(var(--sidebar-primary), 0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'hsla(var(--sidebar-primary), 0.1)' } 
                 }}
               >
-                <ListItemIcon sx={{ color: '#fcd34d' }}><Add fontSize="small" /></ListItemIcon>
+                <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><Add fontSize="small" /></ListItemIcon>
                 <ListItemText primary={<Typography variant="body2">Create Route Area</Typography>} />
               </ListItemButton>
             </List>
@@ -324,23 +324,23 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
           sx={{ 
             mb: 1.5,
             borderRadius: 2,
-            bgcolor: isActive('/settings') ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.1)',
-            color: 'white',
-            border: '1px solid rgba(251,191,36,0.3)',
+            bgcolor: isActive('/settings') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+            color: 'hsl(var(--sidebar-foreground))',
+            border: '1px solid hsla(var(--sidebar-primary), 0.3)',
             '&:hover': { 
-              bgcolor: 'rgba(251,191,36,0.15)',
-              boxShadow: '0 0 20px rgba(251,191,36,0.2)'
+              bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+              boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
             }
           }}
         >
-          <ListItemIcon><Settings sx={{ color: '#fbbf24' }} /></ListItemIcon>
+          <ListItemIcon><Settings sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
           {!collapsed && <ListItemText primary={<Typography fontWeight="600">Settings</Typography>} />}
         </ListItemButton>
 
         {!collapsed && (
           <>
             <Box sx={{ my: 2, px: 2 }}>
-              <Typography variant="caption" sx={{ color: '#fcd34d', opacity: 0.7 }}>
+              <Typography variant="caption" sx={{ color: 'hsl(var(--primary-light))', opacity: 0.7 }}>
                 DEMO PAGES
               </Typography>
             </Box>
@@ -350,15 +350,15 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
               sx={{ 
                 mb: 1,
                 borderRadius: 2,
-                bgcolor: isActive('/demo') ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.05)',
-                color: 'white',
-                border: '1px solid rgba(251,191,36,0.2)',
+                bgcolor: isActive('/demo') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.05)',
+                color: 'hsl(var(--sidebar-foreground))',
+                border: '1px solid hsla(var(--sidebar-primary), 0.2)',
                 '&:hover': { 
-                  bgcolor: 'rgba(251,191,36,0.1)',
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
                 }
               }}
             >
-              <ListItemIcon><ViewModule sx={{ color: '#fbbf24' }} /></ListItemIcon>
+              <ListItemIcon><ViewModule sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
               <ListItemText primary={<Typography fontWeight="500">Layout Demo</Typography>} />
             </ListItemButton>
 
@@ -366,15 +366,15 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
               onClick={() => navigate('/sidebar-demo')}
               sx={{ 
                 borderRadius: 2,
-                bgcolor: isActive('/sidebar-demo') ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.05)',
-                color: 'white',
-                border: '1px solid rgba(251,191,36,0.2)',
+                bgcolor: isActive('/sidebar-demo') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.05)',
+                color: 'hsl(var(--sidebar-foreground))',
+                border: '1px solid hsla(var(--sidebar-primary), 0.2)',
                 '&:hover': { 
-                  bgcolor: 'rgba(251,191,36,0.1)',
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
                 }
               }}
             >
-              <ListItemIcon><Map sx={{ color: '#fbbf24' }} /></ListItemIcon>
+              <ListItemIcon><Map sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
               <ListItemText primary={<Typography fontWeight="500">Sidebar Demo</Typography>} />
             </ListItemButton>
           </>

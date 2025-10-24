@@ -119,15 +119,15 @@ export default function RouteCreate() {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "#f8fafc", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "hsl(var(--background))", py: 4 }}>
       <Container maxWidth={false} sx={{ width: "80%", mx: "auto" }}>
         <PageHeader title="Create New Route" />
 
         <Card 
           elevation={3}
           sx={{
-            background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.03) 100%)",
-            border: "1px solid rgba(20, 184, 166, 0.15)",
+            background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsla(var(--card-gradient-end), 0.03) 100%)",
+            border: "1px solid hsla(var(--primary), 0.15)",
           }}
         >
           <CardContent sx={{ p: 4 }}>
@@ -145,10 +145,10 @@ export default function RouteCreate() {
                       fontSize: "1rem",
                       fontWeight: 500,
                       "&:hover fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.5)",
+                        borderColor: "hsla(var(--primary), 0.5)",
                       },
                       "&.Mui-focused fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.8)",
+                        borderColor: "hsl(var(--primary))",
                       },
                     },
                   }}
@@ -168,10 +168,10 @@ export default function RouteCreate() {
                       fontSize: "1rem",
                       fontWeight: 500,
                       "&:hover fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.5)",
+                        borderColor: "hsla(var(--primary), 0.5)",
                       },
                       "&.Mui-focused fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.8)",
+                        borderColor: "hsl(var(--primary))",
                       },
                     },
                   }}
@@ -188,10 +188,10 @@ export default function RouteCreate() {
                       fontSize: "1rem",
                       fontWeight: 500,
                       "&:hover fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.5)",
+                        borderColor: "hsla(var(--primary), 0.5)",
                       },
                       "&.Mui-focused fieldset": {
-                        borderColor: "rgba(20, 184, 166, 0.8)",
+                        borderColor: "hsl(var(--primary))",
                       },
                     },
                   }}
@@ -209,9 +209,9 @@ export default function RouteCreate() {
                           label={area.area_name}
                           onDelete={() => handleRemoveArea(area.id)}
                           sx={{
-                            bgcolor: "rgba(20, 184, 166, 0.1)",
-                            color: "rgb(20, 184, 166)",
-                            borderColor: "rgba(20, 184, 166, 0.3)",
+                            bgcolor: "hsla(var(--primary), 0.1)",
+                            color: "hsl(var(--primary))",
+                            borderColor: "hsla(var(--primary), 0.3)",
                             border: "1px solid",
                             fontWeight: 500,
                             fontSize: "0.875rem",
@@ -241,10 +241,10 @@ export default function RouteCreate() {
                             fontSize: "1rem",
                             fontWeight: 500,
                             "&:hover fieldset": {
-                              borderColor: "rgba(20, 184, 166, 0.5)",
+                              borderColor: "hsla(var(--primary), 0.5)",
                             },
                             "&.Mui-focused fieldset": {
-                              borderColor: "rgba(20, 184, 166, 0.8)",
+                              borderColor: "hsl(var(--primary))",
                             },
                           },
                         }}
@@ -252,7 +252,7 @@ export default function RouteCreate() {
                           ...params.InputProps,
                           startAdornment: (
                             <>
-                              <AddIcon sx={{ ml: 1, color: "rgba(20, 184, 166, 0.7)" }} />
+                              <AddIcon sx={{ ml: 1, color: "hsla(var(--primary), 0.7)" }} />
                               {params.InputProps.startAdornment}
                             </>
                           ),
@@ -272,11 +272,11 @@ export default function RouteCreate() {
                       py: 1.25,
                       fontSize: "0.95rem",
                       fontWeight: 600,
-                      borderColor: "rgba(20, 184, 166, 0.4)",
-                      color: "rgb(20, 184, 166)",
+                      borderColor: "hsla(var(--primary), 0.4)",
+                      color: "hsl(var(--primary))",
                       "&:hover": {
-                        borderColor: "rgb(20, 184, 166)",
-                        bgcolor: "rgba(20, 184, 166, 0.05)",
+                        borderColor: "hsl(var(--primary))",
+                        bgcolor: "hsla(var(--primary), 0.05)",
                       },
                     }}
                   >
@@ -292,9 +292,9 @@ export default function RouteCreate() {
                       py: 1.25,
                       fontSize: "0.95rem",
                       fontWeight: 600,
-                      bgcolor: "rgb(20, 184, 166)",
+                      bgcolor: "hsl(var(--primary))",
                       "&:hover": {
-                        bgcolor: "rgb(17, 153, 138)",
+                        bgcolor: "hsl(var(--primary-dark))",
                       },
                     }}
                   >
