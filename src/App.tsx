@@ -5,6 +5,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { SnackbarProvider } from "./contexts/SnackbarContext";
 import { AppLayout } from "./components/AppLayout";
 import Index from "./pages/Index";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import LayoutDemo from "./pages/LayoutDemo";
 import RoutesPage from "./pages/Routes";
@@ -27,8 +28,8 @@ const App = () => (
       <SnackbarProvider>
         <BrowserRouter>
           <Routes>
-            {/* Main app - Routes management */}
-            <Route path="/" element={<AppLayout><RoutesPage /></AppLayout>} />
+            {/* Main app - Dashboard */}
+            <Route path="/" element={<AppLayout><Dashboard /></AppLayout>} />
             
             {/* Full-screen demo pages */}
             <Route path="/demo" element={<LayoutDemo />} />
