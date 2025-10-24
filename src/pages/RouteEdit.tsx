@@ -178,7 +178,7 @@ export default function RouteEdit() {
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "#f8fafc", py: 4 }}>
-      <Container maxWidth="lg">
+      <Container maxWidth={false} sx={{ width: "80%", mx: "auto" }}>
         <PageHeader
           title="Edit Route"
           description="Update route information"
