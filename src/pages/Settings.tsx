@@ -1,6 +1,7 @@
 import { Container, Box, Typography, Card, CardContent, CardActionArea } from '@mui/material';
 import { CheckCircle } from '@mui/icons-material';
 import { useTheme } from '@/contexts/ThemeContext';
+import { PageHeader } from '@/components/PageHeader';
 
 const themes = [
   {
@@ -39,14 +40,12 @@ export default function Settings() {
   const { currentTheme, setTheme } = useTheme();
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
       <Container maxWidth="lg">
-        <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
-          Settings
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-          Customize your application preferences
-        </Typography>
+        <PageHeader
+          title="Settings"
+          description="Customize your application preferences"
+        />
 
         <Card sx={{ mb: 4 }}>
           <CardContent>

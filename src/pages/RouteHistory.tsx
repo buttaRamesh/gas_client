@@ -20,6 +20,7 @@ import {
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
 import { useSnackbar } from "@/contexts/SnackbarContext";
+import { PageHeader } from "@/components/PageHeader";
 
 interface RouteHistoryItem extends Route {
   action?: 'created' | 'updated' | 'deleted';
@@ -96,21 +97,17 @@ export default function RouteHistory() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
       <Container maxWidth="xl" sx={{ px: 2 }}>
-        <Box sx={{ mb: 4 }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-            <IconButton onClick={() => navigate("/routes")} color="primary">
+        <PageHeader
+          title="Route History"
+          description="Track all route activities and changes"
+          actions={
+            <IconButton onClick={() => navigate("/routes")} sx={{ bgcolor: "background.paper" }}>
               <ArrowBackIcon />
             </IconButton>
-            <Typography variant="h4" sx={{ fontWeight: 600 }}>
-              Route History
-            </Typography>
-          </Box>
-          <Typography variant="body1" color="text.secondary">
-            Track all route activities and changes
-          </Typography>
-        </Box>
+          }
+        />
 
         {historyItems.length === 0 ? (
           <Card elevation={3}>

@@ -21,6 +21,7 @@ import { Route } from "@/types/routes";
 import { useSnackbar } from "@/contexts/SnackbarContext";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 import { useTheme as useMuiTheme } from '@mui/material/styles';
+import { PageHeader } from "@/components/PageHeader";
 
 interface Statistics {
   total_routes: number;
@@ -126,21 +127,17 @@ export default function RouteStatistics() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
       <Container maxWidth="xl" sx={{ px: 2 }}>
-        <Box sx={{ mb: 4 }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-            <IconButton onClick={() => navigate("/routes")} color="primary">
+        <PageHeader
+          title="Route Statistics"
+          description="Overview of route performance and distribution metrics"
+          actions={
+            <IconButton onClick={() => navigate("/routes")} sx={{ bgcolor: "background.paper" }}>
               <ArrowBackIcon />
             </IconButton>
-            <Typography variant="h4" sx={{ fontWeight: 600 }}>
-              Route Statistics Dashboard
-            </Typography>
-          </Box>
-          <Typography variant="body1" color="text.secondary">
-            Overview of route performance and distribution metrics
-          </Typography>
-        </Box>
+          }
+        />
 
         {/* Summary Cards */}
         <Box

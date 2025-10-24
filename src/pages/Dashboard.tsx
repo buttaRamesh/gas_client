@@ -8,6 +8,7 @@ import {
   Place as AreasIcon,
   Analytics as StatsIcon,
 } from '@mui/icons-material';
+import { PageHeader } from '@/components/PageHeader';
 
 const dashboardCards = [
   {
@@ -58,36 +59,12 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ 
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
-      py: 4,
-    }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
       <Container maxWidth="lg">
-        <Box sx={{ mb: 6 }}>
-          <Typography 
-            variant="h3" 
-            sx={{ 
-              fontWeight: 700, 
-              mb: 2,
-              background: 'linear-gradient(135deg, #d4af37 0%, #f4e4b0 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textAlign: 'center',
-            }}
-          >
-            UKB Gas Agency Portal
-          </Typography>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              color: '#a8a8a8',
-              textAlign: 'center',
-            }}
-          >
-            Gas Cylinder Management System
-          </Typography>
-        </Box>
+        <PageHeader
+          title="Dashboard"
+          description="Gas Cylinder Management System"
+        />
 
         <Box
           sx={{

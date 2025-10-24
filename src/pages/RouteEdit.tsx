@@ -26,6 +26,7 @@ import {
 import { routesApi, areasApi } from "@/services/api";
 import { Route, Area } from "@/types/routes";
 import { useSnackbar } from "@/contexts/SnackbarContext";
+import { PageHeader } from "@/components/PageHeader";
 
 const routeSchema = z.object({
   area_code: z.string().trim().min(1, "Area code is required").max(50, "Area code must be less than 50 characters"),
@@ -176,21 +177,17 @@ export default function RouteEdit() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
       <Container maxWidth="md">
-        <Box sx={{ mb: 4, display: "flex", alignItems: "center", gap: 2 }}>
-          <IconButton onClick={() => navigate(`/routes/${id}`)} sx={{ bgcolor: "background.paper" }}>
-            <BackIcon />
-          </IconButton>
-          <Box sx={{ flex: 1 }}>
-            <Typography variant="h4" sx={{ fontWeight: 600 }}>
-              Edit Route
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Update route information
-            </Typography>
-          </Box>
-        </Box>
+        <PageHeader
+          title="Edit Route"
+          description="Update route information"
+          actions={
+            <IconButton onClick={() => navigate(`/routes/${id}`)} sx={{ bgcolor: "background.paper" }}>
+              <BackIcon />
+            </IconButton>
+          }
+        />
 
         <Card elevation={3} sx={{ bgcolor: "grey.200" }}>
           <CardContent>

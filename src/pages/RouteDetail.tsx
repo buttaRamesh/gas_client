@@ -29,6 +29,7 @@ import {
 import { routesApi } from "@/services/api";
 import { Route, Area } from "@/types/routes";
 import { useSnackbar } from "@/contexts/SnackbarContext";
+import { PageHeader } from "@/components/PageHeader";
 
 export default function RouteDetail() {
   const { id } = useParams<{ id: string }>();
@@ -97,31 +98,29 @@ export default function RouteDetail() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
       <Container maxWidth="lg">
-        <Box sx={{ mb: 4, display: "flex", alignItems: "center", gap: 2 }}>
-          <IconButton onClick={handleBack} sx={{ bgcolor: "background.paper" }}>
-            <BackIcon />
-          </IconButton>
-          <Box sx={{ flex: 1 }}>
-            <Typography variant="h4" sx={{ fontWeight: 600 }}>
-              Route Details
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {route.area_code} - {route.area_code_description}
-            </Typography>
-          </Box>
-          <IconButton sx={{ bgcolor: "background.paper" }} onClick={() => navigate(`/routes/${id}/edit`)}>
-            <EditIcon />
-          </IconButton>
-          <IconButton 
-            sx={{ bgcolor: "error.light", color: "error.main", '&:hover': { bgcolor: "error.main", color: "white" } }} 
-            onClick={handleDelete}
-            disabled={deleting}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Box>
+        <PageHeader
+          title="Route Details"
+          description={`${route.area_code} - ${route.area_code_description}`}
+          actions={
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <IconButton onClick={handleBack} sx={{ bgcolor: "background.paper" }}>
+                <BackIcon />
+              </IconButton>
+              <IconButton sx={{ bgcolor: "background.paper" }} onClick={() => navigate(`/routes/${id}/edit`)}>
+                <EditIcon />
+              </IconButton>
+              <IconButton 
+                sx={{ bgcolor: "error.light", color: "error.main", '&:hover': { bgcolor: "error.main", color: "white" } }} 
+                onClick={handleDelete}
+                disabled={deleting}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          }
+        />
 
         <Box sx={{ display: "grid", gap: 3 }}>
           <Card elevation={3} sx={{ bgcolor: "grey.200" }}>
