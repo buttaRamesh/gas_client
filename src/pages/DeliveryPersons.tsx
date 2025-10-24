@@ -193,7 +193,7 @@ export default function DeliveryPersons() {
                     >
                       <RouteIcon sx={{ mb: 0.5, color: "white" }} />
                       <Typography variant="h5" sx={{ fontWeight: 700, color: "white" }}>
-                        {person.route_count || 0}
+                        {person.assigned_routes_count || 0}
                       </Typography>
                       <Typography variant="caption" sx={{ color: "white", fontWeight: 500, opacity: 0.9 }}>
                         Routes
