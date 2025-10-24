@@ -8,7 +8,6 @@ import {
   Place as AreasIcon,
   Analytics as StatsIcon,
 } from '@mui/icons-material';
-import { PageHeader } from '@/components/PageHeader';
 
 const dashboardCards = [
   {
@@ -61,11 +60,6 @@ export default function Dashboard() {
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'hsl(var(--background))', py: 4 }}>
       <Container maxWidth="lg">
-        <PageHeader
-          title="Dashboard"
-          description="Gas Cylinder Management System"
-        />
-
         <Box
           sx={{
             display: 'grid',
