@@ -36,10 +36,10 @@ interface AppSidebarProps {
 export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({
-    routes: true,
-    routeAreas: true,
-  });
+  const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>(() => ({
+    routes: location.pathname.startsWith('/routes'),
+    routeAreas: location.pathname.startsWith('/route-areas'),
+  }));
 
   const handleExpandClick = (item: string) => {
     setExpandedItems(prev => {
