@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Box,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -15,6 +14,7 @@ import {
   Paper,
   Container,
   IconButton,
+  Stack,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -24,38 +24,32 @@ import {
   LocalShipping,
   Route,
   Person,
-  History,
-  Analytics,
-  Payment,
-  Star,
-  RateReview,
-  Support,
-  Security,
+  Inventory,
+  Dashboard,
+  People,
+  AddShoppingCart,
   AccountCircle,
   LocationOn,
-  Schedule,
-  Assignment,
-  AttachMoney,
-  Inventory,
-  TrendingUp,
-  Group,
-  DirectionsCar,
-  Map,
   Assessment,
-  Folder,
-  Add,
-  Notifications,
-  Dashboard,
+  TrendingUp,
+  AttachMoney,
+  Star,
+  Schedule,
+  Map,
+  DirectionsCar,
+  Category,
   Settings,
+  Notifications,
+  Search,
+  FavoriteRounded,
+  Timeline,
+  BarChart,
+  ShoppingBag,
+  Storefront,
 } from '@mui/icons-material';
 
 const SidebarDemo = () => {
-  const [openDrawer, setOpenDrawer] = useState<number | null>(null);
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: { [key: string]: boolean } }>({});
-
-  const handleDrawerToggle = (index: number) => {
-    setOpenDrawer(openDrawer === index ? null : index);
-  };
 
   const handleExpandClick = (sidebarId: string, item: string) => {
     setExpandedItems(prev => ({
@@ -69,226 +63,130 @@ const SidebarDemo = () => {
 
   const sidebars = [
     {
-      title: "1. Consumer Dashboard Pro",
-      id: "consumer-pro",
+      title: "Modern Gradient Design",
+      id: "modern-gradient",
+      description: "Sleek gradient header with smooth animations",
       content: (
-        <Box sx={{ width: 280 }}>
-          <Box sx={{ p: 3, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
-            <Avatar sx={{ width: 56, height: 56, mb: 1, bgcolor: 'white', color: 'primary.main' }}>
-              <Person />
+        <Box sx={{ width: 280, height: '100%', bgcolor: 'background.paper' }}>
+          <Box sx={{ 
+            p: 3, 
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: -50,
+              right: -50,
+              width: 150,
+              height: 150,
+              borderRadius: '50%',
+              bgcolor: 'rgba(255,255,255,0.1)',
+            }
+          }}>
+            <Avatar sx={{ width: 56, height: 56, mb: 2, bgcolor: 'white', color: '#667eea', boxShadow: 3 }}>
+              <Dashboard />
             </Avatar>
-            <Typography variant="h6">John Consumer</Typography>
-            <Chip label="Premium" size="small" sx={{ mt: 1, bgcolor: 'rgba(255,255,255,0.2)', color: 'white' }} />
+            <Typography variant="h6" fontWeight="bold">Delivery Hub</Typography>
+            <Typography variant="caption" sx={{ opacity: 0.9 }}>Admin Dashboard</Typography>
           </Box>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('consumer-pro', 'orders')}>
-              <ListItemIcon><ShoppingCart sx={{ color: 'primary.main' }} /></ListItemIcon>
-              <ListItemText primary="My Orders" />
-              {expandedItems['consumer-pro']?.['orders'] ? <ExpandLess /> : <ExpandMore />}
+
+          <List sx={{ p: 2 }}>
+            <ListItemButton 
+              onClick={() => handleExpandClick('modern-gradient', 'consumers')}
+              sx={{ 
+                borderRadius: 2, 
+                mb: 0.5,
+                '&:hover': { bgcolor: 'primary.50' }
+              }}
+            >
+              <ListItemIcon><People sx={{ color: 'primary.main' }} /></ListItemIcon>
+              <ListItemText primary="Consumers" />
+              <Badge badgeContent={42} color="primary" />
+              {expandedItems['modern-gradient']?.['consumers'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['consumer-pro']?.['orders']} timeout="auto" unmountOnExit>
+            <Collapse in={expandedItems['modern-gradient']?.['consumers']} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Schedule /></ListItemIcon>
-                  <ListItemText primary="Active Orders" secondary="3 in progress" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
+                  <ListItemIcon><Person /></ListItemIcon>
+                  <ListItemText primary="All Customers" secondary="1,234 total" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><History /></ListItemIcon>
-                  <ListItemText primary="Order History" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
+                  <ListItemIcon><Star sx={{ color: 'warning.main' }} /></ListItemIcon>
+                  <ListItemText primary="VIP Members" />
                 </ListItemButton>
-              </List>
-            </Collapse>
-            
-            <ListItemButton onClick={() => handleExpandClick('consumer-pro', 'tracking')}>
-              <ListItemIcon><LocationOn sx={{ color: 'success.main' }} /></ListItemIcon>
-              <ListItemText primary="Live Tracking" />
-              {expandedItems['consumer-pro']?.['tracking'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['consumer-pro']?.['tracking']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Map /></ListItemIcon>
-                  <ListItemText primary="Track Delivery" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><DirectionsCar /></ListItemIcon>
-                  <ListItemText primary="Driver Location" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
+                  <ListItemIcon><ShoppingCart /></ListItemIcon>
+                  <ListItemText primary="Active Orders" secondary="89 pending" />
                 </ListItemButton>
               </List>
             </Collapse>
 
-            <ListItemButton onClick={() => handleExpandClick('consumer-pro', 'account')}>
-              <ListItemIcon><AccountCircle /></ListItemIcon>
-              <ListItemText primary="Account" />
-              {expandedItems['consumer-pro']?.['account'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['consumer-pro']?.['account']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Payment /></ListItemIcon>
-                  <ListItemText primary="Payment Methods" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Star /></ListItemIcon>
-                  <ListItemText primary="Favorites" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Support /></ListItemIcon>
-                  <ListItemText primary="Support" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      ),
-    },
-    {
-      title: "2. Delivery Person Elite",
-      id: "driver-elite",
-      content: (
-        <Box sx={{ width: 280 }}>
-          <Box sx={{ p: 3, bgcolor: 'success.main', color: 'white' }}>
-            <Avatar sx={{ width: 56, height: 56, mb: 1, bgcolor: 'white', color: 'success.main' }}>
-              <LocalShipping />
-            </Avatar>
-            <Typography variant="h6">Driver Mike</Typography>
-            <Typography variant="caption">5.0 ★ Rating • 1,234 deliveries</Typography>
-          </Box>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('driver-elite', 'deliveries')}>
-              <ListItemIcon><Assignment sx={{ color: 'success.main' }} /></ListItemIcon>
-              <ListItemText primary="Deliveries" />
-              <Badge badgeContent={5} color="error" />
-              {expandedItems['driver-elite']?.['deliveries'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['driver-elite']?.['deliveries']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Add /></ListItemIcon>
-                  <ListItemText primary="New Assignments" secondary="5 pending" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Schedule /></ListItemIcon>
-                  <ListItemText primary="Active Routes" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><History /></ListItemIcon>
-                  <ListItemText primary="Completed" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('driver-elite', 'navigation')}>
-              <ListItemIcon><Map sx={{ color: 'primary.main' }} /></ListItemIcon>
-              <ListItemText primary="Navigation" />
-              {expandedItems['driver-elite']?.['navigation'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['driver-elite']?.['navigation']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Route /></ListItemIcon>
-                  <ListItemText primary="Optimize Route" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><LocationOn /></ListItemIcon>
-                  <ListItemText primary="Current Location" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('driver-elite', 'earnings')}>
-              <ListItemIcon><AttachMoney sx={{ color: 'warning.main' }} /></ListItemIcon>
-              <ListItemText primary="Earnings" />
-              {expandedItems['driver-elite']?.['earnings'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['driver-elite']?.['earnings']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><TrendingUp /></ListItemIcon>
-                  <ListItemText primary="Daily Stats" secondary="$234 today" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Payment /></ListItemIcon>
-                  <ListItemText primary="Payouts" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      ),
-    },
-    {
-      title: "3. Route Manager Advanced",
-      id: "route-manager",
-      content: (
-        <Box sx={{ width: 280 }}>
-          <Box sx={{ p: 3, background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', color: 'white' }}>
-            <Typography variant="h5" fontWeight="bold">Route Control</Typography>
-            <Typography variant="caption">Admin Panel</Typography>
-          </Box>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('route-manager', 'routes')}>
-              <ListItemIcon><Route sx={{ color: 'error.main' }} /></ListItemIcon>
+            <ListItemButton 
+              onClick={() => handleExpandClick('modern-gradient', 'routes')}
+              sx={{ borderRadius: 2, mb: 0.5, '&:hover': { bgcolor: 'success.50' } }}
+            >
+              <ListItemIcon><Route sx={{ color: 'success.main' }} /></ListItemIcon>
               <ListItemText primary="Routes" />
-              {expandedItems['route-manager']?.['routes'] ? <ExpandLess /> : <ExpandMore />}
+              {expandedItems['modern-gradient']?.['routes'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['route-manager']?.['routes']} timeout="auto" unmountOnExit>
+            <Collapse in={expandedItems['modern-gradient']?.['routes']} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Add /></ListItemIcon>
-                  <ListItemText primary="Create Route" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
+                  <ListItemIcon><Map /></ListItemIcon>
+                  <ListItemText primary="Active Routes" secondary="24 ongoing" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
                   <ListItemIcon><Schedule /></ListItemIcon>
-                  <ListItemText primary="Active Routes" secondary="12 active" />
+                  <ListItemText primary="Scheduled" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Folder /></ListItemIcon>
-                  <ListItemText primary="Route Areas" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><History /></ListItemIcon>
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
+                  <ListItemIcon><Timeline /></ListItemIcon>
                   <ListItemText primary="History" />
                 </ListItemButton>
               </List>
             </Collapse>
 
-            <ListItemButton onClick={() => handleExpandClick('route-manager', 'fleet')}>
-              <ListItemIcon><LocalShipping sx={{ color: 'primary.main' }} /></ListItemIcon>
-              <ListItemText primary="Fleet Management" />
-              {expandedItems['route-manager']?.['fleet'] ? <ExpandLess /> : <ExpandMore />}
+            <ListItemButton 
+              onClick={() => handleExpandClick('modern-gradient', 'delivery')}
+              sx={{ borderRadius: 2, mb: 0.5, '&:hover': { bgcolor: 'warning.50' } }}
+            >
+              <ListItemIcon><LocalShipping sx={{ color: 'warning.main' }} /></ListItemIcon>
+              <ListItemText primary="Delivery Persons" />
+              <Badge badgeContent={18} color="success" />
+              {expandedItems['modern-gradient']?.['delivery'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['route-manager']?.['fleet']} timeout="auto" unmountOnExit>
+            <Collapse in={expandedItems['modern-gradient']?.['delivery']} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><DirectionsCar /></ListItemIcon>
-                  <ListItemText primary="Vehicles" secondary="24 active" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
+                  <ListItemIcon><DirectionsCar sx={{ color: 'success.main' }} /></ListItemIcon>
+                  <ListItemText primary="Active Drivers" secondary="18 online" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Group /></ListItemIcon>
-                  <ListItemText primary="Drivers" secondary="18 online" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Map /></ListItemIcon>
-                  <ListItemText primary="Live Map" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('route-manager', 'analytics')}>
-              <ListItemIcon><Analytics sx={{ color: 'success.main' }} /></ListItemIcon>
-              <ListItemText primary="Analytics" />
-              {expandedItems['route-manager']?.['analytics'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['route-manager']?.['analytics']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
                   <ListItemIcon><Assessment /></ListItemIcon>
                   <ListItemText primary="Performance" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+              </List>
+            </Collapse>
+
+            <ListItemButton 
+              onClick={() => handleExpandClick('modern-gradient', 'products')}
+              sx={{ borderRadius: 2, '&:hover': { bgcolor: 'error.50' } }}
+            >
+              <ListItemIcon><Inventory sx={{ color: 'error.main' }} /></ListItemIcon>
+              <ListItemText primary="Products" />
+              {expandedItems['modern-gradient']?.['products'] ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={expandedItems['modern-gradient']?.['products']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
+                  <ListItemIcon><Category /></ListItemIcon>
+                  <ListItemText primary="Catalog" secondary="567 items" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4, borderRadius: 2 }}>
                   <ListItemIcon><TrendingUp /></ListItemIcon>
-                  <ListItemText primary="Statistics" />
+                  <ListItemText primary="Top Sellers" />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -297,381 +195,116 @@ const SidebarDemo = () => {
       ),
     },
     {
-      title: "4. Consumer Luxury",
-      id: "consumer-luxury",
+      title: "Minimal Dark Theme",
+      id: "dark-minimal",
+      description: "Clean dark design with elegant spacing",
       content: (
-        <Box sx={{ width: 280 }}>
-          <Paper elevation={3} sx={{ p: 3, m: 2, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
-            <Avatar sx={{ width: 64, height: 64, mb: 2, bgcolor: 'white', color: 'primary.main' }}>JD</Avatar>
-            <Typography variant="h6">Jane Doe</Typography>
-            <Typography variant="caption">Premium Member</Typography>
-            <Chip label="VIP" size="small" sx={{ mt: 1, bgcolor: 'gold', color: 'black', fontWeight: 'bold' }} />
-          </Paper>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('consumer-luxury', 'shopping')}>
-              <ListItemIcon><ShoppingCart sx={{ color: 'primary.main' }} /></ListItemIcon>
-              <ListItemText primary="Shopping" />
-              {expandedItems['consumer-luxury']?.['shopping'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['consumer-luxury']?.['shopping']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Star /></ListItemIcon>
-                  <ListItemText primary="Premium Products" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Inventory /></ListItemIcon>
-                  <ListItemText primary="My Cart" secondary="3 items" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('consumer-luxury', 'concierge')}>
-              <ListItemIcon><Support sx={{ color: 'success.main' }} /></ListItemIcon>
-              <ListItemText primary="Concierge Service" />
-              {expandedItems['consumer-luxury']?.['concierge'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['consumer-luxury']?.['concierge']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Person /></ListItemIcon>
-                  <ListItemText primary="Personal Assistant" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Schedule /></ListItemIcon>
-                  <ListItemText primary="Priority Delivery" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('consumer-luxury', 'rewards')}>
-              <ListItemIcon><Star sx={{ color: 'warning.main' }} /></ListItemIcon>
-              <ListItemText primary="Rewards & Benefits" />
-              {expandedItems['consumer-luxury']?.['rewards'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['consumer-luxury']?.['rewards']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><TrendingUp /></ListItemIcon>
-                  <ListItemText primary="Points: 12,450" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><RateReview /></ListItemIcon>
-                  <ListItemText primary="Exclusive Offers" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      ),
-    },
-    {
-      title: "5. Driver Performance Pro",
-      id: "driver-performance",
-      content: (
-        <Box sx={{ width: 280, bgcolor: '#1e293b', color: 'white', height: '100%' }}>
+        <Box sx={{ width: 280, height: '100%', bgcolor: '#1a1a2e', color: 'white' }}>
           <Box sx={{ p: 3, borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Avatar sx={{ bgcolor: 'success.main' }}>DM</Avatar>
-              <Box>
-                <Typography variant="subtitle1">Driver Mike</Typography>
-                <Chip label="Online" size="small" sx={{ bgcolor: 'success.main', color: 'white' }} />
-              </Box>
-            </Box>
-          </Box>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('driver-performance', 'metrics')}>
-              <ListItemIcon sx={{ color: 'white' }}><Assessment /></ListItemIcon>
-              <ListItemText primary="Performance" />
-              {expandedItems['driver-performance']?.['metrics'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['driver-performance']?.['metrics']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'white' }}><Star /></ListItemIcon>
-                  <ListItemText primary="Rating: 4.9/5.0" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'white' }}><TrendingUp /></ListItemIcon>
-                  <ListItemText primary="Efficiency Score" secondary="95%" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'white' }}><Schedule /></ListItemIcon>
-                  <ListItemText primary="On-Time Rate" secondary="98%" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('driver-performance', 'tasks')}>
-              <ListItemIcon sx={{ color: 'white' }}><Assignment /></ListItemIcon>
-              <ListItemText primary="Tasks" />
-              <Badge badgeContent={8} color="error" />
-              {expandedItems['driver-performance']?.['tasks'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['driver-performance']?.['tasks']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'white' }}><Schedule /></ListItemIcon>
-                  <ListItemText primary="Today's Routes" secondary="8 pending" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'white' }}><History /></ListItemIcon>
-                  <ListItemText primary="Completed Today" secondary="12 done" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('driver-performance', 'training')}>
-              <ListItemIcon sx={{ color: 'white' }}><Star /></ListItemIcon>
-              <ListItemText primary="Training & Badges" />
-              {expandedItems['driver-performance']?.['training'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['driver-performance']?.['training']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'gold' }}><Star /></ListItemIcon>
-                  <ListItemText primary="Pro Driver Badge" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'white' }}><Security /></ListItemIcon>
-                  <ListItemText primary="Safety Certified" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      ),
-    },
-    {
-      title: "6. Route Optimizer Executive",
-      id: "route-executive",
-      content: (
-        <Box sx={{ width: 300 }}>
-          <Paper elevation={2} sx={{ m: 2, p: 2, background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)', color: 'white' }}>
-            <Typography variant="h5" fontWeight="bold">Route HQ</Typography>
-            <Typography variant="caption">Enterprise Dashboard</Typography>
-          </Paper>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('route-executive', 'operations')}>
-              <ListItemIcon><Dashboard sx={{ color: 'primary.main' }} /></ListItemIcon>
-              <ListItemText primary="Operations" />
-              {expandedItems['route-executive']?.['operations'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['route-executive']?.['operations']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Assessment /></ListItemIcon>
-                  <ListItemText primary="Live Dashboard" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Map /></ListItemIcon>
-                  <ListItemText primary="Fleet View" secondary="24 active vehicles" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Analytics /></ListItemIcon>
-                  <ListItemText primary="Real-time Analytics" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('route-executive', 'planning')}>
-              <ListItemIcon><Route sx={{ color: 'error.main' }} /></ListItemIcon>
-              <ListItemText primary="Route Planning" />
-              {expandedItems['route-executive']?.['planning'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['route-executive']?.['planning']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Add /></ListItemIcon>
-                  <ListItemText primary="AI Route Optimizer" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Schedule /></ListItemIcon>
-                  <ListItemText primary="Schedule Manager" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><LocationOn /></ListItemIcon>
-                  <ListItemText primary="Zone Management" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('route-executive', 'team')}>
-              <ListItemIcon><Group sx={{ color: 'success.main' }} /></ListItemIcon>
-              <ListItemText primary="Team Management" />
-              {expandedItems['route-executive']?.['team'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['route-executive']?.['team']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Group /></ListItemIcon>
-                  <ListItemText primary="Driver Management" secondary="18 drivers" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Assessment /></ListItemIcon>
-                  <ListItemText primary="Performance Review" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      ),
-    },
-    {
-      title: "7. Consumer Smart Hub",
-      id: "consumer-hub",
-      content: (
-        <Box sx={{ width: 280, bgcolor: '#f8f9fa' }}>
-          <Box sx={{ p: 3, bgcolor: 'white', borderBottom: '2px solid #e9ecef' }}>
-            <Avatar sx={{ width: 56, height: 56, mb: 1, bgcolor: 'info.main' }}>CS</Avatar>
-            <Typography variant="h6">Smart Shopper</Typography>
-            <Chip label="Connected" size="small" color="success" sx={{ mt: 1 }} />
-          </Box>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('consumer-hub', 'shopping')}>
-              <ListItemIcon><ShoppingCart sx={{ color: 'primary.main' }} /></ListItemIcon>
-              <ListItemText primary="Smart Shopping" />
-              {expandedItems['consumer-hub']?.['shopping'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['consumer-hub']?.['shopping']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Star /></ListItemIcon>
-                  <ListItemText primary="Recommended" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><History /></ListItemIcon>
-                  <ListItemText primary="Buy Again" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><TrendingUp /></ListItemIcon>
-                  <ListItemText primary="Trending Now" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('consumer-hub', 'delivery')}>
-              <ListItemIcon><LocalShipping sx={{ color: 'success.main' }} /></ListItemIcon>
-              <ListItemText primary="Delivery Options" />
-              {expandedItems['consumer-hub']?.['delivery'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['consumer-hub']?.['delivery']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Schedule /></ListItemIcon>
-                  <ListItemText primary="Schedule Delivery" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><LocationOn /></ListItemIcon>
-                  <ListItemText primary="Track Order" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Map /></ListItemIcon>
-                  <ListItemText primary="Saved Addresses" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('consumer-hub', 'preferences')}>
-              <ListItemIcon><Settings sx={{ color: 'warning.main' }} /></ListItemIcon>
-              <ListItemText primary="Preferences" />
-              {expandedItems['consumer-hub']?.['preferences'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['consumer-hub']?.['preferences']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Notifications /></ListItemIcon>
-                  <ListItemText primary="Notifications" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Payment /></ListItemIcon>
-                  <ListItemText primary="Payment Settings" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      ),
-    },
-    {
-      title: "8. Driver Gamification",
-      id: "driver-game",
-      content: (
-        <Box sx={{ width: 280, background: 'linear-gradient(180deg, #667eea 0%, #764ba2 100%)', color: 'white', height: '100%' }}>
-          <Box sx={{ p: 3, borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-              <Avatar sx={{ width: 64, height: 64, bgcolor: 'gold', color: 'black', fontSize: '1.5rem', fontWeight: 'bold' }}>
-                DG
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Avatar sx={{ bgcolor: '#16213e', border: '2px solid #0f3460' }}>
+                <Storefront sx={{ color: '#00d4ff' }} />
               </Avatar>
               <Box>
-                <Typography variant="h6">Driver Gold</Typography>
-                <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
-                  <Star sx={{ color: 'gold', fontSize: 16 }} />
-                  <Star sx={{ color: 'gold', fontSize: 16 }} />
-                  <Star sx={{ color: 'gold', fontSize: 16 }} />
-                </Box>
+                <Typography variant="subtitle1" fontWeight="600">DeliveryPro</Typography>
+                <Chip label="Online" size="small" sx={{ bgcolor: '#00d4ff', color: '#1a1a2e', fontWeight: 600, height: 20 }} />
               </Box>
-            </Box>
-            <Paper sx={{ p: 1.5, bgcolor: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)' }}>
-              <Typography variant="caption" color="white">Level 12 - Elite Driver</Typography>
-              <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="body2" color="white">XP: 8,450</Typography>
-                <Typography variant="body2" color="white">Next: 10,000</Typography>
-              </Box>
-            </Paper>
+            </Stack>
           </Box>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('driver-game', 'challenges')}>
-              <ListItemIcon sx={{ color: 'white' }}><Star /></ListItemIcon>
-              <ListItemText primary="Daily Challenges" />
-              {expandedItems['driver-game']?.['challenges'] ? <ExpandLess /> : <ExpandMore />}
+
+          <List sx={{ p: 2 }}>
+            <ListItemButton 
+              onClick={() => handleExpandClick('dark-minimal', 'consumers')}
+              sx={{ mb: 1, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(0,212,255,0.1)' } }}
+            >
+              <ListItemIcon sx={{ color: '#00d4ff' }}><People /></ListItemIcon>
+              <ListItemText 
+                primary={<Typography variant="body2" fontWeight="500">Consumers</Typography>} 
+                secondary={<Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.6)' }}>1,234 registered</Typography>}
+              />
+              {expandedItems['dark-minimal']?.['consumers'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['driver-game']?.['challenges']} timeout="auto" unmountOnExit>
+            <Collapse in={expandedItems['dark-minimal']?.['consumers']} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'gold' }}><Star /></ListItemIcon>
-                  <ListItemText primary="Speed Demon" secondary="Complete 20 deliveries" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}><AccountCircle fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Profiles</Typography>} />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'white' }}><TrendingUp /></ListItemIcon>
-                  <ListItemText primary="Perfect Week" secondary="7 days streak" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}><ShoppingCart fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Orders</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
 
-            <ListItemButton onClick={() => handleExpandClick('driver-game', 'achievements')}>
-              <ListItemIcon sx={{ color: 'white' }}><Star /></ListItemIcon>
-              <ListItemText primary="Achievements" />
-              <Badge badgeContent={3} color="error" />
-              {expandedItems['driver-game']?.['achievements'] ? <ExpandLess /> : <ExpandMore />}
+            <ListItemButton 
+              onClick={() => handleExpandClick('dark-minimal', 'routes')}
+              sx={{ mb: 1, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(0,212,255,0.1)' } }}
+            >
+              <ListItemIcon sx={{ color: '#00d4ff' }}><Route /></ListItemIcon>
+              <ListItemText 
+                primary={<Typography variant="body2" fontWeight="500">Routes</Typography>}
+                secondary={<Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.6)' }}>24 active</Typography>}
+              />
+              {expandedItems['dark-minimal']?.['routes'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['driver-game']?.['achievements']} timeout="auto" unmountOnExit>
+            <Collapse in={expandedItems['dark-minimal']?.['routes']} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'gold' }}><Star /></ListItemIcon>
-                  <ListItemText primary="1000 Deliveries" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}><Map fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Map View</Typography>} />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'silver' }}><Star /></ListItemIcon>
-                  <ListItemText primary="5-Star Rating" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}><Assessment fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Analytics</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
 
-            <ListItemButton onClick={() => handleExpandClick('driver-game', 'leaderboard')}>
-              <ListItemIcon sx={{ color: 'white' }}><TrendingUp /></ListItemIcon>
-              <ListItemText primary="Leaderboard" />
-              {expandedItems['driver-game']?.['leaderboard'] ? <ExpandLess /> : <ExpandMore />}
+            <ListItemButton 
+              onClick={() => handleExpandClick('dark-minimal', 'delivery')}
+              sx={{ mb: 1, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(0,212,255,0.1)' } }}
+            >
+              <ListItemIcon sx={{ color: '#00d4ff' }}><LocalShipping /></ListItemIcon>
+              <ListItemText 
+                primary={<Typography variant="body2" fontWeight="500">Delivery Persons</Typography>}
+                secondary={<Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.6)' }}>18 online</Typography>}
+              />
+              {expandedItems['dark-minimal']?.['delivery'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['driver-game']?.['leaderboard']} timeout="auto" unmountOnExit>
+            <Collapse in={expandedItems['dark-minimal']?.['delivery']} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'gold' }}><Star /></ListItemIcon>
-                  <ListItemText primary="Weekly Rank: #5" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}><DirectionsCar fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Fleet</Typography>} />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon sx={{ color: 'white' }}><Group /></ListItemIcon>
-                  <ListItemText primary="Team Standing" />
+                <ListItemButton sx={{ pl: 4, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}><Star fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Ratings</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
+
+            <ListItemButton 
+              onClick={() => handleExpandClick('dark-minimal', 'products')}
+              sx={{ borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(0,212,255,0.1)' } }}
+            >
+              <ListItemIcon sx={{ color: '#00d4ff' }}><Inventory /></ListItemIcon>
+              <ListItemText 
+                primary={<Typography variant="body2" fontWeight="500">Products</Typography>}
+                secondary={<Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.6)' }}>567 items</Typography>}
+              />
+              {expandedItems['dark-minimal']?.['products'] ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={expandedItems['dark-minimal']?.['products']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}><Category fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Categories</Typography>} />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4, borderRadius: 1.5, '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' } }}>
+                  <ListItemIcon sx={{ color: 'rgba(255,255,255,0.7)' }}><BarChart fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Inventory</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -680,143 +313,499 @@ const SidebarDemo = () => {
       ),
     },
     {
-      title: "9. Route Analytics Premium",
-      id: "route-analytics",
+      title: "Colorful Cards",
+      id: "colorful-cards",
+      description: "Vibrant card-based navigation",
       content: (
-        <Box sx={{ width: 300, bgcolor: 'white' }}>
-          <Paper elevation={3} sx={{ m: 2, p: 3, background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', color: 'white' }}>
-            <Typography variant="h5" fontWeight="bold">Analytics</Typography>
-            <Typography variant="caption">Business Intelligence</Typography>
-          </Paper>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('route-analytics', 'realtime')}>
-              <ListItemIcon><TrendingUp sx={{ color: 'success.main' }} /></ListItemIcon>
-              <ListItemText primary="Real-time Metrics" />
-              {expandedItems['route-analytics']?.['realtime'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['route-analytics']?.['realtime']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Assessment /></ListItemIcon>
-                  <ListItemText primary="Live Dashboard" secondary="24 active routes" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><DirectionsCar /></ListItemIcon>
-                  <ListItemText primary="Fleet Status" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Map /></ListItemIcon>
-                  <ListItemText primary="Heat Map" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('route-analytics', 'reports')}>
-              <ListItemIcon><Analytics sx={{ color: 'primary.main' }} /></ListItemIcon>
-              <ListItemText primary="Reports" />
-              {expandedItems['route-analytics']?.['reports'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['route-analytics']?.['reports']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Schedule /></ListItemIcon>
-                  <ListItemText primary="Daily Reports" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><TrendingUp /></ListItemIcon>
-                  <ListItemText primary="Performance Trends" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><AttachMoney /></ListItemIcon>
-                  <ListItemText primary="Cost Analysis" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-
-            <ListItemButton onClick={() => handleExpandClick('route-analytics', 'optimization')}>
-              <ListItemIcon><Route sx={{ color: 'warning.main' }} /></ListItemIcon>
-              <ListItemText primary="Optimization" />
-              {expandedItems['route-analytics']?.['optimization'] ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={expandedItems['route-analytics']?.['optimization']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Assessment /></ListItemIcon>
-                  <ListItemText primary="AI Suggestions" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><LocationOn /></ListItemIcon>
-                  <ListItemText primary="Zone Efficiency" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      ),
-    },
-    {
-      title: "10. Consumer Express",
-      id: "consumer-express",
-      content: (
-        <Box sx={{ width: 280, bgcolor: '#fef3c7' }}>
-          <Box sx={{ p: 3, bgcolor: '#fbbf24', color: 'black' }}>
-            <Avatar sx={{ width: 56, height: 56, mb: 1, bgcolor: 'white', color: 'warning.main' }}>
-              <ShoppingCart />
+        <Box sx={{ width: 300, height: '100%', bgcolor: '#f5f7fa', p: 2 }}>
+          <Box sx={{ mb: 3, textAlign: 'center' }}>
+            <Avatar sx={{ width: 72, height: 72, mx: 'auto', mb: 1.5, bgcolor: 'white', boxShadow: 2 }}>
+              <Dashboard sx={{ fontSize: 36, color: 'primary.main' }} />
             </Avatar>
-            <Typography variant="h6" fontWeight="bold">Quick Order</Typography>
-            <Chip label="Express Member" size="small" sx={{ mt: 1, bgcolor: 'white', fontWeight: 'bold' }} />
+            <Typography variant="h6" fontWeight="bold">Control Center</Typography>
           </Box>
-          <List>
-            <ListItemButton onClick={() => handleExpandClick('consumer-express', 'express')}>
-              <ListItemIcon><LocalShipping sx={{ color: 'warning.main' }} /></ListItemIcon>
-              <ListItemText primary="Express Delivery" />
-              {expandedItems['consumer-express']?.['express'] ? <ExpandLess /> : <ExpandMore />}
+
+          <Stack spacing={1.5}>
+            <Paper 
+              elevation={0} 
+              sx={{ 
+                borderRadius: 3,
+                overflow: 'hidden',
+                bgcolor: 'white',
+                border: '2px solid #e1e8ed'
+              }}
+            >
+              <ListItemButton 
+                onClick={() => handleExpandClick('colorful-cards', 'consumers')}
+                sx={{ 
+                  p: 2,
+                  bgcolor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(102,126,234,0.9)' }
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: 40 }}>
+                  <People sx={{ color: 'white', fontSize: 28 }} />
+                </ListItemIcon>
+                <ListItemText 
+                  primary={<Typography variant="subtitle1" fontWeight="600">Consumers</Typography>}
+                  secondary={<Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>Manage customers</Typography>}
+                />
+                {expandedItems['colorful-cards']?.['consumers'] ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={expandedItems['colorful-cards']?.['consumers']} timeout="auto" unmountOnExit>
+                <List sx={{ bgcolor: 'white', p: 1 }}>
+                  <ListItemButton sx={{ borderRadius: 2 }}>
+                    <ListItemIcon><Person fontSize="small" /></ListItemIcon>
+                    <ListItemText primary="All Customers" />
+                    <Chip label="1.2K" size="small" />
+                  </ListItemButton>
+                  <ListItemButton sx={{ borderRadius: 2 }}>
+                    <ListItemIcon><Star sx={{ color: 'warning.main' }} fontSize="small" /></ListItemIcon>
+                    <ListItemText primary="Premium" />
+                  </ListItemButton>
+                </List>
+              </Collapse>
+            </Paper>
+
+            <Paper 
+              elevation={0} 
+              sx={{ 
+                borderRadius: 3,
+                overflow: 'hidden',
+                bgcolor: 'white',
+                border: '2px solid #e1e8ed'
+              }}
+            >
+              <ListItemButton 
+                onClick={() => handleExpandClick('colorful-cards', 'routes')}
+                sx={{ 
+                  p: 2,
+                  background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(17,153,142,0.9)' }
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: 40 }}>
+                  <Route sx={{ color: 'white', fontSize: 28 }} />
+                </ListItemIcon>
+                <ListItemText 
+                  primary={<Typography variant="subtitle1" fontWeight="600">Routes</Typography>}
+                  secondary={<Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>Track deliveries</Typography>}
+                />
+                {expandedItems['colorful-cards']?.['routes'] ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={expandedItems['colorful-cards']?.['routes']} timeout="auto" unmountOnExit>
+                <List sx={{ bgcolor: 'white', p: 1 }}>
+                  <ListItemButton sx={{ borderRadius: 2 }}>
+                    <ListItemIcon><Map fontSize="small" /></ListItemIcon>
+                    <ListItemText primary="Live Map" />
+                    <Chip label="24" size="small" color="success" />
+                  </ListItemButton>
+                  <ListItemButton sx={{ borderRadius: 2 }}>
+                    <ListItemIcon><Schedule fontSize="small" /></ListItemIcon>
+                    <ListItemText primary="Scheduled" />
+                  </ListItemButton>
+                </List>
+              </Collapse>
+            </Paper>
+
+            <Paper 
+              elevation={0} 
+              sx={{ 
+                borderRadius: 3,
+                overflow: 'hidden',
+                bgcolor: 'white',
+                border: '2px solid #e1e8ed'
+              }}
+            >
+              <ListItemButton 
+                onClick={() => handleExpandClick('colorful-cards', 'delivery')}
+                sx={{ 
+                  p: 2,
+                  background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(240,147,251,0.9)' }
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: 40 }}>
+                  <LocalShipping sx={{ color: 'white', fontSize: 28 }} />
+                </ListItemIcon>
+                <ListItemText 
+                  primary={<Typography variant="subtitle1" fontWeight="600">Delivery Persons</Typography>}
+                  secondary={<Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>Driver management</Typography>}
+                />
+                {expandedItems['colorful-cards']?.['delivery'] ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={expandedItems['colorful-cards']?.['delivery']} timeout="auto" unmountOnExit>
+                <List sx={{ bgcolor: 'white', p: 1 }}>
+                  <ListItemButton sx={{ borderRadius: 2 }}>
+                    <ListItemIcon><DirectionsCar fontSize="small" /></ListItemIcon>
+                    <ListItemText primary="Active Drivers" />
+                    <Chip label="18" size="small" color="success" />
+                  </ListItemButton>
+                  <ListItemButton sx={{ borderRadius: 2 }}>
+                    <ListItemIcon><Assessment fontSize="small" /></ListItemIcon>
+                    <ListItemText primary="Performance" />
+                  </ListItemButton>
+                </List>
+              </Collapse>
+            </Paper>
+
+            <Paper 
+              elevation={0} 
+              sx={{ 
+                borderRadius: 3,
+                overflow: 'hidden',
+                bgcolor: 'white',
+                border: '2px solid #e1e8ed'
+              }}
+            >
+              <ListItemButton 
+                onClick={() => handleExpandClick('colorful-cards', 'products')}
+                sx={{ 
+                  p: 2,
+                  background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(250,112,154,0.9)' }
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: 40 }}>
+                  <Inventory sx={{ color: 'white', fontSize: 28 }} />
+                </ListItemIcon>
+                <ListItemText 
+                  primary={<Typography variant="subtitle1" fontWeight="600">Products</Typography>}
+                  secondary={<Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>Inventory control</Typography>}
+                />
+                {expandedItems['colorful-cards']?.['products'] ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={expandedItems['colorful-cards']?.['products']} timeout="auto" unmountOnExit>
+                <List sx={{ bgcolor: 'white', p: 1 }}>
+                  <ListItemButton sx={{ borderRadius: 2 }}>
+                    <ListItemIcon><Category fontSize="small" /></ListItemIcon>
+                    <ListItemText primary="Catalog" />
+                    <Chip label="567" size="small" />
+                  </ListItemButton>
+                  <ListItemButton sx={{ borderRadius: 2 }}>
+                    <ListItemIcon><TrendingUp fontSize="small" /></ListItemIcon>
+                    <ListItemText primary="Top Sellers" />
+                  </ListItemButton>
+                </List>
+              </Collapse>
+            </Paper>
+          </Stack>
+        </Box>
+      ),
+    },
+    {
+      title: "Glass Morphism",
+      id: "glass-morph",
+      description: "Modern frosted glass effect",
+      content: (
+        <Box sx={{ 
+          width: 280, 
+          height: '100%', 
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          position: 'relative'
+        }}>
+          <Box sx={{ 
+            p: 3,
+            bgcolor: 'rgba(255,255,255,0.15)',
+            backdropFilter: 'blur(10px)',
+            borderBottom: '1px solid rgba(255,255,255,0.2)',
+            color: 'white'
+          }}>
+            <Typography variant="h5" fontWeight="bold" sx={{ mb: 0.5 }}>DeliveryHub</Typography>
+            <Typography variant="caption" sx={{ opacity: 0.9 }}>Admin Panel</Typography>
+          </Box>
+
+          <List sx={{ p: 2 }}>
+            <ListItemButton 
+              onClick={() => handleExpandClick('glass-morph', 'consumers')}
+              sx={{ 
+                mb: 1,
+                borderRadius: 2,
+                bgcolor: 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(10px)',
+                color: 'white',
+                border: '1px solid rgba(255,255,255,0.2)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' }
+              }}
+            >
+              <ListItemIcon sx={{ color: 'white' }}><People /></ListItemIcon>
+              <ListItemText primary="Consumers" />
+              {expandedItems['glass-morph']?.['consumers'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['consumer-express']?.['express']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Schedule /></ListItemIcon>
-                  <ListItemText primary="30-Min Delivery" />
+            <Collapse in={expandedItems['glass-morph']?.['consumers']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding sx={{ pl: 2, pr: 2 }}>
+                <ListItemButton sx={{ 
+                  borderRadius: 1.5, 
+                  mb: 0.5,
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }
+                }}>
+                  <ListItemIcon sx={{ color: 'white', minWidth: 36 }}><Person fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">All Customers</Typography>} />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Star /></ListItemIcon>
-                  <ListItemText primary="Priority Orders" />
+                <ListItemButton sx={{ 
+                  borderRadius: 1.5,
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }
+                }}>
+                  <ListItemIcon sx={{ color: 'white', minWidth: 36 }}><ShoppingCart fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Orders</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
 
-            <ListItemButton onClick={() => handleExpandClick('consumer-express', 'quick')}>
-              <ListItemIcon><ShoppingCart sx={{ color: 'primary.main' }} /></ListItemIcon>
-              <ListItemText primary="Quick Reorder" />
-              {expandedItems['consumer-express']?.['quick'] ? <ExpandLess /> : <ExpandMore />}
+            <ListItemButton 
+              onClick={() => handleExpandClick('glass-morph', 'routes')}
+              sx={{ 
+                mb: 1,
+                borderRadius: 2,
+                bgcolor: 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(10px)',
+                color: 'white',
+                border: '1px solid rgba(255,255,255,0.2)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' }
+              }}
+            >
+              <ListItemIcon sx={{ color: 'white' }}><Route /></ListItemIcon>
+              <ListItemText primary="Routes" />
+              {expandedItems['glass-morph']?.['routes'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['consumer-express']?.['quick']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><History /></ListItemIcon>
-                  <ListItemText primary="Recent Orders" />
+            <Collapse in={expandedItems['glass-morph']?.['routes']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding sx={{ pl: 2, pr: 2 }}>
+                <ListItemButton sx={{ 
+                  borderRadius: 1.5,
+                  mb: 0.5,
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }
+                }}>
+                  <ListItemIcon sx={{ color: 'white', minWidth: 36 }}><Map fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Live Map</Typography>} />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Star /></ListItemIcon>
-                  <ListItemText primary="Saved Lists" />
+                <ListItemButton sx={{ 
+                  borderRadius: 1.5,
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }
+                }}>
+                  <ListItemIcon sx={{ color: 'white', minWidth: 36 }}><Timeline fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">History</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
 
-            <ListItemButton onClick={() => handleExpandClick('consumer-express', 'live')}>
-              <ListItemIcon><LocationOn sx={{ color: 'error.main' }} /></ListItemIcon>
-              <ListItemText primary="Live Updates" />
-              {expandedItems['consumer-express']?.['live'] ? <ExpandLess /> : <ExpandMore />}
+            <ListItemButton 
+              onClick={() => handleExpandClick('glass-morph', 'delivery')}
+              sx={{ 
+                mb: 1,
+                borderRadius: 2,
+                bgcolor: 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(10px)',
+                color: 'white',
+                border: '1px solid rgba(255,255,255,0.2)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' }
+              }}
+            >
+              <ListItemIcon sx={{ color: 'white' }}><LocalShipping /></ListItemIcon>
+              <ListItemText primary="Delivery Persons" />
+              {expandedItems['glass-morph']?.['delivery'] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={expandedItems['consumer-express']?.['live']} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Map /></ListItemIcon>
-                  <ListItemText primary="Track Live" />
+            <Collapse in={expandedItems['glass-morph']?.['delivery']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding sx={{ pl: 2, pr: 2 }}>
+                <ListItemButton sx={{ 
+                  borderRadius: 1.5,
+                  mb: 0.5,
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }
+                }}>
+                  <ListItemIcon sx={{ color: 'white', minWidth: 36 }}><DirectionsCar fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Active Drivers</Typography>} />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon><Notifications /></ListItemIcon>
-                  <ListItemText primary="Notifications" />
+                <ListItemButton sx={{ 
+                  borderRadius: 1.5,
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }
+                }}>
+                  <ListItemIcon sx={{ color: 'white', minWidth: 36 }}><Star fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Performance</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
+
+            <ListItemButton 
+              onClick={() => handleExpandClick('glass-morph', 'products')}
+              sx={{ 
+                borderRadius: 2,
+                bgcolor: 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(10px)',
+                color: 'white',
+                border: '1px solid rgba(255,255,255,0.2)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' }
+              }}
+            >
+              <ListItemIcon sx={{ color: 'white' }}><Inventory /></ListItemIcon>
+              <ListItemText primary="Products" />
+              {expandedItems['glass-morph']?.['products'] ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={expandedItems['glass-morph']?.['products']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding sx={{ pl: 2, pr: 2 }}>
+                <ListItemButton sx={{ 
+                  borderRadius: 1.5,
+                  mb: 0.5,
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }
+                }}>
+                  <ListItemIcon sx={{ color: 'white', minWidth: 36 }}><Category fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Catalog</Typography>} />
+                </ListItemButton>
+                <ListItemButton sx={{ 
+                  borderRadius: 1.5,
+                  color: 'white',
+                  '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' }
+                }}>
+                  <ListItemIcon sx={{ color: 'white', minWidth: 36 }}><TrendingUp fontSize="small" /></ListItemIcon>
+                  <ListItemText primary={<Typography variant="body2">Analytics</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </List>
+        </Box>
+      ),
+    },
+    {
+      title: "Elegant Minimal",
+      id: "elegant",
+      description: "Clean and sophisticated design",
+      content: (
+        <Box sx={{ width: 280, height: '100%', bgcolor: 'white' }}>
+          <Box sx={{ p: 3, borderBottom: '3px solid #f0f0f0' }}>
+            <Typography variant="h4" fontWeight="700" sx={{ mb: 0.5, color: '#2c3e50' }}>Hub</Typography>
+            <Typography variant="caption" color="text.secondary">Delivery Management</Typography>
+          </Box>
+
+          <List sx={{ p: 2 }}>
+            <Typography variant="overline" sx={{ pl: 2, color: 'text.secondary', fontWeight: 600 }}>
+              Main Menu
+            </Typography>
+            
+            <ListItemButton 
+              onClick={() => handleExpandClick('elegant', 'consumers')}
+              sx={{ 
+                mt: 1,
+                mb: 0.5,
+                borderLeft: '3px solid transparent',
+                '&:hover': { 
+                  borderLeft: '3px solid #667eea',
+                  bgcolor: '#f8f9ff'
+                }
+              }}
+            >
+              <ListItemIcon><People sx={{ color: '#667eea' }} /></ListItemIcon>
+              <ListItemText 
+                primary={<Typography variant="body2" fontWeight="500">Consumers</Typography>}
+                secondary={<Typography variant="caption">Customer base</Typography>}
+              />
+              {expandedItems['elegant']?.['consumers'] ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={expandedItems['elegant']?.['consumers']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 7, '&:hover': { bgcolor: '#f8f9ff' } }}>
+                  <ListItemText primary={<Typography variant="body2">All Customers</Typography>} />
+                  <Typography variant="caption" color="text.secondary">1,234</Typography>
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 7, '&:hover': { bgcolor: '#f8f9ff' } }}>
+                  <ListItemText primary={<Typography variant="body2">Active Orders</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
+
+            <ListItemButton 
+              onClick={() => handleExpandClick('elegant', 'routes')}
+              sx={{ 
+                mb: 0.5,
+                borderLeft: '3px solid transparent',
+                '&:hover': { 
+                  borderLeft: '3px solid #11998e',
+                  bgcolor: '#f0fdf9'
+                }
+              }}
+            >
+              <ListItemIcon><Route sx={{ color: '#11998e' }} /></ListItemIcon>
+              <ListItemText 
+                primary={<Typography variant="body2" fontWeight="500">Routes</Typography>}
+                secondary={<Typography variant="caption">Delivery paths</Typography>}
+              />
+              {expandedItems['elegant']?.['routes'] ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={expandedItems['elegant']?.['routes']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 7, '&:hover': { bgcolor: '#f0fdf9' } }}>
+                  <ListItemText primary={<Typography variant="body2">Active Routes</Typography>} />
+                  <Typography variant="caption" color="text.secondary">24</Typography>
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 7, '&:hover': { bgcolor: '#f0fdf9' } }}>
+                  <ListItemText primary={<Typography variant="body2">Scheduled</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
+
+            <ListItemButton 
+              onClick={() => handleExpandClick('elegant', 'delivery')}
+              sx={{ 
+                mb: 0.5,
+                borderLeft: '3px solid transparent',
+                '&:hover': { 
+                  borderLeft: '3px solid #f093fb',
+                  bgcolor: '#fef3ff'
+                }
+              }}
+            >
+              <ListItemIcon><LocalShipping sx={{ color: '#f093fb' }} /></ListItemIcon>
+              <ListItemText 
+                primary={<Typography variant="body2" fontWeight="500">Delivery Persons</Typography>}
+                secondary={<Typography variant="caption">Driver fleet</Typography>}
+              />
+              {expandedItems['elegant']?.['delivery'] ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={expandedItems['elegant']?.['delivery']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 7, '&:hover': { bgcolor: '#fef3ff' } }}>
+                  <ListItemText primary={<Typography variant="body2">Online Drivers</Typography>} />
+                  <Typography variant="caption" color="text.secondary">18</Typography>
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 7, '&:hover': { bgcolor: '#fef3ff' } }}>
+                  <ListItemText primary={<Typography variant="body2">Performance</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
+
+            <ListItemButton 
+              onClick={() => handleExpandClick('elegant', 'products')}
+              sx={{ 
+                borderLeft: '3px solid transparent',
+                '&:hover': { 
+                  borderLeft: '3px solid #fa709a',
+                  bgcolor: '#fff5f7'
+                }
+              }}
+            >
+              <ListItemIcon><Inventory sx={{ color: '#fa709a' }} /></ListItemIcon>
+              <ListItemText 
+                primary={<Typography variant="body2" fontWeight="500">Products</Typography>}
+                secondary={<Typography variant="caption">Item catalog</Typography>}
+              />
+              {expandedItems['elegant']?.['products'] ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={expandedItems['elegant']?.['products']} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 7, '&:hover': { bgcolor: '#fff5f7' } }}>
+                  <ListItemText primary={<Typography variant="body2">All Items</Typography>} />
+                  <Typography variant="caption" color="text.secondary">567</Typography>
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 7, '&:hover': { bgcolor: '#fff5f7' } }}>
+                  <ListItemText primary={<Typography variant="body2">Top Sellers</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -828,33 +817,38 @@ const SidebarDemo = () => {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Box sx={{ mb: 4, textAlign: 'center' }}>
-        <Typography variant="h3" fontWeight="bold" gutterBottom>
-          Premium Sidebar Navigation Demos
+      <Box sx={{ mb: 5, textAlign: 'center' }}>
+        <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ 
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent'
+        }}>
+          Premium Sidebar Designs
         </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
-          10 Premium profiles with expandable groups for Consumers, Routes, and Delivery Persons
+        <Typography variant="h6" color="text.secondary">
+          Beautiful navigation for Consumers, Routes, Delivery Persons & Products
         </Typography>
       </Box>
 
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+      <Stack spacing={4}>
         {sidebars.map((sidebar, index) => (
-          <Paper key={index} elevation={3} sx={{ overflow: 'hidden' }}>
-            <Box sx={{ p: 2, bgcolor: 'primary.main', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography variant="h6" fontWeight="bold">{sidebar.title}</Typography>
-              <IconButton
-                onClick={() => handleDrawerToggle(index)}
-                sx={{ color: 'white' }}
-              >
-                <MenuIcon />
-              </IconButton>
+          <Paper key={index} elevation={4} sx={{ overflow: 'hidden', borderRadius: 3 }}>
+            <Box sx={{ p: 3, bgcolor: 'grey.100', borderBottom: '1px solid', borderColor: 'divider' }}>
+              <Typography variant="h5" fontWeight="bold" gutterBottom>{sidebar.title}</Typography>
+              <Typography variant="body2" color="text.secondary">{sidebar.description}</Typography>
             </Box>
-            <Box sx={{ height: 400, overflow: 'auto', bgcolor: 'grey.50' }}>
+            <Box sx={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              p: 4, 
+              bgcolor: index % 2 === 0 ? 'grey.50' : 'white',
+              minHeight: 500
+            }}>
               {sidebar.content}
             </Box>
           </Paper>
         ))}
-      </Box>
+      </Stack>
     </Container>
   );
 };
