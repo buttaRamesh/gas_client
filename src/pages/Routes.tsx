@@ -3,30 +3,24 @@ import { useNavigate } from "react-router-dom";
 import {
   Container,
   Box,
-  Typography,
   Card,
   CardContent,
-  TextField,
-  Button,
   IconButton,
-  InputAdornment,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import {
-  Search as SearchIcon,
   Visibility as ViewIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
   PersonOutline as PersonIcon,
   LocationOn as LocationIcon,
   Group as GroupIcon,
-  Add as AddIcon,
-  BarChart as BarChartIcon,
-  History as HistoryIcon,
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
 import { useSnackbar } from "@/contexts/SnackbarContext";
+import { PageHeader } from "@/components/PageHeader";
 
 export default function Routes() {
   const navigate = useNavigate();
@@ -99,31 +93,16 @@ export default function Routes() {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
     <Container maxWidth="xl" sx={{ px: 2 }}>
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
-          Routes Management
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-          Manage delivery routes and assignments
-        </Typography>
-
-        <TextField
-          fullWidth
-          placeholder="Search routes by code, description, or delivery person..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          sx={{ maxWidth: 672 }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
+      <PageHeader
+        title="Routes Management"
+        description="Manage delivery routes and assignments"
+        showSearch
+        searchValue={searchQuery}
+        searchPlaceholder="Search routes by code, description, or delivery person..."
+        onSearchChange={setSearchQuery}
+      />
 
       <Box
         sx={{
@@ -142,18 +121,18 @@ export default function Routes() {
             elevation={2}
             sx={{
               height: "100%",
-              background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--accent) / 0.05) 50%, hsl(var(--primary) / 0.05) 100%)",
-              borderRadius: 2,
+              background: "linear-gradient(145deg, #ffffff 0%, rgba(212, 175, 55, 0.05) 100%)",
+              borderRadius: 3,
               overflow: "hidden",
               cursor: "pointer",
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              border: "1px solid",
-              borderColor: "divider",
+              border: "2px solid",
+              borderColor: "rgba(212, 175, 55, 0.2)",
               "&:hover": {
                 transform: "translateY(-8px)",
-                boxShadow: "0 12px 24px -10px rgba(0, 0, 0, 0.2)",
-                borderColor: "accent.main",
-                background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--accent) / 0.12) 50%, hsl(var(--primary) / 0.12) 100%)",
+                boxShadow: "0 12px 32px -10px rgba(212, 175, 55, 0.4)",
+                borderColor: "#d4af37",
+                background: "linear-gradient(145deg, #ffffff 0%, rgba(212, 175, 55, 0.1) 100%)",
               },
             }}
             onClick={() => navigate(`/routes/${route.id}`)}
@@ -164,7 +143,7 @@ export default function Routes() {
                   <Typography 
                     variant="overline" 
                     sx={{ 
-                      color: "primary.main", 
+                      color: "#d4af37", 
                       fontWeight: 700,
                       fontSize: "0.7rem",
                       letterSpacing: 1,
