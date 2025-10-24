@@ -27,7 +27,7 @@ export function PageHeader({
         mb: 4,
         p: { xs: 3, md: 4 },
         borderRadius: 4,
-        background: 'linear-gradient(135deg, #fefce8 0%, #fef3c7 100%)',
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
         border: '2px solid',
         borderColor: '#d4af37',
         position: 'relative',
