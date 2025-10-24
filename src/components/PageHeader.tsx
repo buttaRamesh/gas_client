@@ -106,21 +106,24 @@ export function PageHeader({
             sx={{
               width: { xs: '100%', md: '400px' },
               '& .MuiOutlinedInput-root': {
-                bgcolor: '#ffffff',
+                bgcolor: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(10px)',
                 borderRadius: 3,
                 transition: 'all 0.3s ease',
                 '& fieldset': {
-                  borderColor: 'rgba(212, 175, 55, 0.3)',
+                  borderColor: 'rgba(212, 175, 55, 0.25)',
                   borderWidth: '2px',
                 },
                 '&:hover': {
-                  boxShadow: '0 2px 8px rgba(212, 175, 55, 0.15)',
+                  bgcolor: '#ffffff',
+                  boxShadow: '0 4px 12px rgba(212, 175, 55, 0.1)',
                   '& fieldset': {
-                    borderColor: 'rgba(212, 175, 55, 0.6)',
+                    borderColor: 'rgba(212, 175, 55, 0.5)',
                   },
                 },
                 '&.Mui-focused': {
-                  boxShadow: '0 0 0 3px rgba(212, 175, 55, 0.15)',
+                  bgcolor: '#ffffff',
+                  boxShadow: '0 0 0 3px rgba(212, 175, 55, 0.12), 0 4px 12px rgba(212, 175, 55, 0.15)',
                   '& fieldset': {
                     borderColor: '#d4af37',
                   },
@@ -130,7 +133,7 @@ export function PageHeader({
                   color: 'text.primary',
                   '&::placeholder': {
                     color: 'text.secondary',
-                    opacity: 0.7,
+                    opacity: 0.6,
                   },
                 },
               },
