@@ -12,6 +12,7 @@ import {
   Chip,
 } from '@mui/material';
 import {
+  Home,
   LocalShipping,
   ExpandLess,
   ExpandMore,
@@ -146,6 +147,24 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
       </Box>
 
       <List sx={{ p: 2 }}>
+        <ListItemButton 
+          onClick={() => navigate('/')}
+          sx={{ 
+            mb: 1.5,
+            borderRadius: 2,
+            bgcolor: isActive('/') ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.1)',
+            color: 'white',
+            border: '1px solid rgba(251,191,36,0.3)',
+            '&:hover': { 
+              bgcolor: 'rgba(251,191,36,0.15)',
+              boxShadow: '0 0 20px rgba(251,191,36,0.2)'
+            }
+          }}
+        >
+          <ListItemIcon><Home sx={{ color: '#fbbf24' }} /></ListItemIcon>
+          {!collapsed && <ListItemText primary={<Typography fontWeight="600">Dashboard</Typography>} />}
+        </ListItemButton>
+
         <ListItemButton 
           onClick={() => handleExpandClick('routes')}
           sx={{ 
