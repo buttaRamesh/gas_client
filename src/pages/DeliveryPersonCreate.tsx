@@ -78,10 +78,11 @@ export default function DeliveryPersonCreate() {
         />
 
         <Card 
-          elevation={0} 
+          elevation={0}
           sx={{ 
-            bgcolor: "hsl(var(--card))",
-            border: "1px solid hsl(var(--border))",
+            bgcolor: "background.paper",
+            border: "1px solid",
+            borderColor: "divider",
             borderRadius: 2,
           }}
         >

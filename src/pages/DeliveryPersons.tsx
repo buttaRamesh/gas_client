@@ -100,8 +100,9 @@ export default function DeliveryPersons() {
           elevation={0} 
           sx={{ 
             mb: 3, 
-            bgcolor: "hsl(var(--card))",
-            border: "1px solid hsl(var(--border))",
+            bgcolor: "background.paper",
+            border: "1px solid",
+            borderColor: "divider",
             borderRadius: 2,
           }}
         >
@@ -126,8 +127,9 @@ export default function DeliveryPersons() {
           <Card 
             elevation={0} 
             sx={{ 
-              bgcolor: "hsl(var(--card))",
-              border: "1px solid hsl(var(--border))",
+              bgcolor: "background.paper",
+              border: "1px solid",
+              borderColor: "divider",
               borderRadius: 2,
             }}
           >
@@ -162,17 +164,19 @@ export default function DeliveryPersons() {
                 key={person.id}
                 elevation={0}
                 sx={{
-                  bgcolor: "hsl(var(--card))",
+                  bgcolor: "background.paper",
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  border: "1px solid hsl(var(--border))",
+                  border: "1px solid",
+                  borderColor: "divider",
                   borderRadius: 2,
+                  cursor: "pointer",
                   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   "&:hover": {
                     transform: "translateY(-8px)",
-                    boxShadow: "0 20px 40px hsla(var(--primary), 0.2)",
-                    borderColor: "hsl(var(--primary))",
+                    boxShadow: "0 20px 40px rgba(212, 175, 55, 0.25)",
+                    borderColor: "primary.main",
                   },
                 }}
               >

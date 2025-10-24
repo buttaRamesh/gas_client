@@ -199,15 +199,16 @@ export default function DeliveryPersonDetail() {
           <Card 
             elevation={0} 
             sx={{ 
-              bgcolor: "hsl(var(--card))", 
+              bgcolor: "background.paper", 
               height: "100%",
-              border: "1px solid hsl(var(--border))",
+              border: "1px solid",
+              borderColor: "divider",
               borderRadius: 2,
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               "&:hover": {
                 transform: "translateY(-4px)",
-                boxShadow: "0 10px 30px hsla(var(--primary), 0.15)",
-                borderColor: "hsl(var(--primary))",
+                boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)",
+                borderColor: "primary.main",
               },
             }}
           >
@@ -226,15 +227,16 @@ export default function DeliveryPersonDetail() {
           <Card 
             elevation={0} 
             sx={{ 
-              bgcolor: "hsl(var(--card))", 
+              bgcolor: "background.paper", 
               height: "100%",
-              border: "1px solid hsl(var(--border))",
+              border: "1px solid",
+              borderColor: "divider",
               borderRadius: 2,
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               "&:hover": {
                 transform: "translateY(-4px)",
-                boxShadow: "0 10px 30px hsla(var(--primary), 0.15)",
-                borderColor: "hsl(var(--primary))",
+                boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)",
+                borderColor: "primary.main",
               },
             }}
           >
@@ -253,15 +255,16 @@ export default function DeliveryPersonDetail() {
           <Card 
             elevation={0} 
             sx={{ 
-              bgcolor: "hsl(var(--card))", 
+              bgcolor: "background.paper", 
               height: "100%",
-              border: "1px solid hsl(var(--border))",
+              border: "1px solid",
+              borderColor: "divider",
               borderRadius: 2,
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               "&:hover": {
                 transform: "translateY(-4px)",
-                boxShadow: "0 10px 30px hsla(var(--primary), 0.15)",
-                borderColor: "hsl(var(--primary))",
+                boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)",
+                borderColor: "primary.main",
               },
             }}
           >
@@ -279,14 +282,15 @@ export default function DeliveryPersonDetail() {
           </Card>
         </Box>
 
-        <Card 
-          elevation={0} 
-          sx={{ 
-            bgcolor: "hsl(var(--card))",
-            border: "1px solid hsl(var(--border))",
-            borderRadius: 2,
-          }}
-        >
+          <Card 
+            elevation={0}
+            sx={{ 
+              bgcolor: "background.paper",
+              border: "1px solid",
+              borderColor: "divider",
+              borderRadius: 2,
+            }}
+          >
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
               <Typography variant="h6" sx={{ fontWeight: 600 }}>
