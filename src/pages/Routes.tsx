@@ -96,7 +96,7 @@ export default function Routes() {
     <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
     <Container maxWidth="xl" sx={{ px: 2 }}>
       <PageHeader
-        title="Routes Management"
+        title="Delivery Routes"
         showSearch
         searchValue={searchQuery}
         searchPlaceholder="Search routes..."
