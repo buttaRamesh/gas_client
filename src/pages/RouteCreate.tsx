@@ -23,6 +23,7 @@ import {
 import { routesApi, areasApi } from "@/services/api";
 import { Area } from "@/types/routes";
 import { useSnackbar } from "@/contexts/SnackbarContext";
+import { PageHeader } from "@/components/PageHeader";
 
 const routeSchema = z.object({
   area_code: z.string().min(1, "Area code is required").max(50, "Area code must be less than 50 characters"),
@@ -118,23 +119,9 @@ export default function RouteCreate() {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
       <Container maxWidth="lg">
-        <Box sx={{ mb: 4 }}>
-          <Button
-            startIcon={<ArrowBackIcon />}
-            onClick={() => navigate("/routes")}
-            sx={{ mb: 2 }}
-          >
-            Back to Routes
-          </Button>
-          <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
-            Create New Route
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Add a new delivery route and assign areas
-          </Typography>
-        </Box>
+        <PageHeader title="Create New Route" />
 
         <Card elevation={2}>
           <CardContent sx={{ p: 4 }}>

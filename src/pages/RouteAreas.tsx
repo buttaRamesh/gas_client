@@ -31,6 +31,7 @@ import {
   Delete as DeleteIcon,
 } from '@mui/icons-material';
 import { useSnackbar } from '@/contexts/SnackbarContext';
+import { PageHeader } from '@/components/PageHeader';
 
 type SortField = 'area_name' | 'consumer_count' | 'route';
 type SortOrder = 'asc' | 'desc';
@@ -161,57 +162,17 @@ const RouteAreas = () => {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
       <Container maxWidth="xl">
-        <Box sx={{ mb: 4 }}>
-          <Button
-            startIcon={<ArrowBackIcon />}
-            onClick={() => navigate('/routes')}
-            sx={{ mb: 2 }}
-          >
-            Back to Routes
-          </Button>
-          
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-            <Box>
-              <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
-                Route Areas
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Manage all route areas and their assignments
-              </Typography>
-            </Box>
-            <Button
-              variant="contained"
-              startIcon={<AddIcon />}
-              onClick={() => navigate('/route-areas/new')}
-            >
-              Create Area
-            </Button>
-          </Box>
-        </Box>
+        <PageHeader
+          title="Route Areas"
+          showSearch
+          searchValue={searchQuery}
+          searchPlaceholder="Search by area name..."
+          onSearchChange={setSearchQuery}
+        />
 
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, mb: 3 }}>
-          <TextField
-            fullWidth
-            inputRef={searchInputRef}
-            placeholder="Search by area name or code..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            sx={{
-              '& .MuiInputBase-root': {
-                height: '38px',
-              },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          
+        <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
           <FormControl sx={{ minWidth: { xs: '100%', sm: 180 } }}>
             <Select
               value={filterStatus}

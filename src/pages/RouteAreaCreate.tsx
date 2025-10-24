@@ -27,6 +27,7 @@ import {
   Route as RouteIcon,
 } from '@mui/icons-material';
 import { useSnackbar } from '@/contexts/SnackbarContext';
+import { PageHeader } from '@/components/PageHeader';
 
 const areaSchema = z.object({
   area_name: z.string().min(1, 'Area name is required'),
@@ -111,38 +112,9 @@ const RouteAreaCreate = () => {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
       <Container maxWidth="md">
-        <Button
-          startIcon={<ArrowBackIcon />}
-          onClick={() => navigate('/route-areas')}
-          sx={{ mb: 3 }}
-        >
-          Back to Route Areas
-        </Button>
-
-        <Box sx={{ textAlign: 'center', mb: 4 }}>
-          <Box
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 64,
-              height: 64,
-              borderRadius: '50%',
-              bgcolor: 'primary.light',
-              mb: 2,
-            }}
-          >
-            <MapPinIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-          </Box>
-          <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
-            Create Route Area
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Add a new area to your delivery system
-          </Typography>
-        </Box>
+        <PageHeader title="Create Route Area" />
 
         <Card elevation={3}>
           <CardContent sx={{ p: 4 }}>
