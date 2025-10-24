@@ -212,7 +212,7 @@ export default function DeliveryPersons() {
                     >
                       <ConsumersIcon sx={{ mb: 0.5, color: "white" }} />
                       <Typography variant="h5" sx={{ fontWeight: 700, color: "white" }}>
-                        {person.consumer_count || 0}
+                        {person.total_consumers || 0}
                       </Typography>
                       <Typography variant="caption" sx={{ color: "white", fontWeight: 500, opacity: 0.9 }}>
                         Consumers
