@@ -106,7 +106,7 @@ export function PageHeader({
             sx={{
               width: { xs: '100%', md: '400px' },
               '& .MuiOutlinedInput-root': {
-                bgcolor: 'rgba(255, 255, 255, 0.9)',
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
                 backdropFilter: 'blur(10px)',
                 borderRadius: 3,
                 transition: 'all 0.3s ease',
@@ -115,14 +115,14 @@ export function PageHeader({
                   borderWidth: '2px',
                 },
                 '&:hover': {
-                  bgcolor: '#ffffff',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%)',
                   boxShadow: '0 4px 12px rgba(212, 175, 55, 0.1)',
                   '& fieldset': {
                     borderColor: 'rgba(212, 175, 55, 0.5)',
                   },
                 },
                 '&.Mui-focused': {
-                  bgcolor: '#ffffff',
+                  background: '#ffffff',
                   boxShadow: '0 0 0 3px rgba(212, 175, 55, 0.12), 0 4px 12px rgba(212, 175, 55, 0.15)',
                   '& fieldset': {
                     borderColor: '#d4af37',
