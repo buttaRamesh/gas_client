@@ -19,6 +19,7 @@ All colors MUST be HSL.
     /* Card colors */
     --card: 0 0% 100%;
     --card-foreground: 20 14% 10%;
+    --card-dark: 0 0% 96%;
     --card-gradient-start: 0 0% 100%;
     --card-gradient-end: 43 74% 49%;
 
@@ -87,6 +88,7 @@ All colors MUST be HSL.
 
     --card: 20 14% 12%;
     --card-foreground: 0 0% 95%;
+    --card-dark: 20 14% 8%;
     --card-gradient-start: 20 14% 12%;
     --card-gradient-end: 43 74% 25%;
 
