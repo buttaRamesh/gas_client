@@ -21,8 +21,16 @@ export interface Area {
 export interface DeliveryPerson {
   id: number;
   name: string;
-  route_count?: number;
-  consumer_count?: number;
+  contacts?: any[];
+  assigned_routes_count?: number;
+  assigned_routes?: Array<{
+    route_id: number;
+    route_code: string;
+    route_description: string;
+    consumer_count: number;
+    areas: string[];
+  }>;
+  total_consumers?: number;
 }
 
 export interface RouteAssignment {

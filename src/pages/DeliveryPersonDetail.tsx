@@ -59,13 +59,27 @@ export default function DeliveryPersonDetail() {
   const fetchPersonDetails = async () => {
     try {
       setLoading(true);
-      const [personRes, routesRes] = await Promise.all([
-        deliveryPersonsApi.getById(Number(id)),
-        deliveryPersonsApi.getAssignedRoutes(Number(id)),
-      ]);
-
-      setPerson(personRes.data);
-      setAssignedRoutes(Array.isArray(routesRes.data) ? routesRes.data : []);
+      const personRes = await deliveryPersonsApi.getById(Number(id));
+      const personData = personRes.data;
+      
+      setPerson(personData);
+      
+      // Map assigned_routes to Route format for table display
+      const mappedRoutes = personData.assigned_routes?.map((ar: any) => ({
+        id: ar.route_id,
+        area_code: ar.route_code,
+        area_code_description: ar.route_description,
+        area_count: ar.areas?.length || 0,
+        consumer_count: ar.consumer_count,
+        delivery_person_name: personData.name,
+        areas: ar.areas?.map((areaName: string, index: number) => ({
+          id: index,
+          area_name: areaName,
+          route: ar.route_id,
+        })) || [],
+      })) || [];
+      
+      setAssignedRoutes(mappedRoutes);
     } catch (err: any) {
       console.error("Failed to fetch person details:", err);
       showSnackbar("Failed to load delivery person details", "error");
@@ -212,7 +226,7 @@ export default function DeliveryPersonDetail() {
                 </Box>
                 <Box>
                   <Typography variant="h4" sx={{ fontWeight: 600 }}>
-                    {assignedRoutes.length}
+                    {person.assigned_routes_count || 0}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Assigned Routes
@@ -241,7 +255,7 @@ export default function DeliveryPersonDetail() {
                 </Box>
                 <Box>
                   <Typography variant="h4" sx={{ fontWeight: 600 }}>
-                    {assignedRoutes.reduce((sum, route) => sum + route.consumer_count, 0)}
+                    {person.total_consumers || 0}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Total Consumers
