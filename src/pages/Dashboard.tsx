@@ -76,7 +76,7 @@ export default function Dashboard() {
               textAlign: 'center',
             }}
           >
-            EnergyPath Portal
+            UKB Gas Agency Portal
           </Typography>
           <Typography 
             variant="h6" 

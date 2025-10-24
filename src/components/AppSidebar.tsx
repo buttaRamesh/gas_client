@@ -102,7 +102,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
               WebkitTextFillColor: 'transparent',
               mb: 0.5
             }}>
-              EnergyPath
+              UKB Gas Agency
             </Typography>
             <Typography variant="caption" sx={{ color: '#fcd34d' }}>
               Gas Cylinder Management

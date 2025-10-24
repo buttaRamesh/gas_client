@@ -27,7 +27,7 @@ export default function Index() {
               color: 'text.primary',
             }}
           >
-            EnergyPath Portal
+            UKB Gas Agency Portal
           </Typography>
           <Typography 
             variant="h6" 
