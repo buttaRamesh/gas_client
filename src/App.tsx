@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { SnackbarProvider } from "./contexts/SnackbarContext";
+import { AppLayout } from "./components/AppLayout";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LayoutDemo from "./pages/LayoutDemo";
@@ -26,18 +27,22 @@ const App = () => (
       <SnackbarProvider>
         <BrowserRouter>
           <Routes>
+            {/* Full-screen pages without sidebar */}
             <Route path="/" element={<Index />} />
             <Route path="/demo" element={<LayoutDemo />} />
             <Route path="/sidebar-demo" element={<SidebarDemo />} />
-            <Route path="/routes" element={<RoutesPage />} />
-            <Route path="/routes/statistics" element={<RouteStatistics />} />
-            <Route path="/routes/history" element={<RouteHistory />} />
-            <Route path="/routes/new" element={<RouteCreate />} />
-            <Route path="/routes/:id" element={<RouteDetail />} />
-            <Route path="/routes/:id/edit" element={<RouteEdit />} />
-            <Route path="/route-areas" element={<RouteAreas />} />
-            <Route path="/route-areas/new" element={<RouteAreaCreate />} />
-            <Route path="/settings" element={<Settings />} />
+            
+            {/* Pages with sidebar layout */}
+            <Route path="/routes" element={<AppLayout><RoutesPage /></AppLayout>} />
+            <Route path="/routes/statistics" element={<AppLayout><RouteStatistics /></AppLayout>} />
+            <Route path="/routes/history" element={<AppLayout><RouteHistory /></AppLayout>} />
+            <Route path="/routes/new" element={<AppLayout><RouteCreate /></AppLayout>} />
+            <Route path="/routes/:id" element={<AppLayout><RouteDetail /></AppLayout>} />
+            <Route path="/routes/:id/edit" element={<AppLayout><RouteEdit /></AppLayout>} />
+            <Route path="/route-areas" element={<AppLayout><RouteAreas /></AppLayout>} />
+            <Route path="/route-areas/new" element={<AppLayout><RouteAreaCreate /></AppLayout>} />
+            <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
