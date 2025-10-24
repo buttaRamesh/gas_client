@@ -97,10 +97,10 @@ export default function Routes() {
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
     <Container maxWidth="xl" sx={{ px: 2 }}>
-      {/* Premium Title Section */}
+      {/* Toolbar Layout - Title + Search */}
       <Box
         sx={{
-          mb: 3,
+          mb: 4,
           p: { xs: 3, md: 4 },
           borderRadius: 4,
           background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
@@ -130,104 +130,96 @@ export default function Routes() {
           },
         }}
       >
-        <Typography
-          variant="h4"
-          sx={{
-            fontWeight: 800,
-            background: 'linear-gradient(135deg, #fbbf24 0%, #f4e4b0 50%, #fbbf24 100%)',
-            backgroundSize: '200% auto',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            letterSpacing: '-0.5px',
-            textTransform: 'uppercase',
-            fontSize: { xs: '1.5rem', md: '2rem' },
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', md: 'row' },
+            justifyContent: 'space-between',
+            alignItems: { xs: 'flex-start', md: 'center' },
+            gap: 3,
             position: 'relative',
-            display: 'inline-block',
             zIndex: 1,
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: -8,
-              left: 0,
-              width: '60px',
-              height: '3px',
-              background: 'linear-gradient(90deg, #d4af37 0%, transparent 100%)',
-              borderRadius: '2px',
-            }
           }}
         >
-          Routes Management
-        </Typography>
-      </Box>
+          {/* Left: Title */}
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 800,
+              background: 'linear-gradient(135deg, #fbbf24 0%, #f4e4b0 50%, #fbbf24 100%)',
+              backgroundSize: '200% auto',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '-0.5px',
+              textTransform: 'uppercase',
+              fontSize: { xs: '1.5rem', md: '2rem' },
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Routes Management
+          </Typography>
 
-      {/* Clean Search Section */}
-      <Box
-        sx={{
-          mb: 4,
-          p: 3,
-          bgcolor: 'background.paper',
-          borderRadius: 3,
-          border: '1px solid',
-          borderColor: 'divider',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
-        }}
-      >
-        <TextField
-          fullWidth
-          placeholder="Search routes by code, description, or delivery person..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              bgcolor: 'rgba(212, 175, 55, 0.03)',
-              borderRadius: 2,
-              transition: 'all 0.3s ease',
-              '& fieldset': {
-                borderColor: 'rgba(212, 175, 55, 0.2)',
-                borderWidth: '2px',
-              },
-              '&:hover': {
-                bgcolor: 'rgba(212, 175, 55, 0.05)',
+          {/* Right: Search Bar */}
+          <TextField
+            placeholder="Search routes..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            sx={{
+              width: { xs: '100%', md: '400px' },
+              '& .MuiOutlinedInput-root': {
+                bgcolor: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
                 '& fieldset': {
-                  borderColor: 'rgba(212, 175, 55, 0.4)',
+                  borderColor: 'rgba(212, 175, 55, 0.3)',
+                  borderWidth: '2px',
+                },
+                '&:hover': {
+                  bgcolor: 'rgba(255, 255, 255, 0.08)',
+                  '& fieldset': {
+                    borderColor: 'rgba(212, 175, 55, 0.6)',
+                  },
+                },
+                '&.Mui-focused': {
+                  bgcolor: 'rgba(255, 255, 255, 0.1)',
+                  boxShadow: '0 0 20px rgba(212, 175, 55, 0.3)',
+                  '& fieldset': {
+                    borderColor: '#d4af37',
+                  },
+                },
+                '& input': {
+                  color: '#ffffff',
+                  fontWeight: 500,
+                  '&::placeholder': {
+                    color: '#a8a8a8',
+                    opacity: 1,
+                  },
                 },
               },
-              '&.Mui-focused': {
-                bgcolor: 'rgba(212, 175, 55, 0.08)',
-                boxShadow: '0 0 0 3px rgba(212, 175, 55, 0.1)',
-                '& fieldset': {
-                  borderColor: '#d4af37',
-                },
-              },
-              '& input': {
-                fontWeight: 500,
-                '&::placeholder': {
-                  opacity: 0.7,
-                },
-              },
-            },
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Box
-                  sx={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: '50%',
-                    bgcolor: 'rgba(212, 175, 55, 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mr: 1,
-                  }}
-                >
-                  <SearchIcon sx={{ color: '#d4af37', fontSize: 20 }} />
-                </Box>
-              </InputAdornment>
-            ),
-          }}
-        />
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Box
+                    sx={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: '50%',
+                      bgcolor: 'rgba(212, 175, 55, 0.15)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mr: 1,
+                    }}
+                  >
+                    <SearchIcon sx={{ color: '#d4af37', fontSize: 20 }} />
+                  </Box>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
       </Box>
 
       <Box
