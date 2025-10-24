@@ -19,6 +19,9 @@ import RouteHistory from "./pages/RouteHistory";
 import RouteCardColorDemo from "./pages/RouteCardColorDemo";
 import Settings from "./pages/Settings";
 import SidebarDemo from "./pages/SidebarDemo";
+import DeliveryPersons from "./pages/DeliveryPersons";
+import DeliveryPersonCreate from "./pages/DeliveryPersonCreate";
+import DeliveryPersonDetail from "./pages/DeliveryPersonDetail";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +49,9 @@ const App = () => (
             <Route path="/routes/:id/edit" element={<AppLayout><RouteEdit /></AppLayout>} />
             <Route path="/route-areas" element={<AppLayout><RouteAreas /></AppLayout>} />
             <Route path="/route-areas/new" element={<AppLayout><RouteAreaCreate /></AppLayout>} />
+            <Route path="/delivery-persons" element={<AppLayout><DeliveryPersons /></AppLayout>} />
+            <Route path="/delivery-persons/create" element={<AppLayout><DeliveryPersonCreate /></AppLayout>} />
+            <Route path="/delivery-persons/:id" element={<AppLayout><DeliveryPersonDetail /></AppLayout>} />
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -68,4 +68,47 @@ export const areasApi = {
   removeFromRoute: (areaId: number) => api.post(`/route-areas/${areaId}/unassign_from_route/`),
 };
 
+// Delivery Persons API
+export const deliveryPersonsApi = {
+  getAll: (search?: string) => {
+    const params = new URLSearchParams();
+    if (search?.trim()) params.append('search', search.trim());
+    return api.get(`/delivery-persons/?${params.toString()}`);
+  },
+  getById: (id: number) => api.get(`/delivery-persons/${id}/`),
+  create: (data: any) => api.post('/delivery-persons/', data),
+  update: (id: number, data: any) => api.patch(`/delivery-persons/${id}/`, data),
+  delete: (id: number) => api.delete(`/delivery-persons/${id}/`),
+  getAssignedRoutes: (id: number) => api.get(`/delivery-persons/${id}/assigned_routes/`),
+  getConsumers: (id: number) => api.get(`/delivery-persons/${id}/consumers/`),
+  getUnassigned: () => api.get('/delivery-persons/unassigned/'),
+  getStatistics: () => api.get('/delivery-persons/statistics/'),
+};
+
+// Route Assignments API
+export const routeAssignmentsApi = {
+  getAll: (personId?: number, routeId?: number) => {
+    const params = new URLSearchParams();
+    if (personId) params.append('delivery_person', personId.toString());
+    if (routeId) params.append('route', routeId.toString());
+    return api.get(`/delivery-route-assignments/?${params.toString()}`);
+  },
+  getById: (id: number) => api.get(`/delivery-route-assignments/${id}/`),
+  create: (data: any) => api.post('/delivery-route-assignments/', data),
+  update: (id: number, data: any) => api.patch(`/delivery-route-assignments/${id}/`, data),
+  delete: (id: number) => api.delete(`/delivery-route-assignments/${id}/`),
+  bulkAssign: (deliveryPersonId: number, routeIds: number[]) => 
+    api.post('/delivery-route-assignments/bulk_assign/', { 
+      delivery_person: deliveryPersonId, 
+      routes: routeIds 
+    }),
+  reassign: (routeId: number, newDeliveryPersonId: number) =>
+    api.post('/delivery-route-assignments/reassign/', {
+      route: routeId,
+      new_delivery_person: newDeliveryPersonId
+    }),
+  unassignRoute: (routeId: number) =>
+    api.delete(`/delivery-route-assignments/unassign_route/?route=${routeId}`),
+};
+
 export default api;
