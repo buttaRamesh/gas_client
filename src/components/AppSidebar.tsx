@@ -37,6 +37,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
   const location = useLocation();
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({
     routes: true,
+    routeAreas: true,
   });
 
   const handleExpandClick = (item: string) => {
@@ -48,6 +49,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
 
   const isActive = (path: string) => location.pathname === path;
   const isRouteActive = () => location.pathname.startsWith('/routes');
+  const isRouteAreaActive = () => location.pathname.startsWith('/route-areas');
 
   return (
     <Box sx={{ 
@@ -240,11 +242,11 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
         )}
 
         <ListItemButton 
-          onClick={() => navigate('/route-areas')}
+          onClick={() => handleExpandClick('routeAreas')}
           sx={{ 
             mb: 1.5,
             borderRadius: 2,
-            bgcolor: isActive('/route-areas') || isActive('/route-areas/new') ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.1)',
+            bgcolor: isRouteAreaActive() ? 'rgba(251,191,36,0.15)' : 'rgba(251,191,36,0.1)',
             color: 'white',
             border: '1px solid rgba(251,191,36,0.3)',
             '&:hover': { 
@@ -254,8 +256,45 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
           }}
         >
           <ListItemIcon><LocationOn sx={{ color: '#fbbf24' }} /></ListItemIcon>
-          {!collapsed && <ListItemText primary={<Typography fontWeight="600">Route Areas</Typography>} />}
+          {!collapsed && (
+            <>
+              <ListItemText primary={<Typography fontWeight="600">Route Areas</Typography>} />
+              {expandedItems['routeAreas'] ? <ExpandLess /> : <ExpandMore />}
+            </>
+          )}
         </ListItemButton>
+        {!collapsed && (
+          <Collapse in={expandedItems['routeAreas']} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding sx={{ bgcolor: 'rgba(0,0,0,0.2)', borderRadius: 2, mb: 1, p: 0.5 }}>
+              <ListItemButton 
+                onClick={() => navigate('/route-areas')}
+                sx={{ 
+                  pl: 4, 
+                  borderRadius: 1.5, 
+                  color: 'white',
+                  bgcolor: isActive('/route-areas') ? 'rgba(251,191,36,0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'rgba(251,191,36,0.1)' } 
+                }}
+              >
+                <ListItemIcon sx={{ color: '#fcd34d' }}><Map fontSize="small" /></ListItemIcon>
+                <ListItemText primary={<Typography variant="body2">All Route Areas</Typography>} />
+              </ListItemButton>
+              <ListItemButton 
+                onClick={() => navigate('/route-areas/new')}
+                sx={{ 
+                  pl: 4, 
+                  borderRadius: 1.5, 
+                  color: 'white',
+                  bgcolor: isActive('/route-areas/new') ? 'rgba(251,191,36,0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'rgba(251,191,36,0.1)' } 
+                }}
+              >
+                <ListItemIcon sx={{ color: '#fcd34d' }}><Add fontSize="small" /></ListItemIcon>
+                <ListItemText primary={<Typography variant="body2">Create Route Area</Typography>} />
+              </ListItemButton>
+            </List>
+          </Collapse>
+        )}
 
         <ListItemButton 
           onClick={() => navigate('/settings')}
