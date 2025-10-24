@@ -42,10 +42,14 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
   });
 
   const handleExpandClick = (item: string) => {
-    setExpandedItems(prev => ({
-      ...prev,
-      [item]: !prev[item]
-    }));
+    setExpandedItems(prev => {
+      const isCurrentlyExpanded = prev[item];
+      // Close all groups and only open the clicked one
+      return {
+        routes: item === 'routes' && !isCurrentlyExpanded,
+        routeAreas: item === 'routeAreas' && !isCurrentlyExpanded,
+      };
+    });
   };
 
   const isActive = (path: string) => location.pathname === path;
