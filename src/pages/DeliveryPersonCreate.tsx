@@ -77,7 +77,14 @@ export default function DeliveryPersonCreate() {
           }
         />
 
-        <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
+        <Card 
+          elevation={0} 
+          sx={{ 
+            bgcolor: "hsl(var(--card))",
+            border: "1px solid hsl(var(--border))",
+            borderRadius: 2,
+          }}
+        >
           <CardContent sx={{ p: 4 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>

@@ -196,7 +196,21 @@ export default function DeliveryPersonDetail() {
         />
 
         <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 3, mb: 3 }}>
-          <Card elevation={3} sx={{ bgcolor: "background.paper", height: "100%" }}>
+          <Card 
+            elevation={0} 
+            sx={{ 
+              bgcolor: "hsl(var(--card))", 
+              height: "100%",
+              border: "1px solid hsl(var(--border))",
+              borderRadius: 2,
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              "&:hover": {
+                transform: "translateY(-4px)",
+                boxShadow: "0 10px 30px hsla(var(--primary), 0.15)",
+                borderColor: "hsl(var(--primary))",
+              },
+            }}
+          >
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
                 <RouteIcon sx={{ color: "primary.main" }} />
@@ -209,7 +223,21 @@ export default function DeliveryPersonDetail() {
               </Typography>
             </CardContent>
           </Card>
-          <Card elevation={3} sx={{ bgcolor: "background.paper", height: "100%" }}>
+          <Card 
+            elevation={0} 
+            sx={{ 
+              bgcolor: "hsl(var(--card))", 
+              height: "100%",
+              border: "1px solid hsl(var(--border))",
+              borderRadius: 2,
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              "&:hover": {
+                transform: "translateY(-4px)",
+                boxShadow: "0 10px 30px hsla(var(--primary), 0.15)",
+                borderColor: "hsl(var(--primary))",
+              },
+            }}
+          >
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
                 <ConsumersIcon sx={{ color: "primary.main" }} />
@@ -222,7 +250,21 @@ export default function DeliveryPersonDetail() {
               </Typography>
             </CardContent>
           </Card>
-          <Card elevation={3} sx={{ bgcolor: "background.paper", height: "100%" }}>
+          <Card 
+            elevation={0} 
+            sx={{ 
+              bgcolor: "hsl(var(--card))", 
+              height: "100%",
+              border: "1px solid hsl(var(--border))",
+              borderRadius: 2,
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              "&:hover": {
+                transform: "translateY(-4px)",
+                boxShadow: "0 10px 30px hsla(var(--primary), 0.15)",
+                borderColor: "hsl(var(--primary))",
+              },
+            }}
+          >
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
                 <PersonIcon sx={{ color: "primary.main" }} />
@@ -237,7 +279,14 @@ export default function DeliveryPersonDetail() {
           </Card>
         </Box>
 
-        <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
+        <Card 
+          elevation={0} 
+          sx={{ 
+            bgcolor: "hsl(var(--card))",
+            border: "1px solid hsl(var(--border))",
+            borderRadius: 2,
+          }}
+        >
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
               <Typography variant="h6" sx={{ fontWeight: 600 }}>
@@ -372,15 +421,22 @@ export default function DeliveryPersonDetail() {
                 {availableRoutes.map((route) => (
                   <Card
                     key={route.id}
+                    elevation={0}
                     sx={{
                       cursor: "pointer",
                       bgcolor: selectedRoutes.includes(route.id)
-                        ? "primary.light"
-                        : "background.paper",
-                      border: 2,
+                        ? "hsla(var(--primary), 0.15)"
+                        : "hsl(var(--card))",
+                      border: "2px solid",
                       borderColor: selectedRoutes.includes(route.id)
-                        ? "primary.main"
-                        : "transparent",
+                        ? "hsl(var(--primary))"
+                        : "hsl(var(--border))",
+                      borderRadius: 2,
+                      transition: "all 0.2s ease",
+                      "&:hover": {
+                        borderColor: "hsl(var(--primary))",
+                        boxShadow: "0 4px 12px hsla(var(--primary), 0.2)",
+                      },
                     }}
                     onClick={() => toggleRouteSelection(route.id)}
                   >

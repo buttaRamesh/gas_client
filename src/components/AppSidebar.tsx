@@ -26,6 +26,8 @@ import {
   ViewModule,
   Menu as MenuIcon,
   Storefront,
+  Person,
+  Group,
 } from '@mui/icons-material';
 
 interface AppSidebarProps {
@@ -39,6 +41,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>(() => ({
     routes: location.pathname.startsWith('/routes'),
     routeAreas: location.pathname.startsWith('/route-areas'),
+    deliveryPersons: location.pathname.startsWith('/delivery-persons'),
   }));
 
   const handleExpandClick = (item: string) => {
@@ -48,6 +51,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
       return {
         routes: item === 'routes' && !isCurrentlyExpanded,
         routeAreas: item === 'routeAreas' && !isCurrentlyExpanded,
+        deliveryPersons: item === 'deliveryPersons' && !isCurrentlyExpanded,
       };
     });
   };
@@ -55,6 +59,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
   const isActive = (path: string) => location.pathname === path;
   const isRouteActive = () => location.pathname.startsWith('/routes');
   const isRouteAreaActive = () => location.pathname.startsWith('/route-areas');
+  const isDeliveryPersonActive = () => location.pathname.startsWith('/delivery-persons');
 
   return (
     <Box sx={{ 
@@ -314,6 +319,61 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
               >
                 <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><Add fontSize="small" /></ListItemIcon>
                 <ListItemText primary={<Typography variant="body2">Create Route Area</Typography>} />
+              </ListItemButton>
+            </List>
+          </Collapse>
+        )}
+
+        <ListItemButton 
+          onClick={() => handleExpandClick('deliveryPersons')}
+          sx={{ 
+            mb: 1.5,
+            borderRadius: 2,
+            bgcolor: isDeliveryPersonActive() ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+            color: 'hsl(var(--sidebar-foreground))',
+            border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+            '&:hover': { 
+              bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+              boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+            }
+          }}
+        >
+          <ListItemIcon><Group sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
+          {!collapsed && (
+            <>
+              <ListItemText primary={<Typography fontWeight="600">Delivery Persons</Typography>} />
+              {expandedItems['deliveryPersons'] ? <ExpandLess /> : <ExpandMore />}
+            </>
+          )}
+        </ListItemButton>
+        {!collapsed && (
+          <Collapse in={expandedItems['deliveryPersons']} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding sx={{ bgcolor: 'rgba(0,0,0,0.2)', borderRadius: 2, mb: 1, p: 0.5 }}>
+              <ListItemButton 
+                onClick={() => navigate('/delivery-persons')}
+                sx={{ 
+                  pl: 4, 
+                  borderRadius: 1.5, 
+                  color: 'hsl(var(--sidebar-foreground))',
+                  bgcolor: isActive('/delivery-persons') ? 'hsla(var(--sidebar-primary), 0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'hsla(var(--sidebar-primary), 0.1)' } 
+                }}
+              >
+                <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><Group fontSize="small" /></ListItemIcon>
+                <ListItemText primary={<Typography variant="body2">All Delivery Persons</Typography>} />
+              </ListItemButton>
+              <ListItemButton 
+                onClick={() => navigate('/delivery-persons/create')}
+                sx={{ 
+                  pl: 4, 
+                  borderRadius: 1.5, 
+                  color: 'hsl(var(--sidebar-foreground))',
+                  bgcolor: isActive('/delivery-persons/create') ? 'hsla(var(--sidebar-primary), 0.1)' : 'transparent',
+                  '&:hover': { bgcolor: 'hsla(var(--sidebar-primary), 0.1)' } 
+                }}
+              >
+                <ListItemIcon sx={{ color: 'hsl(var(--primary-light))' }}><Add fontSize="small" /></ListItemIcon>
+                <ListItemText primary={<Typography variant="body2">Add Delivery Person</Typography>} />
               </ListItemButton>
             </List>
           </Collapse>

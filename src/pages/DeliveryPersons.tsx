@@ -96,7 +96,15 @@ export default function DeliveryPersons() {
           }
         />
 
-        <Card elevation={3} sx={{ mb: 3, bgcolor: "background.paper" }}>
+        <Card 
+          elevation={0} 
+          sx={{ 
+            mb: 3, 
+            bgcolor: "hsl(var(--card))",
+            border: "1px solid hsl(var(--border))",
+            borderRadius: 2,
+          }}
+        >
           <CardContent>
             <TextField
               fullWidth
@@ -115,7 +123,14 @@ export default function DeliveryPersons() {
         </Card>
 
         {filteredPersons.length === 0 ? (
-          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
+          <Card 
+            elevation={0} 
+            sx={{ 
+              bgcolor: "hsl(var(--card))",
+              border: "1px solid hsl(var(--border))",
+              borderRadius: 2,
+            }}
+          >
             <CardContent>
               <Box sx={{ textAlign: "center", py: 8 }}>
                 <PersonIcon sx={{ fontSize: 64, color: "text.secondary", mb: 2 }} />
@@ -145,16 +160,19 @@ export default function DeliveryPersons() {
             {filteredPersons.map((person) => (
               <Card
                 key={person.id}
-                elevation={3}
+                elevation={0}
                 sx={{
-                  bgcolor: "background.paper",
+                  bgcolor: "hsl(var(--card))",
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  transition: "transform 0.2s, box-shadow 0.2s",
+                  border: "1px solid hsl(var(--border))",
+                  borderRadius: 2,
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: 6,
+                    transform: "translateY(-8px)",
+                    boxShadow: "0 20px 40px hsla(var(--primary), 0.2)",
+                    borderColor: "hsl(var(--primary))",
                   },
                 }}
               >
@@ -165,13 +183,14 @@ export default function DeliveryPersons() {
                           width: 48,
                           height: 48,
                           borderRadius: "50%",
-                          bgcolor: "primary.light",
+                          bgcolor: "hsla(var(--primary), 0.15)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
+                          border: "2px solid hsl(var(--primary))",
                         }}
                       >
-                        <PersonIcon sx={{ color: "primary.main", fontSize: 28 }} />
+                        <PersonIcon sx={{ color: "hsl(var(--primary))", fontSize: 28 }} />
                       </Box>
                       <Box sx={{ flex: 1 }}>
                         <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5 }}>
