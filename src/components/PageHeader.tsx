@@ -27,12 +27,12 @@ export function PageHeader({
         mb: 4,
         p: { xs: 3, md: 4 },
         borderRadius: 4,
-        background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f1f3f5 100%)',
+        background: 'linear-gradient(145deg, hsl(var(--card)) 0%, hsla(var(--card-gradient-end), 0.03) 100%)',
         border: '2px solid',
-        borderColor: '#d4af37',
+        borderColor: 'hsla(var(--primary), 0.3)',
         position: 'relative',
         overflow: 'hidden',
-        boxShadow: '0 4px 20px rgba(212, 175, 55, 0.12)',
+        boxShadow: '0 4px 20px hsla(var(--primary), 0.12)',
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -40,7 +40,7 @@ export function PageHeader({
           right: 0,
           width: '300px',
           height: '300px',
-          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, hsla(var(--primary), 0.08) 0%, transparent 70%)',
           pointerEvents: 'none',
         },
         '&::after': {
@@ -50,7 +50,7 @@ export function PageHeader({
           left: 0,
           right: 0,
           height: '3px',
-          background: 'linear-gradient(90deg, transparent 0%, #d4af37 30%, #d4af37 70%, transparent 100%)',
+          background: 'linear-gradient(90deg, transparent 0%, hsl(var(--primary)) 30%, hsl(var(--primary)) 70%, transparent 100%)',
         },
       }}
     >
@@ -71,7 +71,7 @@ export function PageHeader({
             variant="h4"
             sx={{
               fontWeight: 800,
-              background: 'linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #b8860b 100%)',
+              background: 'linear-gradient(135deg, hsl(var(--primary-dark)) 0%, hsl(var(--primary)) 50%, hsl(var(--primary-dark)) 100%)',
               backgroundSize: '200% auto',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -106,33 +106,33 @@ export function PageHeader({
             sx={{
               width: { xs: '100%', md: '400px' },
               '& .MuiOutlinedInput-root': {
-                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                background: 'hsl(var(--card))',
                 backdropFilter: 'blur(10px)',
                 borderRadius: 3,
                 transition: 'all 0.3s ease',
                 '& fieldset': {
-                  borderColor: 'rgba(212, 175, 55, 0.25)',
+                  borderColor: 'hsla(var(--primary), 0.25)',
                   borderWidth: '2px',
                 },
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%)',
-                  boxShadow: '0 4px 12px rgba(212, 175, 55, 0.1)',
+                  background: 'hsl(var(--card))',
+                  boxShadow: '0 4px 12px hsla(var(--primary), 0.1)',
                   '& fieldset': {
-                    borderColor: 'rgba(212, 175, 55, 0.5)',
+                    borderColor: 'hsla(var(--primary), 0.5)',
                   },
                 },
                 '&.Mui-focused': {
-                  background: '#ffffff',
-                  boxShadow: '0 0 0 3px rgba(212, 175, 55, 0.12), 0 4px 12px rgba(212, 175, 55, 0.15)',
+                  background: 'hsl(var(--card))',
+                  boxShadow: '0 0 0 3px hsla(var(--primary), 0.12), 0 4px 12px hsla(var(--primary), 0.15)',
                   '& fieldset': {
-                    borderColor: '#d4af37',
+                    borderColor: 'hsl(var(--primary))',
                   },
                 },
                 '& input': {
                   fontWeight: 500,
-                  color: 'text.primary',
+                  color: 'hsl(var(--foreground))',
                   '&::placeholder': {
-                    color: 'text.secondary',
+                    color: 'hsl(var(--muted-foreground))',
                     opacity: 0.6,
                   },
                 },
@@ -146,14 +146,14 @@ export function PageHeader({
                       width: 36,
                       height: 36,
                       borderRadius: '50%',
-                      bgcolor: 'rgba(212, 175, 55, 0.1)',
+                      bgcolor: 'hsla(var(--primary), 0.1)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       mr: 1,
                     }}
                   >
-                    <SearchIcon sx={{ color: '#d4af37', fontSize: 20 }} />
+                    <SearchIcon sx={{ color: 'hsl(var(--primary))', fontSize: 20 }} />
                   </Box>
                 </InputAdornment>
               ),

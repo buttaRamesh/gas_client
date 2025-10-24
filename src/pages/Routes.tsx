@@ -93,7 +93,7 @@ export default function Routes() {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'hsl(var(--background))', py: 4 }}>
     <Container maxWidth="xl" sx={{ px: 2 }}>
       <PageHeader
         title="Delivery Routes"
@@ -120,18 +120,18 @@ export default function Routes() {
             elevation={2}
             sx={{
               height: "100%",
-              background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.15) 100%)",
+              background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsla(var(--card-gradient-end), 0.05) 100%)",
               borderRadius: 3,
               overflow: "hidden",
               cursor: "pointer",
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               border: "2px solid",
-              borderColor: "rgba(20, 184, 166, 0.3)",
+              borderColor: "hsla(var(--primary), 0.3)",
               "&:hover": {
                 transform: "translateY(-8px)",
-                boxShadow: "0 12px 32px -10px rgba(20, 184, 166, 0.4)",
-                borderColor: "rgba(20, 184, 166, 0.6)",
-                background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.25) 100%)",
+                boxShadow: "0 12px 32px -10px hsla(var(--primary), 0.4)",
+                borderColor: "hsla(var(--primary), 0.6)",
+                background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsla(var(--card-gradient-end), 0.08) 100%)",
               },
             }}
             onClick={() => navigate(`/routes/${route.id}`)}
@@ -142,7 +142,7 @@ export default function Routes() {
                   <Typography 
                     variant="overline" 
                     sx={{ 
-                      color: "#d4af37", 
+                      color: "hsl(var(--primary))", 
                       fontWeight: 700,
                       fontSize: "0.7rem",
                       letterSpacing: 1,

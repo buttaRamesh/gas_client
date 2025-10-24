@@ -16,42 +16,42 @@ const dashboardCards = [
     description: 'Manage delivery routes and assignments',
     icon: RoutesIcon,
     path: '/routes',
-    color: '#d4af37',
+    colorVar: 'var(--primary)',
   },
   {
     title: 'Route Areas',
     description: 'Configure and manage route areas',
     icon: AreasIcon,
     path: '/route-areas',
-    color: '#c9a961',
+    colorVar: 'var(--primary-light)',
   },
   {
     title: 'Consumers',
     description: 'Manage consumer information',
     icon: ConsumersIcon,
     path: '/consumers',
-    color: '#b8860b',
+    colorVar: 'var(--primary-dark)',
   },
   {
     title: 'Delivery Persons',
     description: 'Manage delivery personnel',
     icon: DeliveryPersonIcon,
     path: '/delivery-persons',
-    color: '#daa520',
+    colorVar: 'var(--primary)',
   },
   {
     title: 'Products',
     description: 'Manage product inventory',
     icon: ProductsIcon,
     path: '/products',
-    color: '#c5a572',
+    colorVar: 'var(--secondary)',
   },
   {
     title: 'Statistics',
     description: 'View analytics and reports',
     icon: StatsIcon,
     path: '/routes/statistics',
-    color: '#a67c00',
+    colorVar: 'var(--accent)',
   },
 ];
 
@@ -59,7 +59,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'hsl(var(--background))', py: 4 }}>
       <Container maxWidth="lg">
         <PageHeader
           title="Dashboard"
@@ -79,14 +79,14 @@ export default function Dashboard() {
               <Box key={card.title}>
                 <Card
                   sx={{
-                    background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(42, 42, 42, 0.8) 100%)',
-                    border: '1px solid rgba(212, 175, 55, 0.2)',
+                    background: 'linear-gradient(145deg, hsl(var(--card)) 0%, hsla(var(--card-gradient-end), 0.05) 100%)',
+                    border: '1px solid hsla(var(--primary), 0.2)',
                     backdropFilter: 'blur(10px)',
                     transition: 'all 0.3s ease',
                     '&:hover': {
                       transform: 'translateY(-4px)',
-                      boxShadow: `0 8px 24px rgba(212, 175, 55, 0.3)`,
-                      border: '1px solid rgba(212, 175, 55, 0.4)',
+                      boxShadow: `0 8px 24px hsla(var(--primary), 0.3)`,
+                      border: '1px solid hsla(var(--primary), 0.4)',
                     },
                   }}
                 >
@@ -100,18 +100,18 @@ export default function Dashboard() {
                           width: 64,
                           height: 64,
                           borderRadius: '50%',
-                          background: `linear-gradient(135deg, ${card.color}33 0%, ${card.color}11 100%)`,
+                          background: `linear-gradient(135deg, hsl(${card.colorVar}) / 0.2, hsl(${card.colorVar}) / 0.05)`,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
                           margin: '0 auto 16px',
-                          border: `2px solid ${card.color}`,
+                          border: `2px solid hsl(${card.colorVar})`,
                         }}
                       >
                         <IconComponent 
                           sx={{ 
                             fontSize: 32,
-                            color: card.color,
+                            color: `hsl(${card.colorVar})`,
                           }} 
                         />
                       </Box>
@@ -119,7 +119,7 @@ export default function Dashboard() {
                         variant="h6" 
                         sx={{ 
                           fontWeight: 600,
-                          color: '#d4af37',
+                          color: 'hsl(var(--primary))',
                           mb: 1,
                         }}
                       >
@@ -127,7 +127,7 @@ export default function Dashboard() {
                       </Typography>
                       <Typography 
                         variant="body2" 
-                        sx={{ color: '#a8a8a8' }}
+                        sx={{ color: 'hsl(var(--muted-foreground))' }}
                       >
                         {card.description}
                       </Typography>
