@@ -8,6 +8,8 @@ import {
   IconButton,
   CircularProgress,
   Typography,
+  TextField,
+  InputAdornment,
 } from "@mui/material";
 import {
   Visibility as ViewIcon,
@@ -16,11 +18,11 @@ import {
   PersonOutline as PersonIcon,
   LocationOn as LocationIcon,
   Group as GroupIcon,
+  Search as SearchIcon,
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
 import { useSnackbar } from "@/contexts/SnackbarContext";
-import { PageHeader } from "@/components/PageHeader";
 
 export default function Routes() {
   const navigate = useNavigate();
@@ -95,13 +97,138 @@ export default function Routes() {
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
     <Container maxWidth="xl" sx={{ px: 2 }}>
-      <PageHeader
-        title="Routes Management"
-        showSearch
-        searchValue={searchQuery}
-        searchPlaceholder="Search routes by code, description, or delivery person..."
-        onSearchChange={setSearchQuery}
-      />
+      {/* Premium Title Section */}
+      <Box
+        sx={{
+          mb: 3,
+          p: { xs: 3, md: 4 },
+          borderRadius: 4,
+          background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+          border: '2px solid',
+          borderColor: '#d4af37',
+          position: 'relative',
+          overflow: 'hidden',
+          boxShadow: '0 8px 32px rgba(212, 175, 55, 0.2)',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '100%',
+            background: 'radial-gradient(circle at top right, rgba(212, 175, 55, 0.1) 0%, transparent 70%)',
+            pointerEvents: 'none',
+          },
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: '3px',
+            background: 'linear-gradient(90deg, transparent 0%, #d4af37 50%, transparent 100%)',
+          },
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 800,
+            background: 'linear-gradient(135deg, #fbbf24 0%, #f4e4b0 50%, #fbbf24 100%)',
+            backgroundSize: '200% auto',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            letterSpacing: '-0.5px',
+            textTransform: 'uppercase',
+            fontSize: { xs: '1.5rem', md: '2rem' },
+            position: 'relative',
+            display: 'inline-block',
+            zIndex: 1,
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: -8,
+              left: 0,
+              width: '60px',
+              height: '3px',
+              background: 'linear-gradient(90deg, #d4af37 0%, transparent 100%)',
+              borderRadius: '2px',
+            }
+          }}
+        >
+          Routes Management
+        </Typography>
+      </Box>
+
+      {/* Clean Search Section */}
+      <Box
+        sx={{
+          mb: 4,
+          p: 3,
+          bgcolor: 'background.paper',
+          borderRadius: 3,
+          border: '1px solid',
+          borderColor: 'divider',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+        }}
+      >
+        <TextField
+          fullWidth
+          placeholder="Search routes by code, description, or delivery person..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              bgcolor: 'rgba(212, 175, 55, 0.03)',
+              borderRadius: 2,
+              transition: 'all 0.3s ease',
+              '& fieldset': {
+                borderColor: 'rgba(212, 175, 55, 0.2)',
+                borderWidth: '2px',
+              },
+              '&:hover': {
+                bgcolor: 'rgba(212, 175, 55, 0.05)',
+                '& fieldset': {
+                  borderColor: 'rgba(212, 175, 55, 0.4)',
+                },
+              },
+              '&.Mui-focused': {
+                bgcolor: 'rgba(212, 175, 55, 0.08)',
+                boxShadow: '0 0 0 3px rgba(212, 175, 55, 0.1)',
+                '& fieldset': {
+                  borderColor: '#d4af37',
+                },
+              },
+              '& input': {
+                fontWeight: 500,
+                '&::placeholder': {
+                  opacity: 0.7,
+                },
+              },
+            },
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Box
+                  sx={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    bgcolor: 'rgba(212, 175, 55, 0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mr: 1,
+                  }}
+                >
+                  <SearchIcon sx={{ color: '#d4af37', fontSize: 20 }} />
+                </Box>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
 
       <Box
         sx={{
