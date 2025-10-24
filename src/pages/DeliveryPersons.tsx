@@ -8,14 +8,10 @@ import {
   Typography,
   Button,
   CircularProgress,
-  TextField,
-  InputAdornment,
   IconButton,
-  Chip,
 } from "@mui/material";
 import {
   Add as AddIcon,
-  Search as SearchIcon,
   Person as PersonIcon,
   LocalShipping as RouteIcon,
   People as ConsumersIcon,
@@ -79,167 +75,151 @@ export default function DeliveryPersons() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "hsl(var(--background))", py: 4 }}>
       <Container maxWidth="xl" sx={{ px: 2 }}>
         <PageHeader
           title="Delivery Persons"
-          description="Manage your delivery team"
-          actions={
-            <Button
-              variant="contained"
-              startIcon={<AddIcon />}
-              onClick={() => navigate("/delivery-persons/create")}
-              sx={{ bgcolor: "primary.main", color: "white" }}
-            >
-              Add Person
-            </Button>
-          }
+          showSearch
+          searchValue={searchQuery}
+          searchPlaceholder="Search by name..."
+          onSearchChange={setSearchQuery}
         />
 
-        <Card 
-          elevation={0} 
-          sx={{ 
-            mb: 3, 
-            bgcolor: "background.paper",
-            border: "1px solid",
-            borderColor: "divider",
-            borderRadius: 2,
-          }}
-        >
-          <CardContent>
-            <TextField
-              fullWidth
-              placeholder="Search by name..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </CardContent>
-        </Card>
-
         {filteredPersons.length === 0 ? (
-          <Card 
-            elevation={0} 
-            sx={{ 
-              bgcolor: "background.paper",
-              border: "1px solid",
-              borderColor: "divider",
-              borderRadius: 2,
-            }}
-          >
-            <CardContent>
-              <Box sx={{ textAlign: "center", py: 8 }}>
-                <PersonIcon sx={{ fontSize: 64, color: "text.secondary", mb: 2 }} />
-                <Typography variant="h6" color="text.secondary">
-                  {searchQuery ? "No delivery persons found" : "No delivery persons yet"}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  {searchQuery
-                    ? "Try a different search term"
-                    : "Add your first delivery person to get started"}
-                </Typography>
-                {!searchQuery && (
-                  <Button
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    onClick={() => navigate("/delivery-persons/create")}
-                    sx={{ bgcolor: "primary.main", color: "white" }}
-                  >
-                    Add Delivery Person
-                  </Button>
-                )}
-              </Box>
-            </CardContent>
-          </Card>
+          <Box sx={{ textAlign: "center", py: 16 }}>
+            <PersonIcon sx={{ fontSize: 64, color: "text.secondary", mb: 2 }} />
+            <Typography variant="h6" color="text.secondary">
+              {searchQuery ? "No delivery persons found" : "No delivery persons yet"}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              {searchQuery
+                ? "Try a different search term"
+                : "Add your first delivery person to get started"}
+            </Typography>
+            {!searchQuery && (
+              <Button
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={() => navigate("/delivery-persons/create")}
+                sx={{ bgcolor: "primary.main", color: "white" }}
+              >
+                Add Delivery Person
+              </Button>
+            )}
+          </Box>
         ) : (
-          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }, gap: 3 }}>
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }, gap: 3 }}>
             {filteredPersons.map((person) => (
               <Card
                 key={person.id}
-                elevation={0}
+                elevation={2}
                 sx={{
-                  bgcolor: "background.paper",
                   height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  border: "1px solid",
-                  borderColor: "divider",
-                  borderRadius: 2,
+                  bgcolor: "grey.100",
+                  borderRadius: 3,
+                  overflow: "hidden",
                   cursor: "pointer",
                   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  border: "2px solid",
+                  borderColor: "hsla(var(--primary), 0.3)",
                   "&:hover": {
                     transform: "translateY(-8px)",
-                    boxShadow: "0 20px 40px rgba(212, 175, 55, 0.25)",
+                    boxShadow: "0 12px 32px -10px rgba(0, 0, 0, 0.15)",
                     borderColor: "primary.main",
+                    bgcolor: "grey.200",
                   },
                 }}
+                onClick={() => navigate(`/delivery-persons/${person.id}`)}
               >
-                  <CardContent sx={{ flex: 1 }}>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
-                      <Box
-                        sx={{
-                          width: 48,
-                          height: 48,
-                          borderRadius: "50%",
-                          bgcolor: "hsla(var(--primary), 0.15)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          border: "2px solid hsl(var(--primary))",
+                <CardContent sx={{ p: 2.5 }}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 2.5 }}>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography 
+                        variant="overline" 
+                        sx={{ 
+                          color: "hsl(var(--primary))", 
+                          fontWeight: 700,
+                          fontSize: "0.7rem",
+                          letterSpacing: 1,
                         }}
                       >
-                        <PersonIcon sx={{ color: "hsl(var(--primary))", fontSize: 28 }} />
-                      </Box>
-                      <Box sx={{ flex: 1 }}>
-                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5 }}>
-                          {person.name}
-                        </Typography>
-                        <Chip label={`ID: ${person.id}`} size="small" />
-                      </Box>
+                        ID: {person.id}
+                      </Typography>
+                      <Typography 
+                        variant="h6" 
+                        sx={{ 
+                          fontWeight: 600, 
+                          color: "text.primary",
+                          fontSize: "1rem",
+                          mt: 0.5,
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {person.name}
+                      </Typography>
                     </Box>
-
-                    <Box sx={{ display: "flex", gap: 3, mb: 2 }}>
-                      <Box>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
-                          <RouteIcon sx={{ fontSize: 18, color: "text.secondary" }} />
-                          <Typography variant="caption" color="text.secondary">
-                            Routes
-                          </Typography>
-                        </Box>
-                        <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                          {person.route_count || 0}
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
-                          <ConsumersIcon sx={{ fontSize: 18, color: "text.secondary" }} />
-                          <Typography variant="caption" color="text.secondary">
-                            Consumers
-                          </Typography>
-                        </Box>
-                        <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                          {person.consumer_count || 0}
-                        </Typography>
-                      </Box>
+                    <Box sx={{ display: "flex", gap: 0.5, ml: 1 }}>
+                      <IconButton 
+                        size="small" 
+                        color="primary" 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/delivery-persons/${person.id}`);
+                        }}
+                        sx={{
+                          transition: "all 0.2s",
+                          "&:hover": {
+                            transform: "scale(1.1)",
+                            bgcolor: "primary.light",
+                          }
+                        }}
+                      >
+                        <ArrowForwardIcon fontSize="small" />
+                      </IconButton>
                     </Box>
-                  </CardContent>
-
-                  <Box sx={{ p: 2, pt: 0 }}>
-                    <Button
-                      fullWidth
-                      variant="outlined"
-                      endIcon={<ArrowForwardIcon />}
-                      onClick={() => navigate(`/delivery-persons/${person.id}`)}
-                    >
-                      View Details
-                    </Button>
                   </Box>
+
+                  <Box sx={{ display: "flex", gap: 1.5, mb: 0 }}>
+                    <Box 
+                      sx={{ 
+                        flex: 1, 
+                        textAlign: "center", 
+                        p: 2, 
+                        bgcolor: "info.main", 
+                        borderRadius: 2,
+                        border: "1px solid",
+                        borderColor: "info.dark",
+                      }}
+                    >
+                      <RouteIcon sx={{ mb: 0.5, color: "white" }} />
+                      <Typography variant="h5" sx={{ fontWeight: 700, color: "white" }}>
+                        {person.route_count || 0}
+                      </Typography>
+                      <Typography variant="caption" sx={{ color: "white", fontWeight: 500, opacity: 0.9 }}>
+                        Routes
+                      </Typography>
+                    </Box>
+                    <Box 
+                      sx={{ 
+                        flex: 1, 
+                        textAlign: "center", 
+                        p: 2, 
+                        bgcolor: "success.main", 
+                        borderRadius: 2,
+                        border: "1px solid",
+                        borderColor: "success.dark",
+                      }}
+                    >
+                      <ConsumersIcon sx={{ mb: 0.5, color: "white" }} />
+                      <Typography variant="h5" sx={{ fontWeight: 700, color: "white" }}>
+                        {person.consumer_count || 0}
+                      </Typography>
+                      <Typography variant="caption" sx={{ color: "white", fontWeight: 500, opacity: 0.9 }}>
+                        Consumers
+                      </Typography>
+                    </Box>
+                  </Box>
+                </CardContent>
                 </Card>
             ))}
           </Box>
