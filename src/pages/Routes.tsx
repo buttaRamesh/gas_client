@@ -120,18 +120,18 @@ export default function Routes() {
             elevation={2}
             sx={{
               height: "100%",
-              background: "linear-gradient(145deg, #ffffff 0%, rgba(212, 175, 55, 0.05) 100%)",
+              background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.15) 100%)",
               borderRadius: 3,
               overflow: "hidden",
               cursor: "pointer",
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               border: "2px solid",
-              borderColor: "rgba(212, 175, 55, 0.2)",
+              borderColor: "rgba(20, 184, 166, 0.3)",
               "&:hover": {
                 transform: "translateY(-8px)",
-                boxShadow: "0 12px 32px -10px rgba(212, 175, 55, 0.4)",
-                borderColor: "#d4af37",
-                background: "linear-gradient(145deg, #ffffff 0%, rgba(212, 175, 55, 0.1) 100%)",
+                boxShadow: "0 12px 32px -10px rgba(20, 184, 166, 0.4)",
+                borderColor: "rgba(20, 184, 166, 0.6)",
+                background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.25) 100%)",
               },
             }}
             onClick={() => navigate(`/routes/${route.id}`)}
