@@ -113,7 +113,7 @@ const RouteAreaCreate = () => {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: '#f8fafc', py: 4 }}>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <PageHeader title="Create Route Area" />
 
         <Card 
