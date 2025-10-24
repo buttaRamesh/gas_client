@@ -15,6 +15,7 @@ import RouteAreaCreate from "./pages/RouteAreaCreate";
 import RouteStatistics from "./pages/RouteStatistics";
 import RouteHistory from "./pages/RouteHistory";
 import Settings from "./pages/Settings";
+import SidebarDemo from "./pages/SidebarDemo";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/demo" element={<LayoutDemo />} />
+            <Route path="/sidebar-demo" element={<SidebarDemo />} />
             <Route path="/routes" element={<RoutesPage />} />
             <Route path="/routes/statistics" element={<RouteStatistics />} />
             <Route path="/routes/history" element={<RouteHistory />} />
