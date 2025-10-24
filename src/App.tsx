@@ -28,8 +28,8 @@ const App = () => (
       <SnackbarProvider>
         <BrowserRouter>
           <Routes>
-            {/* Main app - Dashboard */}
-            <Route path="/" element={<AppLayout><Dashboard /></AppLayout>} />
+            {/* Main dashboard - full screen without sidebar */}
+            <Route path="/" element={<Dashboard />} />
             
             {/* Full-screen demo pages */}
             <Route path="/demo" element={<LayoutDemo />} />
