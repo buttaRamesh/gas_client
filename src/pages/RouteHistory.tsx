@@ -97,7 +97,7 @@ export default function RouteHistory() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
       <Container maxWidth="xl" sx={{ px: 2 }}>
         <PageHeader
           title="Route History"
@@ -110,7 +110,7 @@ export default function RouteHistory() {
         />
 
         {historyItems.length === 0 ? (
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ textAlign: "center", py: 8 }}>
                 <ScheduleIcon sx={{ fontSize: 64, color: "text.secondary", mb: 2 }} />
@@ -130,6 +130,7 @@ export default function RouteHistory() {
                 key={`${item.id}-${index}`}
                 elevation={3}
                 sx={{
+                  bgcolor: "background.paper",
                   transition: "transform 0.2s, box-shadow 0.2s",
                   "&:hover": {
                     transform: "translateY(-2px)",

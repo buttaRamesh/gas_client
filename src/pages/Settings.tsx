@@ -40,14 +40,14 @@ export default function Settings() {
   const { currentTheme, setTheme } = useTheme();
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
       <Container maxWidth="lg">
         <PageHeader
           title="Settings"
           description="Customize your application preferences"
         />
 
-        <Card sx={{ mb: 4 }}>
+        <Card sx={{ mb: 4, bgcolor: "background.paper" }}>
           <CardContent>
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
               Theme Selection
@@ -122,7 +122,7 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card sx={{ bgcolor: "background.paper" }}>
           <CardContent>
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
               About

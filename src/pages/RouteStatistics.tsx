@@ -127,7 +127,7 @@ export default function RouteStatistics() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
       <Container maxWidth="xl" sx={{ px: 2 }}>
         <PageHeader
           title="Route Statistics"
@@ -152,7 +152,7 @@ export default function RouteStatistics() {
             mb: 4,
           }}
         >
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <Box
@@ -179,7 +179,7 @@ export default function RouteStatistics() {
             </CardContent>
           </Card>
 
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <Box
@@ -206,7 +206,7 @@ export default function RouteStatistics() {
             </CardContent>
           </Card>
 
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <Box
@@ -233,7 +233,7 @@ export default function RouteStatistics() {
             </CardContent>
           </Card>
 
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <Box
@@ -275,7 +275,7 @@ export default function RouteStatistics() {
           }}
         >
           {/* Top Routes by Areas */}
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
                 Top 10 Routes by Areas
@@ -292,7 +292,7 @@ export default function RouteStatistics() {
           </Card>
 
           {/* Top Routes by Consumers */}
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
                 Top 10 Routes by Consumers
@@ -309,7 +309,7 @@ export default function RouteStatistics() {
           </Card>
 
           {/* Assignment Distribution */}
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
                 Route Assignment Status
@@ -340,7 +340,7 @@ export default function RouteStatistics() {
           </Card>
 
           {/* Recent Activity Summary */}
-          <Card elevation={3}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
                 Quick Insights

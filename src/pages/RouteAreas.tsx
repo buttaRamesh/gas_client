@@ -162,7 +162,7 @@ const RouteAreas = () => {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.100', py: 4 }}>
       <Container maxWidth="xl">
         <PageHeader
           title="Route Areas"
@@ -189,7 +189,7 @@ const RouteAreas = () => {
           </FormControl>
         </Box>
 
-        <TableContainer component={Paper} elevation={3} sx={{ borderRadius: 2 }}>
+        <TableContainer component={Paper} elevation={3} sx={{ borderRadius: 2, bgcolor: "background.paper" }}>
           <Table>
             <TableHead>
               <TableRow

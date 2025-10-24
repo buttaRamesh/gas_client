@@ -98,7 +98,7 @@ export default function RouteDetail() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
       <Container maxWidth="lg">
         <PageHeader
           title="Route Details"
@@ -123,7 +123,7 @@ export default function RouteDetail() {
         />
 
         <Box sx={{ display: "grid", gap: 3 }}>
-          <Card elevation={3} sx={{ bgcolor: "grey.200" }}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
                 Route Information
@@ -173,7 +173,7 @@ export default function RouteDetail() {
           </Card>
 
           <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" }, gap: 3 }}>
-            <Card elevation={3} sx={{ bgcolor: "grey.200" }}>
+            <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
                   <Box
@@ -203,7 +203,7 @@ export default function RouteDetail() {
               </CardContent>
             </Card>
 
-            <Card elevation={3} sx={{ bgcolor: "grey.200" }}>
+            <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
                   <Box
@@ -234,7 +234,7 @@ export default function RouteDetail() {
             </Card>
           </Box>
 
-          <Card elevation={3} sx={{ bgcolor: "grey.200" }}>
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
                 <PlaceIcon color="primary" />
