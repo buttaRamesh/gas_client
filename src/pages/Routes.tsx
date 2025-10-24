@@ -131,7 +131,7 @@ export default function Routes() {
                 transform: "translateY(-8px)",
                 boxShadow: "0 12px 32px -10px hsla(var(--primary), 0.4)",
                 borderColor: "hsla(var(--primary), 0.6)",
-                background: "linear-gradient(145deg, hsl(var(--card-dark)) 0%, hsla(var(--card-gradient-end), 0.12) 100%)",
+                background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsla(var(--card-gradient-end), 0.15) 100%)",
               },
             }}
             onClick={() => navigate(`/routes/${route.id}`)}
