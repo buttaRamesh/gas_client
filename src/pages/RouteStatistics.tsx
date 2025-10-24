@@ -18,7 +18,7 @@ import {
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
-import { useToast } from "@/hooks/use-toast";
+import { useSnackbar } from "@/contexts/SnackbarContext";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 import { useTheme as useMuiTheme } from '@mui/material/styles';
 
@@ -32,7 +32,7 @@ interface Statistics {
 
 export default function RouteStatistics() {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { showSnackbar } = useSnackbar();
   const muiTheme = useMuiTheme();
   const [loading, setLoading] = useState(true);
   const [routes, setRoutes] = useState<Route[]>([]);
@@ -86,11 +86,7 @@ export default function RouteStatistics() {
       });
     } catch (err: any) {
       console.error("Failed to fetch statistics:", err);
-      toast({
-        title: "Error",
-        description: "Failed to load statistics",
-        variant: "destructive",
-      });
+      showSnackbar("Failed to load statistics", "error");
     } finally {
       setLoading(false);
     }

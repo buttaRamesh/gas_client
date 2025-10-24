@@ -30,14 +30,14 @@ import {
   Add as AddIcon,
   Delete as DeleteIcon,
 } from '@mui/icons-material';
-import { useToast } from '@/hooks/use-toast';
+import { useSnackbar } from '@/contexts/SnackbarContext';
 
 type SortField = 'area_name' | 'consumer_count' | 'route';
 type SortOrder = 'asc' | 'desc';
 
 const RouteAreas = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { showSnackbar } = useSnackbar();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [areas, setAreas] = useState<Area[]>([]);
   const [loading, setLoading] = useState(true);
@@ -86,11 +86,7 @@ const RouteAreas = () => {
     } catch (error: any) {
       console.error('Error fetching areas:', error);
       setAreas([]);
-      toast({
-        title: 'Error',
-        description: 'Failed to fetch route areas',
-        variant: 'destructive',
-      });
+      showSnackbar('Failed to fetch route areas', 'error');
     } finally {
       setLoading(false);
     }
@@ -148,18 +144,11 @@ const RouteAreas = () => {
 
     try {
       await areasApi.delete(area.id);
-      toast({
-        title: "Success",
-        description: "Area deleted successfully",
-      });
+      showSnackbar("Area deleted successfully", "success");
       fetchAreas();
     } catch (err: any) {
       console.error("Failed to delete area:", err);
-      toast({
-        title: "Error",
-        description: err.response?.data?.message || "Failed to delete area",
-        variant: "destructive",
-      });
+      showSnackbar(err.response?.data?.message || "Failed to delete area", "error");
     }
   };
 

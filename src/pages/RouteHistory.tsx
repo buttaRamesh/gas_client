@@ -19,7 +19,7 @@ import {
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
-import { useToast } from "@/hooks/use-toast";
+import { useSnackbar } from "@/contexts/SnackbarContext";
 
 interface RouteHistoryItem extends Route {
   action?: 'created' | 'updated' | 'deleted';
@@ -28,7 +28,7 @@ interface RouteHistoryItem extends Route {
 
 export default function RouteHistory() {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { showSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(true);
   const [historyItems, setHistoryItems] = useState<RouteHistoryItem[]>([]);
 
@@ -55,11 +55,7 @@ export default function RouteHistory() {
       setHistoryItems(sortedRoutes);
     } catch (err: any) {
       console.error("Failed to fetch history:", err);
-      toast({
-        title: "Error",
-        description: "Failed to load route history",
-        variant: "destructive",
-      });
+      showSnackbar("Failed to load route history", "error");
     } finally {
       setLoading(false);
     }

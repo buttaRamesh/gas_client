@@ -22,7 +22,7 @@ import {
 } from "@mui/icons-material";
 import { routesApi, areasApi } from "@/services/api";
 import { Area } from "@/types/routes";
-import { useToast } from "@/hooks/use-toast";
+import { useSnackbar } from "@/contexts/SnackbarContext";
 
 const routeSchema = z.object({
   area_code: z.string().min(1, "Area code is required").max(50, "Area code must be less than 50 characters"),
@@ -34,7 +34,7 @@ type RouteFormData = z.infer<typeof routeSchema>;
 
 export default function RouteCreate() {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { showSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [availableAreas, setAvailableAreas] = useState<Area[]>([]);
   const [selectedAreas, setSelectedAreas] = useState<Area[]>([]);
@@ -65,11 +65,7 @@ export default function RouteCreate() {
       setAvailableAreas(data);
     } catch (err: any) {
       console.error("Failed to fetch available areas:", err);
-      toast({
-        title: "Error",
-        description: "Failed to fetch available areas",
-        variant: "destructive",
-      });
+      showSnackbar("Failed to fetch available areas", "error");
     } finally {
       setLoadingAreas(false);
     }
@@ -110,19 +106,12 @@ export default function RouteCreate() {
         throw new Error("Route created but no ID returned from server");
       }
 
-      toast({
-        title: "Success",
-        description: "Route created successfully",
-      });
+      showSnackbar("Route created successfully", "success");
 
       navigate(`/routes/${newRouteId}`);
     } catch (err: any) {
       console.error("Failed to create route:", err);
-      toast({
-        title: "Error",
-        description: err.response?.data?.message || err.message || "Failed to create route",
-        variant: "destructive",
-      });
+      showSnackbar(err.response?.data?.message || err.message || "Failed to create route", "error");
     } finally {
       setLoading(false);
     }

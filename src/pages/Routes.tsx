@@ -26,7 +26,7 @@ import {
 } from "@mui/icons-material";
 import { routesApi } from "@/services/api";
 import { Route } from "@/types/routes";
-import { useToast } from "@/hooks/use-toast";
+import { useSnackbar } from "@/contexts/SnackbarContext";
 
 export default function Routes() {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function Routes() {
   const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
+  const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
     fetchRoutes();
@@ -68,11 +68,7 @@ export default function Routes() {
       console.error("Failed to fetch routes:", err);
       setRoutes([]);
       setFilteredRoutes([]);
-      toast({
-        title: "Error",
-        description: err.message || "Failed to fetch routes",
-        variant: "destructive",
-      });
+      showSnackbar(err.message || "Failed to fetch routes", "error");
     } finally {
       setLoading(false);
     }
@@ -86,18 +82,11 @@ export default function Routes() {
 
     try {
       await routesApi.delete(route.id);
-      toast({
-        title: "Success",
-        description: "Route deleted successfully",
-      });
+      showSnackbar("Route deleted successfully", "success");
       fetchRoutes();
     } catch (err: any) {
       console.error("Failed to delete route:", err);
-      toast({
-        title: "Error",
-        description: err.response?.data?.message || "Failed to delete route",
-        variant: "destructive",
-      });
+      showSnackbar(err.response?.data?.message || "Failed to delete route", "error");
     }
   };
 

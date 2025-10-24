@@ -25,7 +25,7 @@ import {
 } from "@mui/icons-material";
 import { routesApi, areasApi } from "@/services/api";
 import { Route, Area } from "@/types/routes";
-import { useToast } from "@/hooks/use-toast";
+import { useSnackbar } from "@/contexts/SnackbarContext";
 
 const routeSchema = z.object({
   area_code: z.string().trim().min(1, "Area code is required").max(50, "Area code must be less than 50 characters"),
@@ -45,7 +45,7 @@ export default function RouteEdit() {
   const [availableAreas, setAvailableAreas] = useState<Area[]>([]);
   const [selectedArea, setSelectedArea] = useState<Area | null>(null);
   const [areasLoading, setAreasLoading] = useState(false);
-  const { toast } = useToast();
+  const { showSnackbar } = useSnackbar();
 
   const {
     control,
@@ -82,11 +82,7 @@ export default function RouteEdit() {
       });
     } catch (err: any) {
       console.error("Failed to fetch route:", err);
-      toast({
-        title: "Error",
-        description: err.message || "Failed to fetch route details",
-        variant: "destructive",
-      });
+      showSnackbar(err.message || "Failed to fetch route details", "error");
       navigate("/routes");
     } finally {
       setLoading(false);
@@ -122,17 +118,10 @@ export default function RouteEdit() {
       setAvailableAreas(availableAreas.filter(a => a.id !== selectedArea.id));
       setSelectedArea(null);
       
-      toast({
-        title: "Success",
-        description: "Area added successfully",
-      });
+      showSnackbar("Area added successfully", "success");
     } catch (err: any) {
       console.error("Failed to add area:", err);
-      toast({
-        title: "Error",
-        description: err.message || "Failed to add area",
-        variant: "destructive",
-      });
+      showSnackbar(err.message || "Failed to add area", "error");
     } finally {
       setSaving(false);
     }
@@ -146,17 +135,10 @@ export default function RouteEdit() {
       setAssignedAreas(assignedAreas.filter(a => a.id !== area.id));
       setAvailableAreas([...availableAreas, area]);
       
-      toast({
-        title: "Success",
-        description: "Area removed successfully",
-      });
+      showSnackbar("Area removed successfully", "success");
     } catch (err: any) {
       console.error("Failed to remove area:", err);
-      toast({
-        title: "Error",
-        description: err.message || "Failed to remove area",
-        variant: "destructive",
-      });
+      showSnackbar(err.message || "Failed to remove area", "error");
     } finally {
       setSaving(false);
     }
@@ -172,19 +154,12 @@ export default function RouteEdit() {
         delivery_person_name: data.delivery_person_name || null,
       });
       
-      toast({
-        title: "Success",
-        description: "Route updated successfully",
-      });
+      showSnackbar("Route updated successfully", "success");
       
       navigate(`/routes/${id}`);
     } catch (err: any) {
       console.error("Failed to update route:", err);
-      toast({
-        title: "Error",
-        description: err.message || "Failed to update route",
-        variant: "destructive",
-      });
+      showSnackbar(err.message || "Failed to update route", "error");
     } finally {
       setSaving(false);
     }

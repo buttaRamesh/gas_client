@@ -26,7 +26,7 @@ import {
   LocationOn as MapPinIcon,
   Route as RouteIcon,
 } from '@mui/icons-material';
-import { useToast } from '@/hooks/use-toast';
+import { useSnackbar } from '@/contexts/SnackbarContext';
 
 const areaSchema = z.object({
   area_name: z.string().min(1, 'Area name is required'),
@@ -37,7 +37,7 @@ type AreaFormData = z.infer<typeof areaSchema>;
 
 const RouteAreaCreate = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { showSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [routes, setRoutes] = useState<Route[]>([]);
   const [loadingRoutes, setLoadingRoutes] = useState(true);
@@ -74,11 +74,7 @@ const RouteAreaCreate = () => {
       setRoutes(routesData);
     } catch (error) {
       console.error('Error fetching routes:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to fetch routes',
-        variant: 'destructive',
-      });
+      showSnackbar('Failed to fetch routes', 'error');
     } finally {
       setLoadingRoutes(false);
     }
@@ -95,19 +91,12 @@ const RouteAreaCreate = () => {
 
       await areasApi.create(payload);
 
-      toast({
-        title: 'Success',
-        description: 'Route area created successfully',
-      });
+      showSnackbar('Route area created successfully', 'success');
 
       navigate('/route-areas');
     } catch (error: any) {
       console.error('Error creating area:', error);
-      toast({
-        title: 'Error',
-        description: error.response?.data?.message || 'Failed to create route area',
-        variant: 'destructive',
-      });
+      showSnackbar(error.response?.data?.message || 'Failed to create route area', 'error');
     } finally {
       setLoading(false);
     }
