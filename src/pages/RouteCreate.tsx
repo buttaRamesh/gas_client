@@ -119,14 +119,20 @@ export default function RouteCreate() {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
-      <Container maxWidth="lg">
+    <Box sx={{ minHeight: "100vh", bgcolor: "#f8fafc", py: 4 }}>
+      <Container maxWidth="md">
         <PageHeader title="Create New Route" />
 
-        <Card elevation={2}>
+        <Card 
+          elevation={3}
+          sx={{
+            background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.03) 100%)",
+            border: "1px solid rgba(20, 184, 166, 0.15)",
+          }}
+        >
           <CardContent sx={{ p: 4 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 3.5 }}>
                 <TextField
                   label="Area Code"
                   {...register("area_code")}
@@ -134,6 +140,18 @@ export default function RouteCreate() {
                   helperText={errors.area_code?.message}
                   fullWidth
                   required
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      fontSize: "1rem",
+                      fontWeight: 500,
+                      "&:hover fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.5)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.8)",
+                      },
+                    },
+                  }}
                 />
 
                 <TextField
@@ -144,7 +162,19 @@ export default function RouteCreate() {
                   fullWidth
                   required
                   multiline
-                  rows={2}
+                  rows={3}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      fontSize: "1rem",
+                      fontWeight: 500,
+                      "&:hover fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.5)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.8)",
+                      },
+                    },
+                  }}
                 />
 
                 <TextField
@@ -153,24 +183,43 @@ export default function RouteCreate() {
                   error={!!errors.delivery_person_name}
                   helperText={errors.delivery_person_name?.message}
                   fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      fontSize: "1rem",
+                      fontWeight: 500,
+                      "&:hover fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.5)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.8)",
+                      },
+                    },
+                  }}
                 />
 
                 <Box>
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  <Typography variant="h6" sx={{ mb: 2.5, fontWeight: 600, fontSize: "1.125rem" }}>
                     Assigned Areas ({selectedAreas.length})
                   </Typography>
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mb: 3 }}>
                     {selectedAreas.length > 0 ? (
                       selectedAreas.map((area) => (
                         <Chip
                           key={area.id}
                           label={area.area_name}
                           onDelete={() => handleRemoveArea(area.id)}
-                          color="primary"
+                          sx={{
+                            bgcolor: "rgba(20, 184, 166, 0.1)",
+                            color: "rgb(20, 184, 166)",
+                            borderColor: "rgba(20, 184, 166, 0.3)",
+                            border: "1px solid",
+                            fontWeight: 500,
+                            fontSize: "0.875rem",
+                          }}
                         />
                       ))
                     ) : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                         No areas assigned yet
                       </Typography>
                     )}
@@ -187,11 +236,23 @@ export default function RouteCreate() {
                         {...params}
                         label="Add Area"
                         placeholder="Search and select an area"
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            fontSize: "1rem",
+                            fontWeight: 500,
+                            "&:hover fieldset": {
+                              borderColor: "rgba(20, 184, 166, 0.5)",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "rgba(20, 184, 166, 0.8)",
+                            },
+                          },
+                        }}
                         InputProps={{
                           ...params.InputProps,
                           startAdornment: (
                             <>
-                              <AddIcon sx={{ ml: 1, color: "text.secondary" }} />
+                              <AddIcon sx={{ ml: 1, color: "rgba(20, 184, 166, 0.7)" }} />
                               {params.InputProps.startAdornment}
                             </>
                           ),
@@ -201,11 +262,23 @@ export default function RouteCreate() {
                   />
                 </Box>
 
-                <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end", mt: 2 }}>
+                <Box sx={{ display: "flex", gap: 2.5, justifyContent: "flex-end", mt: 3 }}>
                   <Button
                     variant="outlined"
                     onClick={() => navigate("/routes")}
                     disabled={loading}
+                    sx={{
+                      px: 3.5,
+                      py: 1.25,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      borderColor: "rgba(20, 184, 166, 0.4)",
+                      color: "rgb(20, 184, 166)",
+                      "&:hover": {
+                        borderColor: "rgb(20, 184, 166)",
+                        bgcolor: "rgba(20, 184, 166, 0.05)",
+                      },
+                    }}
                   >
                     Cancel
                   </Button>
@@ -214,7 +287,16 @@ export default function RouteCreate() {
                     variant="contained"
                     startIcon={loading ? <CircularProgress size={20} /> : <SaveIcon />}
                     disabled={loading}
-                    sx={{ px: 4 }}
+                    sx={{
+                      px: 4,
+                      py: 1.25,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      bgcolor: "rgb(20, 184, 166)",
+                      "&:hover": {
+                        bgcolor: "rgb(17, 153, 138)",
+                      },
+                    }}
                   >
                     {loading ? "Creating..." : "Create Route"}
                   </Button>

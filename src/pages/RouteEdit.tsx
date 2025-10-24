@@ -177,7 +177,7 @@ export default function RouteEdit() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.50", py: 4 }}>
+    <Box sx={{ minHeight: "100vh", bgcolor: "#f8fafc", py: 4 }}>
       <Container maxWidth="md">
         <PageHeader
           title="Edit Route"
@@ -189,10 +189,16 @@ export default function RouteEdit() {
           }
         />
 
-        <Card elevation={3} sx={{ bgcolor: "grey.200" }}>
-          <CardContent>
+        <Card 
+          elevation={3} 
+          sx={{ 
+            background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.03) 100%)",
+            border: "1px solid rgba(20, 184, 166, 0.15)",
+          }}
+        >
+          <CardContent sx={{ p: 4 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Box sx={{ display: "grid", gap: 3 }}>
+              <Box sx={{ display: "grid", gap: 3.5 }}>
                 <Controller
                   name="area_code"
                   control={control}
@@ -204,6 +210,18 @@ export default function RouteEdit() {
                       error={!!errors.area_code}
                       helperText={errors.area_code?.message}
                       disabled={saving}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          fontSize: "1rem",
+                          fontWeight: 500,
+                          "&:hover fieldset": {
+                            borderColor: "rgba(20, 184, 166, 0.5)",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "rgba(20, 184, 166, 0.8)",
+                          },
+                        },
+                      }}
                     />
                   )}
                 />
@@ -221,6 +239,18 @@ export default function RouteEdit() {
                       error={!!errors.area_code_description}
                       helperText={errors.area_code_description?.message}
                       disabled={saving}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          fontSize: "1rem",
+                          fontWeight: 500,
+                          "&:hover fieldset": {
+                            borderColor: "rgba(20, 184, 166, 0.5)",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "rgba(20, 184, 166, 0.8)",
+                          },
+                        },
+                      }}
                     />
                   )}
                 />
@@ -237,38 +267,55 @@ export default function RouteEdit() {
                       error={!!errors.delivery_person_name}
                       helperText={errors.delivery_person_name?.message || "Leave empty if unassigned"}
                       disabled={saving}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          fontSize: "1rem",
+                          fontWeight: 500,
+                          "&:hover fieldset": {
+                            borderColor: "rgba(20, 184, 166, 0.5)",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "rgba(20, 184, 166, 0.8)",
+                          },
+                        },
+                      }}
                     />
                   )}
                 />
 
-                <Divider sx={{ my: 3 }} />
+                <Divider sx={{ my: 2 }} />
 
-                <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 2.5, fontSize: "1.125rem" }}>
                   Manage Areas
                 </Typography>
 
                 <Box sx={{ mb: 3 }}>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, fontWeight: 500 }}>
                     Assigned Areas ({assignedAreas.length})
                   </Typography>
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}>
                     {assignedAreas.length > 0 ? (
-                      assignedAreas.map((area, index) => {
-                        const colors = ['primary', 'secondary', 'success', 'info', 'warning'] as const;
-                        const color = colors[index % colors.length];
+                      assignedAreas.map((area) => {
                         return (
                           <Chip
                             key={area.id}
                             label={area.area_name}
-                            color={color}
                             onDelete={() => handleRemoveArea(area)}
                             deleteIcon={<DeleteIcon />}
                             disabled={saving}
+                            sx={{
+                              bgcolor: "rgba(20, 184, 166, 0.1)",
+                              color: "rgb(20, 184, 166)",
+                              borderColor: "rgba(20, 184, 166, 0.3)",
+                              border: "1px solid",
+                              fontWeight: 500,
+                              fontSize: "0.875rem",
+                            }}
                           />
                         );
                       })
                     ) : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                         No areas assigned
                       </Typography>
                     )}
@@ -276,7 +323,7 @@ export default function RouteEdit() {
                 </Box>
 
                 <Box>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, fontWeight: 500 }}>
                     Add Area
                   </Typography>
                   <Box sx={{ display: "flex", gap: 2 }}>
@@ -292,6 +339,18 @@ export default function RouteEdit() {
                         <TextField
                           {...params}
                           placeholder="Select an area to add"
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              fontSize: "1rem",
+                              fontWeight: 500,
+                              "&:hover fieldset": {
+                                borderColor: "rgba(20, 184, 166, 0.5)",
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderColor: "rgba(20, 184, 166, 0.8)",
+                              },
+                            },
+                          }}
                           InputProps={{
                             ...params.InputProps,
                             endAdornment: (
@@ -309,17 +368,39 @@ export default function RouteEdit() {
                       startIcon={<AddIcon />}
                       onClick={handleAddArea}
                       disabled={!selectedArea || saving}
+                      sx={{
+                        px: 3.5,
+                        py: 1.25,
+                        fontSize: "0.95rem",
+                        fontWeight: 600,
+                        bgcolor: "rgb(20, 184, 166)",
+                        "&:hover": {
+                          bgcolor: "rgb(17, 153, 138)",
+                        },
+                      }}
                     >
                       Add
                     </Button>
                   </Box>
                 </Box>
 
-                <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end", mt: 3 }}>
+                <Box sx={{ display: "flex", gap: 2.5, justifyContent: "flex-end", mt: 3 }}>
                   <Button
                     variant="outlined"
                     onClick={() => navigate(`/routes/${id}`)}
                     disabled={saving}
+                    sx={{
+                      px: 3.5,
+                      py: 1.25,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      borderColor: "rgba(20, 184, 166, 0.4)",
+                      color: "rgb(20, 184, 166)",
+                      "&:hover": {
+                        borderColor: "rgb(20, 184, 166)",
+                        bgcolor: "rgba(20, 184, 166, 0.05)",
+                      },
+                    }}
                   >
                     Cancel
                   </Button>
@@ -328,6 +409,16 @@ export default function RouteEdit() {
                     variant="contained"
                     startIcon={saving ? <CircularProgress size={20} /> : <SaveIcon />}
                     disabled={saving}
+                    sx={{
+                      px: 4,
+                      py: 1.25,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      bgcolor: "rgb(20, 184, 166)",
+                      "&:hover": {
+                        bgcolor: "rgb(17, 153, 138)",
+                      },
+                    }}
                   >
                     {saving ? "Saving..." : "Save Changes"}
                   </Button>

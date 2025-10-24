@@ -112,29 +112,35 @@ const RouteAreaCreate = () => {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#f8fafc', py: 4 }}>
       <Container maxWidth="md">
         <PageHeader title="Create Route Area" />
 
-        <Card elevation={3}>
+        <Card 
+          elevation={3}
+          sx={{
+            background: "linear-gradient(145deg, #ffffff 0%, rgba(20, 184, 166, 0.03) 100%)",
+            border: "1px solid rgba(20, 184, 166, 0.15)",
+          }}
+        >
           <CardContent sx={{ p: 4 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pb: 2, borderBottom: 1, borderColor: 'divider' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, pb: 2.5, borderBottom: 1, borderColor: 'rgba(20, 184, 166, 0.2)' }}>
                   <Box
                     sx={{
-                      width: 40,
-                      height: 40,
+                      width: 44,
+                      height: 44,
                       borderRadius: 2,
-                      bgcolor: 'primary.light',
+                      bgcolor: 'rgba(20, 184, 166, 0.1)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}
                   >
-                    <MapPinIcon sx={{ color: 'primary.main' }} />
+                    <MapPinIcon sx={{ color: 'rgb(20, 184, 166)', fontSize: 24 }} />
                   </Box>
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1.125rem' }}>
                     Area Information
                   </Typography>
                 </Box>
@@ -147,14 +153,41 @@ const RouteAreaCreate = () => {
                   fullWidth
                   required
                   placeholder="e.g., Downtown District"
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      fontSize: "1rem",
+                      fontWeight: 500,
+                      "&:hover fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.5)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.8)",
+                      },
+                    },
+                  }}
                   InputProps={{
                     startAdornment: (
-                      <MapPinIcon sx={{ mr: 1, color: 'primary.main' }} />
+                      <MapPinIcon sx={{ mr: 1, color: 'rgba(20, 184, 166, 0.7)' }} />
                     ),
                   }}
                 />
 
-                <FormControl fullWidth error={!!errors.route}>
+                <FormControl 
+                  fullWidth 
+                  error={!!errors.route}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      fontSize: "1rem",
+                      fontWeight: 500,
+                      "&:hover fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.5)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "rgba(20, 184, 166, 0.8)",
+                      },
+                    },
+                  }}
+                >
                   <InputLabel>Assign to Route (Optional)</InputLabel>
                   <Select
                     value={selectedRoute?.toString() || ''}
@@ -163,7 +196,7 @@ const RouteAreaCreate = () => {
                       setValue('route', value ? parseInt(value) : null);
                     }}
                     label="Assign to Route (Optional)"
-                    startAdornment={<RouteIcon sx={{ mr: 1, color: 'primary.main' }} />}
+                    startAdornment={<RouteIcon sx={{ mr: 1, color: 'rgba(20, 184, 166, 0.7)' }} />}
                   >
                     <MenuItem value="">
                       <em>No route assigned</em>
@@ -179,12 +212,23 @@ const RouteAreaCreate = () => {
                   )}
                 </FormControl>
 
-                <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end', mt: 2 }}>
+                <Box sx={{ display: 'flex', gap: 2.5, justifyContent: 'flex-end', mt: 3 }}>
                   <Button
                     variant="outlined"
                     onClick={() => navigate('/route-areas')}
                     disabled={loading}
-                    sx={{ px: 3 }}
+                    sx={{
+                      px: 3.5,
+                      py: 1.25,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      borderColor: "rgba(20, 184, 166, 0.4)",
+                      color: "rgb(20, 184, 166)",
+                      "&:hover": {
+                        borderColor: "rgb(20, 184, 166)",
+                        bgcolor: "rgba(20, 184, 166, 0.05)",
+                      },
+                    }}
                   >
                     Cancel
                   </Button>
@@ -193,7 +237,16 @@ const RouteAreaCreate = () => {
                     variant="contained"
                     disabled={loading}
                     startIcon={loading ? <CircularProgress size={20} /> : <SaveIcon />}
-                    sx={{ px: 4 }}
+                    sx={{
+                      px: 4,
+                      py: 1.25,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      bgcolor: "rgb(20, 184, 166)",
+                      "&:hover": {
+                        bgcolor: "rgb(17, 153, 138)",
+                      },
+                    }}
                   >
                     {loading ? 'Creating...' : 'Create Area'}
                   </Button>
