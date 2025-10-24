@@ -172,12 +172,12 @@ export default function DeliveryPersonDetail() {
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
-      <Container maxWidth="xl" sx={{ px: 2 }}>
+      <Container maxWidth="lg" sx={{ px: 2 }}>
         <PageHeader
           title={person.name}
           description={`Delivery Person ID: ${person.id}`}
           actions={
-            <Box sx={{ display: "flex", gap: 1 }}>
+            <Box sx={{ display: "flex", gap: 2 }}>
               <IconButton
                 onClick={() => navigate("/delivery-persons")}
                 sx={{ bgcolor: "background.paper" }}
@@ -185,9 +185,8 @@ export default function DeliveryPersonDetail() {
                 <ArrowBackIcon />
               </IconButton>
               <IconButton
-                color="error"
+                sx={{ bgcolor: "error.light", color: "error.main", '&:hover': { bgcolor: "error.main", color: "white" } }}
                 onClick={() => setDeleteDialogOpen(true)}
-                sx={{ bgcolor: "background.paper" }}
               >
                 <DeleteIcon />
               </IconButton>
@@ -196,101 +195,96 @@ export default function DeliveryPersonDetail() {
         />
 
         <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 3, mb: 3 }}>
-          <Card 
-            elevation={0} 
-            sx={{ 
-              bgcolor: "background.paper", 
-              height: "100%",
-              border: "1px solid",
-              borderColor: "divider",
-              borderRadius: 2,
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)",
-                borderColor: "primary.main",
-              },
-            }}
-          >
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-                <RouteIcon sx={{ color: "primary.main" }} />
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                  Assigned Routes
-                </Typography>
+                <Box
+                  sx={{
+                    bgcolor: "info.light",
+                    p: 1.5,
+                    borderRadius: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <RouteIcon color="info" fontSize="large" />
+                </Box>
+                <Box>
+                  <Typography variant="h4" sx={{ fontWeight: 600 }}>
+                    {assignedRoutes.length}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Assigned Routes
+                  </Typography>
+                </Box>
               </Box>
-              <Typography variant="h3" sx={{ fontWeight: 700, color: "primary.main" }}>
-                {assignedRoutes.length}
+              <Typography variant="caption" color="text.secondary">
+                Total routes assigned to this person
               </Typography>
             </CardContent>
           </Card>
-          <Card 
-            elevation={0} 
-            sx={{ 
-              bgcolor: "background.paper", 
-              height: "100%",
-              border: "1px solid",
-              borderColor: "divider",
-              borderRadius: 2,
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)",
-                borderColor: "primary.main",
-              },
-            }}
-          >
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-                <ConsumersIcon sx={{ color: "primary.main" }} />
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                  Total Consumers
-                </Typography>
+                <Box
+                  sx={{
+                    bgcolor: "success.light",
+                    p: 1.5,
+                    borderRadius: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ConsumersIcon color="success" fontSize="large" />
+                </Box>
+                <Box>
+                  <Typography variant="h4" sx={{ fontWeight: 600 }}>
+                    {assignedRoutes.reduce((sum, route) => sum + route.consumer_count, 0)}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Total Consumers
+                  </Typography>
+                </Box>
               </Box>
-              <Typography variant="h3" sx={{ fontWeight: 700, color: "primary.main" }}>
-                {assignedRoutes.reduce((sum, route) => sum + route.consumer_count, 0)}
+              <Typography variant="caption" color="text.secondary">
+                Total consumers across all routes
               </Typography>
             </CardContent>
           </Card>
-          <Card 
-            elevation={0} 
-            sx={{ 
-              bgcolor: "background.paper", 
-              height: "100%",
-              border: "1px solid",
-              borderColor: "divider",
-              borderRadius: 2,
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)",
-                borderColor: "primary.main",
-              },
-            }}
-          >
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
             <CardContent>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-                <PersonIcon sx={{ color: "primary.main" }} />
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                  Total Areas
-                </Typography>
+                <Box
+                  sx={{
+                    bgcolor: "primary.light",
+                    p: 1.5,
+                    borderRadius: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PersonIcon color="primary" fontSize="large" />
+                </Box>
+                <Box>
+                  <Typography variant="h4" sx={{ fontWeight: 600 }}>
+                    {assignedRoutes.reduce((sum, route) => sum + route.area_count, 0)}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Total Areas
+                  </Typography>
+                </Box>
               </Box>
-              <Typography variant="h3" sx={{ fontWeight: 700, color: "primary.main" }}>
-                {assignedRoutes.reduce((sum, route) => sum + route.area_count, 0)}
+              <Typography variant="caption" color="text.secondary">
+                Total delivery areas covered
               </Typography>
             </CardContent>
           </Card>
         </Box>
 
-          <Card 
-            elevation={0}
-            sx={{ 
-              bgcolor: "background.paper",
-              border: "1px solid",
-              borderColor: "divider",
-              borderRadius: 2,
-            }}
-          >
+          <Card elevation={3} sx={{ bgcolor: "background.paper" }}>
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
               <Typography variant="h6" sx={{ fontWeight: 600 }}>
@@ -430,16 +424,16 @@ export default function DeliveryPersonDetail() {
                       cursor: "pointer",
                       bgcolor: selectedRoutes.includes(route.id)
                         ? "hsla(var(--primary), 0.15)"
-                        : "hsl(var(--card))",
+                        : "background.paper",
                       border: "2px solid",
                       borderColor: selectedRoutes.includes(route.id)
-                        ? "hsl(var(--primary))"
-                        : "hsl(var(--border))",
+                        ? "primary.main"
+                        : "divider",
                       borderRadius: 2,
                       transition: "all 0.2s ease",
                       "&:hover": {
-                        borderColor: "hsl(var(--primary))",
-                        boxShadow: "0 4px 12px hsla(var(--primary), 0.2)",
+                        borderColor: "primary.main",
+                        boxShadow: "0 4px 12px rgba(212, 175, 55, 0.2)",
                       },
                     }}
                     onClick={() => toggleRouteSelection(route.id)}

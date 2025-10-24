@@ -8,14 +8,11 @@ import {
   Box,
   Card,
   CardContent,
-  Typography,
   TextField,
   Button,
-  IconButton,
   CircularProgress,
 } from "@mui/material";
 import {
-  ArrowBack as ArrowBackIcon,
   Save as SaveIcon,
 } from "@mui/icons-material";
 import { deliveryPersonsApi } from "@/services/api";
@@ -62,52 +59,60 @@ export default function DeliveryPersonCreate() {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "grey.100", py: 4 }}>
-      <Container maxWidth="md" sx={{ px: 2 }}>
-        <PageHeader
-          title="Add Delivery Person"
-          description="Create a new delivery person"
-          actions={
-            <IconButton
-              onClick={() => navigate("/delivery-persons")}
-              sx={{ bgcolor: "background.paper" }}
-            >
-              <ArrowBackIcon />
-            </IconButton>
-          }
-        />
+    <Box sx={{ minHeight: "100vh", bgcolor: "hsl(var(--background))", py: 4 }}>
+      <Container maxWidth={false} sx={{ width: "80%", mx: "auto" }}>
+        <PageHeader title="Add Delivery Person" />
 
         <Card 
-          elevation={0}
-          sx={{ 
-            bgcolor: "background.paper",
-            border: "1px solid",
-            borderColor: "divider",
-            borderRadius: 2,
+          elevation={3}
+          sx={{
+            background: "linear-gradient(145deg, hsl(var(--card)) 0%, hsla(var(--card-gradient-end), 0.03) 100%)",
+            border: "1px solid hsla(var(--primary), 0.15)",
           }}
         >
           <CardContent sx={{ p: 4 }}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                <Box>
-                  <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
-                    Person Name *
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    placeholder="Enter delivery person name"
-                    {...register("name")}
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
-                    disabled={submitting}
-                  />
-                </Box>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 3.5 }}>
+                <TextField
+                  label="Person Name"
+                  placeholder="Enter delivery person name"
+                  {...register("name")}
+                  error={!!errors.name}
+                  helperText={errors.name?.message}
+                  fullWidth
+                  required
+                  disabled={submitting}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      fontSize: "1rem",
+                      fontWeight: 500,
+                      "&:hover fieldset": {
+                        borderColor: "hsla(var(--primary), 0.5)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "hsl(var(--primary))",
+                      },
+                    },
+                  }}
+                />
 
-                <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end", mt: 2 }}>
+                <Box sx={{ display: "flex", gap: 2.5, justifyContent: "flex-end", mt: 3 }}>
                   <Button
                     variant="outlined"
                     onClick={() => navigate("/delivery-persons")}
                     disabled={submitting}
+                    sx={{
+                      px: 3.5,
+                      py: 1.25,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      borderColor: "hsla(var(--primary), 0.4)",
+                      color: "hsl(var(--primary))",
+                      "&:hover": {
+                        borderColor: "hsl(var(--primary))",
+                        bgcolor: "hsla(var(--primary), 0.05)",
+                      },
+                    }}
                   >
                     Cancel
                   </Button>
@@ -116,7 +121,16 @@ export default function DeliveryPersonCreate() {
                     variant="contained"
                     startIcon={submitting ? <CircularProgress size={20} /> : <SaveIcon />}
                     disabled={submitting}
-                    sx={{ bgcolor: "primary.main", color: "white" }}
+                    sx={{
+                      px: 4,
+                      py: 1.25,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      bgcolor: "hsl(var(--primary))",
+                      "&:hover": {
+                        bgcolor: "hsl(var(--primary-dark))",
+                      },
+                    }}
                   >
                     {submitting ? "Creating..." : "Create Person"}
                   </Button>
