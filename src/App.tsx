@@ -22,6 +22,7 @@ import SidebarDemo from "./pages/SidebarDemo";
 import DeliveryPersons from "./pages/DeliveryPersons";
 import DeliveryPersonCreate from "./pages/DeliveryPersonCreate";
 import DeliveryPersonDetail from "./pages/DeliveryPersonDetail";
+import DeliveryPersonStatistics from "./pages/DeliveryPersonStatistics";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/route-areas/new" element={<AppLayout><RouteAreaCreate /></AppLayout>} />
             <Route path="/delivery-persons" element={<AppLayout><DeliveryPersons /></AppLayout>} />
             <Route path="/delivery-persons/create" element={<AppLayout><DeliveryPersonCreate /></AppLayout>} />
+            <Route path="/delivery-persons/statistics" element={<AppLayout><DeliveryPersonStatistics /></AppLayout>} />
             <Route path="/delivery-persons/:id" element={<AppLayout><DeliveryPersonDetail /></AppLayout>} />
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
             

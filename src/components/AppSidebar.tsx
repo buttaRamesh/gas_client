@@ -408,6 +408,24 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
               <ListItemIcon><Add sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
               {!collapsed && <ListItemText primary={<Typography fontWeight="600">Add Delivery Person</Typography>} />}
             </ListItemButton>
+
+            <ListItemButton 
+              onClick={() => navigate('/delivery-persons/statistics')}
+              sx={{ 
+                mb: 1.5,
+                borderRadius: 2,
+                bgcolor: isActive('/delivery-persons/statistics') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+                color: 'hsl(var(--sidebar-foreground))',
+                border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+                '&:hover': { 
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+                  boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+                }
+              }}
+            >
+              <ListItemIcon><BarChart sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
+              {!collapsed && <ListItemText primary={<Typography fontWeight="600">Statistics</Typography>} />}
+            </ListItemButton>
           </>
         )}
 
