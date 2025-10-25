@@ -23,6 +23,11 @@ import DeliveryPersons from "./pages/DeliveryPersons";
 import DeliveryPersonCreate from "./pages/DeliveryPersonCreate";
 import DeliveryPersonDetail from "./pages/DeliveryPersonDetail";
 import DeliveryPersonStatistics from "./pages/DeliveryPersonStatistics";
+import Products from "./pages/Products";
+import ProductCreate from "./pages/ProductCreate";
+import ProductDetail from "./pages/ProductDetail";
+import ProductStatistics from "./pages/ProductStatistics";
+import Units from "./pages/Units";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +59,11 @@ const App = () => (
             <Route path="/delivery-persons/create" element={<AppLayout><DeliveryPersonCreate /></AppLayout>} />
             <Route path="/delivery-persons/statistics" element={<AppLayout><DeliveryPersonStatistics /></AppLayout>} />
             <Route path="/delivery-persons/:id" element={<AppLayout><DeliveryPersonDetail /></AppLayout>} />
+            <Route path="/products" element={<AppLayout><Products /></AppLayout>} />
+            <Route path="/products/create" element={<AppLayout><ProductCreate /></AppLayout>} />
+            <Route path="/products/statistics" element={<AppLayout><ProductStatistics /></AppLayout>} />
+            <Route path="/products/:id" element={<AppLayout><ProductDetail /></AppLayout>} />
+            <Route path="/units" element={<AppLayout><Units /></AppLayout>} />
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -28,6 +28,8 @@ import {
   Storefront,
   Person,
   Group,
+  Inventory,
+  Straighten,
 } from '@mui/icons-material';
 
 interface AppSidebarProps {
@@ -46,6 +48,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
     if (location.pathname.startsWith('/routes')) return 'routes';
     if (location.pathname.startsWith('/route-areas')) return 'route-areas';
     if (location.pathname.startsWith('/delivery-persons')) return 'delivery-persons';
+    if (location.pathname.startsWith('/products') || location.pathname.startsWith('/units')) return 'products';
     if (location.pathname.startsWith('/settings')) return 'settings';
     return 'dashboard';
   };
@@ -415,6 +418,73 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                 mb: 1.5,
                 borderRadius: 2,
                 bgcolor: isActive('/delivery-persons/statistics') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+                color: 'hsl(var(--sidebar-foreground))',
+                border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+                '&:hover': { 
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+                  boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+                }
+              }}
+            >
+              <ListItemIcon><BarChart sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
+              {!collapsed && <ListItemText primary={<Typography fontWeight="600">Statistics</Typography>} />}
+            </ListItemButton>
+          </>
+        )}
+
+        {/* Products Section */}
+        {currentSection === 'products' && (
+          <>
+            <Box sx={{ mb: 2, px: 2 }}>
+              {!collapsed && (
+                <Typography variant="h6" fontWeight="700" sx={{ color: 'hsl(var(--sidebar-primary))' }}>
+                  Products
+                </Typography>
+              )}
+            </Box>
+
+            <ListItemButton 
+              onClick={() => navigate('/products')}
+              sx={{ 
+                mb: 1.5,
+                borderRadius: 2,
+                bgcolor: isActive('/products') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+                color: 'hsl(var(--sidebar-foreground))',
+                border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+                '&:hover': { 
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+                  boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+                }
+              }}
+            >
+              <ListItemIcon><Inventory sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
+              {!collapsed && <ListItemText primary={<Typography fontWeight="600">All Products</Typography>} />}
+            </ListItemButton>
+
+            <ListItemButton 
+              onClick={() => navigate('/units')}
+              sx={{ 
+                mb: 1.5,
+                borderRadius: 2,
+                bgcolor: isActive('/units') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+                color: 'hsl(var(--sidebar-foreground))',
+                border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+                '&:hover': { 
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+                  boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+                }
+              }}
+            >
+              <ListItemIcon><Straighten sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
+              {!collapsed && <ListItemText primary={<Typography fontWeight="600">Units</Typography>} />}
+            </ListItemButton>
+
+            <ListItemButton 
+              onClick={() => navigate('/products/statistics')}
+              sx={{ 
+                mb: 1.5,
+                borderRadius: 2,
+                bgcolor: isActive('/products/statistics') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
                 color: 'hsl(var(--sidebar-foreground))',
                 border: '1px solid hsla(var(--sidebar-primary), 0.3)',
                 '&:hover': { 
