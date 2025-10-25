@@ -28,6 +28,8 @@ import ProductCreate from "./pages/ProductCreate";
 import ProductDetail from "./pages/ProductDetail";
 import ProductStatistics from "./pages/ProductStatistics";
 import Units from "./pages/Units";
+import UnitCreate from "./pages/UnitCreate";
+import VariantCreate from "./pages/VariantCreate";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +66,8 @@ const App = () => (
             <Route path="/products/statistics" element={<AppLayout><ProductStatistics /></AppLayout>} />
             <Route path="/products/:id" element={<AppLayout><ProductDetail /></AppLayout>} />
             <Route path="/units" element={<AppLayout><Units /></AppLayout>} />
+            <Route path="/units/create" element={<AppLayout><UnitCreate /></AppLayout>} />
+            <Route path="/variants/create" element={<AppLayout><VariantCreate /></AppLayout>} />
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
