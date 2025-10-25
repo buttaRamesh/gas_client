@@ -554,6 +554,23 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
             <Collapse in={unitsOpen && !collapsed} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton 
+                  onClick={() => navigate('/units/create')}
+                  sx={{ 
+                    pl: 4,
+                    mb: 0.5,
+                    borderRadius: 2,
+                    bgcolor: isActive('/units/create') ? 'hsla(var(--sidebar-primary), 0.15)' : 'transparent',
+                    color: 'hsl(var(--sidebar-foreground))',
+                    '&:hover': { 
+                      bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+                    }
+                  }}
+                >
+                  <ListItemIcon><Add sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary={<Typography fontSize="0.9rem">Create</Typography>} />
+                </ListItemButton>
+
+                <ListItemButton 
                   onClick={() => navigate('/units')}
                   sx={{ 
                     pl: 4,
@@ -598,6 +615,23 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
 
             <Collapse in={variantsOpen && !collapsed} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
+                <ListItemButton 
+                  onClick={() => navigate('/variants/create')}
+                  sx={{ 
+                    pl: 4,
+                    mb: 0.5,
+                    borderRadius: 2,
+                    bgcolor: isActive('/variants/create') ? 'hsla(var(--sidebar-primary), 0.15)' : 'transparent',
+                    color: 'hsl(var(--sidebar-foreground))',
+                    '&:hover': { 
+                      bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+                    }
+                  }}
+                >
+                  <ListItemIcon><Add sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary={<Typography fontSize="0.9rem">Create</Typography>} />
+                </ListItemButton>
+
                 <ListItemButton 
                   onClick={() => navigate('/products')}
                   sx={{ 
