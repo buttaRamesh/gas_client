@@ -40,6 +40,11 @@ interface AppSidebarProps {
 export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // State for collapsible groups
+  const [productsOpen, setProductsOpen] = useState(true);
+  const [unitsOpen, setUnitsOpen] = useState(false);
+  const [variantsOpen, setVariantsOpen] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
   
@@ -222,6 +227,24 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
             >
               <ListItemIcon><Group sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
               {!collapsed && <ListItemText primary={<Typography fontWeight="600">Delivery Persons</Typography>} />}
+            </ListItemButton>
+
+            <ListItemButton 
+              onClick={() => navigate('/products')}
+              sx={{ 
+                mb: 1.5,
+                borderRadius: 2,
+                bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+                color: 'hsl(var(--sidebar-foreground))',
+                border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+                '&:hover': { 
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
+                  boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+                }
+              }}
+            >
+              <ListItemIcon><Inventory sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
+              {!collapsed && <ListItemText primary={<Typography fontWeight="600">Products</Typography>} />}
             </ListItemButton>
 
             <ListItemButton 
@@ -438,64 +461,161 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
             <Box sx={{ mb: 2, px: 2 }}>
               {!collapsed && (
                 <Typography variant="h6" fontWeight="700" sx={{ color: 'hsl(var(--sidebar-primary))' }}>
-                  Products
+                  Products Management
                 </Typography>
               )}
             </Box>
 
+            {/* Products Group */}
             <ListItemButton 
-              onClick={() => navigate('/products')}
+              onClick={() => setProductsOpen(!productsOpen)}
               sx={{ 
-                mb: 1.5,
+                mb: 0.5,
                 borderRadius: 2,
-                bgcolor: isActive('/products') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+                bgcolor: 'hsla(var(--sidebar-primary), 0.05)',
                 color: 'hsl(var(--sidebar-foreground))',
-                border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+                border: '1px solid hsla(var(--sidebar-primary), 0.2)',
                 '&:hover': { 
-                  bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
-                  boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
                 }
               }}
             >
               <ListItemIcon><Inventory sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
-              {!collapsed && <ListItemText primary={<Typography fontWeight="600">All Products</Typography>} />}
+              {!collapsed && (
+                <>
+                  <ListItemText primary={<Typography fontWeight="600">Products</Typography>} />
+                  {productsOpen ? <ExpandLess /> : <ExpandMore />}
+                </>
+              )}
             </ListItemButton>
 
+            <Collapse in={productsOpen && !collapsed} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton 
+                  onClick={() => navigate('/products/create')}
+                  sx={{ 
+                    pl: 4,
+                    mb: 0.5,
+                    borderRadius: 2,
+                    bgcolor: isActive('/products/create') ? 'hsla(var(--sidebar-primary), 0.15)' : 'transparent',
+                    color: 'hsl(var(--sidebar-foreground))',
+                    '&:hover': { 
+                      bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+                    }
+                  }}
+                >
+                  <ListItemIcon><Add sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary={<Typography fontSize="0.9rem">Create Product</Typography>} />
+                </ListItemButton>
+
+                <ListItemButton 
+                  onClick={() => navigate('/products')}
+                  sx={{ 
+                    pl: 4,
+                    mb: 0.5,
+                    borderRadius: 2,
+                    bgcolor: isActive('/products') ? 'hsla(var(--sidebar-primary), 0.15)' : 'transparent',
+                    color: 'hsl(var(--sidebar-foreground))',
+                    '&:hover': { 
+                      bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+                    }
+                  }}
+                >
+                  <ListItemIcon><ViewModule sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary={<Typography fontSize="0.9rem">List All Products</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
+
+            {/* Units Group */}
             <ListItemButton 
-              onClick={() => navigate('/units')}
+              onClick={() => setUnitsOpen(!unitsOpen)}
               sx={{ 
-                mb: 1.5,
+                mb: 0.5,
+                mt: 1,
                 borderRadius: 2,
-                bgcolor: isActive('/units') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+                bgcolor: 'hsla(var(--sidebar-primary), 0.05)',
                 color: 'hsl(var(--sidebar-foreground))',
-                border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+                border: '1px solid hsla(var(--sidebar-primary), 0.2)',
                 '&:hover': { 
-                  bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
-                  boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
                 }
               }}
             >
               <ListItemIcon><Straighten sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
-              {!collapsed && <ListItemText primary={<Typography fontWeight="600">Units</Typography>} />}
+              {!collapsed && (
+                <>
+                  <ListItemText primary={<Typography fontWeight="600">Units</Typography>} />
+                  {unitsOpen ? <ExpandLess /> : <ExpandMore />}
+                </>
+              )}
             </ListItemButton>
 
+            <Collapse in={unitsOpen && !collapsed} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton 
+                  onClick={() => navigate('/units')}
+                  sx={{ 
+                    pl: 4,
+                    mb: 0.5,
+                    borderRadius: 2,
+                    bgcolor: isActive('/units') ? 'hsla(var(--sidebar-primary), 0.15)' : 'transparent',
+                    color: 'hsl(var(--sidebar-foreground))',
+                    '&:hover': { 
+                      bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+                    }
+                  }}
+                >
+                  <ListItemIcon><ViewModule sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary={<Typography fontSize="0.9rem">List All Units</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
+
+            {/* Product Variants Group */}
             <ListItemButton 
-              onClick={() => navigate('/products/statistics')}
+              onClick={() => setVariantsOpen(!variantsOpen)}
               sx={{ 
-                mb: 1.5,
+                mb: 0.5,
+                mt: 1,
                 borderRadius: 2,
-                bgcolor: isActive('/products/statistics') ? 'hsla(var(--sidebar-primary), 0.15)' : 'hsla(var(--sidebar-primary), 0.1)',
+                bgcolor: 'hsla(var(--sidebar-primary), 0.05)',
                 color: 'hsl(var(--sidebar-foreground))',
-                border: '1px solid hsla(var(--sidebar-primary), 0.3)',
+                border: '1px solid hsla(var(--sidebar-primary), 0.2)',
                 '&:hover': { 
-                  bgcolor: 'hsla(var(--sidebar-primary), 0.15)',
-                  boxShadow: '0 0 20px hsla(var(--sidebar-primary), 0.2)'
+                  bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
                 }
               }}
             >
-              <ListItemIcon><BarChart sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
-              {!collapsed && <ListItemText primary={<Typography fontWeight="600">Statistics</Typography>} />}
+              <ListItemIcon><Inventory sx={{ color: 'hsl(var(--sidebar-primary))' }} /></ListItemIcon>
+              {!collapsed && (
+                <>
+                  <ListItemText primary={<Typography fontWeight="600">Product Variants</Typography>} />
+                  {variantsOpen ? <ExpandLess /> : <ExpandMore />}
+                </>
+              )}
             </ListItemButton>
+
+            <Collapse in={variantsOpen && !collapsed} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton 
+                  onClick={() => navigate('/products/statistics')}
+                  sx={{ 
+                    pl: 4,
+                    mb: 0.5,
+                    borderRadius: 2,
+                    bgcolor: isActive('/products/statistics') ? 'hsla(var(--sidebar-primary), 0.15)' : 'transparent',
+                    color: 'hsl(var(--sidebar-foreground))',
+                    '&:hover': { 
+                      bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+                    }
+                  }}
+                >
+                  <ListItemIcon><BarChart sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary={<Typography fontSize="0.9rem">Variant Statistics</Typography>} />
+                </ListItemButton>
+              </List>
+            </Collapse>
           </>
         )}
 
