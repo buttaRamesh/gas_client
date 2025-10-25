@@ -50,6 +50,9 @@ const variantSchema = z.object({
   size: z.string().min(1, 'Size is required').refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
     message: 'Size must be a positive number',
   }),
+  price: z.string().min(1, 'Price is required').refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+    message: 'Price must be a positive number',
+  }),
   variant_type: z.enum(['DOMESTIC', 'COMMERCIAL', 'INDUSTRIAL', 'OTHER']),
 });
 
@@ -96,6 +99,7 @@ export default function ProductDetail() {
       name: '',
       unit: '',
       size: '',
+      price: '',
       variant_type: 'DOMESTIC',
     },
   });
@@ -154,6 +158,7 @@ export default function ProductDetail() {
         product: Number(id),
         unit: Number(data.unit),
         size: parseFloat(data.size),
+        price: parseFloat(data.price),
       });
       showSnackbar('Variant added successfully', 'success');
       setAddVariantDialogOpen(false);
@@ -329,6 +334,7 @@ export default function ProductDetail() {
                     <TableCell sx={{ fontWeight: 600 }}>Name</TableCell>
                     <TableCell sx={{ fontWeight: 600 }}>Size</TableCell>
                     <TableCell sx={{ fontWeight: 600 }}>Unit</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>Price</TableCell>
                     <TableCell sx={{ fontWeight: 600 }}>Type</TableCell>
                     <TableCell sx={{ fontWeight: 600 }} align="right">
                       Actions
@@ -338,7 +344,7 @@ export default function ProductDetail() {
                 <TableBody>
                   {variants.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={6} align="center" sx={{ py: 8 }}>
+                      <TableCell colSpan={7} align="center" sx={{ py: 8 }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                           <Typography variant="h6" color="text.secondary">
                             No variants yet
@@ -379,6 +385,11 @@ export default function ProductDetail() {
                             size="small"
                             variant="outlined"
                           />
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="body1" sx={{ fontWeight: 600, color: 'success.main' }}>
+                            ₹{variant.price.toFixed(2)}
+                          </Typography>
                         </TableCell>
                         <TableCell>
                           <Chip
@@ -509,6 +520,16 @@ export default function ProductDetail() {
                   ))
                 )}
               </TextField>
+              <TextField
+                fullWidth
+                label="Price"
+                type="number"
+                {...registerVariant('price')}
+                error={!!variantErrors.price}
+                helperText={variantErrors.price?.message || 'Price in INR (₹)'}
+                placeholder="e.g., 850.00"
+                inputProps={{ step: '0.01', min: '0' }}
+              />
               <TextField
                 fullWidth
                 select

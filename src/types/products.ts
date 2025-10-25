@@ -27,6 +27,7 @@ export interface ProductVariant {
   unit_name?: string;
   size: number;
   variant_type: VariantType;
+  price: number;
   created_at?: string;
   updated_at?: string;
 }
