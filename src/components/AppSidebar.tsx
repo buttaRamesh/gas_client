@@ -53,7 +53,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
     if (location.pathname.startsWith('/routes')) return 'routes';
     if (location.pathname.startsWith('/route-areas')) return 'route-areas';
     if (location.pathname.startsWith('/delivery-persons')) return 'delivery-persons';
-    if (location.pathname.startsWith('/products') || location.pathname.startsWith('/units')) return 'products';
+    if (location.pathname.startsWith('/products') || location.pathname.startsWith('/units') || location.pathname.startsWith('/variants')) return 'products';
     if (location.pathname.startsWith('/settings')) return 'settings';
     return 'dashboard';
   };
