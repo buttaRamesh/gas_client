@@ -599,6 +599,23 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
             <Collapse in={variantsOpen && !collapsed} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton 
+                  onClick={() => navigate('/products')}
+                  sx={{ 
+                    pl: 4,
+                    mb: 0.5,
+                    borderRadius: 2,
+                    bgcolor: 'transparent',
+                    color: 'hsl(var(--sidebar-foreground))',
+                    '&:hover': { 
+                      bgcolor: 'hsla(var(--sidebar-primary), 0.1)',
+                    }
+                  }}
+                >
+                  <ListItemIcon><ViewModule sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
+                  <ListItemText primary={<Typography fontSize="0.9rem">View via Products</Typography>} />
+                </ListItemButton>
+
+                <ListItemButton 
                   onClick={() => navigate('/products/statistics')}
                   sx={{ 
                     pl: 4,
