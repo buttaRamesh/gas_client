@@ -505,7 +505,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                   }}
                 >
                   <ListItemIcon><Add sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText primary={<Typography fontSize="0.9rem">Create Product</Typography>} />
+                  <ListItemText primary={<Typography fontSize="0.9rem">Create</Typography>} />
                 </ListItemButton>
 
                 <ListItemButton 
@@ -522,7 +522,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                   }}
                 >
                   <ListItemIcon><ViewModule sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText primary={<Typography fontSize="0.9rem">List All Products</Typography>} />
+                  <ListItemText primary={<Typography fontSize="0.9rem">List All</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -567,7 +567,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                   }}
                 >
                   <ListItemIcon><ViewModule sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText primary={<Typography fontSize="0.9rem">List All Units</Typography>} />
+                  <ListItemText primary={<Typography fontSize="0.9rem">List All</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -612,7 +612,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                   }}
                 >
                   <ListItemIcon><ViewModule sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText primary={<Typography fontSize="0.9rem">View via Products</Typography>} />
+                  <ListItemText primary={<Typography fontSize="0.9rem">List All</Typography>} />
                 </ListItemButton>
 
                 <ListItemButton 
@@ -629,7 +629,7 @@ export function AppSidebar({ collapsed = false, onToggleCollapse }: AppSidebarPr
                   }}
                 >
                   <ListItemIcon><BarChart sx={{ color: 'hsl(var(--sidebar-primary))', fontSize: 20 }} /></ListItemIcon>
-                  <ListItemText primary={<Typography fontSize="0.9rem">Variant Statistics</Typography>} />
+                  <ListItemText primary={<Typography fontSize="0.9rem">Statistics</Typography>} />
                 </ListItemButton>
               </List>
             </Collapse>
