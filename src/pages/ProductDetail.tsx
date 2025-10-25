@@ -67,7 +67,9 @@ export default function ProductDetail() {
         productsApi.getVariants(Number(id)),
       ]);
       setProduct(productRes.data);
-      setVariants(variantsRes.data);
+      // Handle both paginated response (results) and direct array
+      const variantsData = variantsRes.data;
+      setVariants(Array.isArray(variantsData) ? variantsData : (variantsData.results || []));
       setFormData({
         name: productRes.data.name,
         description: productRes.data.description || '',
