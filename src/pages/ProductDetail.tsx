@@ -388,7 +388,7 @@ export default function ProductDetail() {
                         </TableCell>
                         <TableCell>
                           <Typography variant="body1" sx={{ fontWeight: 600, color: 'success.main' }}>
-                            ₹{variant.price.toFixed(2)}
+                            ₹{variant.price ? Number(variant.price).toFixed(2) : '0.00'}
                           </Typography>
                         </TableCell>
                         <TableCell>
