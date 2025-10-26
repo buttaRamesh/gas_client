@@ -14,18 +14,18 @@ git fetch origin
 
 echo.
 echo [3/4] Switching to Claude's branch...
-git checkout claude/analyze-client-app-011CUTvDhFkMzfPBwMHZGGyX
+git checkout claude/gav0-011CUTvDhFkMzfPBwMHZGGyX
 
 echo.
 echo [4/4] Pulling latest changes...
-git pull origin claude/analyze-client-app-011CUTvDhFkMzfPBwMHZGGyX
+git pull origin claude/gav0-011CUTvDhFkMzfPBwMHZGGyX
 
 echo.
 echo ================================================
 echo  SUCCESS! Your local repo is now updated
 echo ================================================
 echo.
-echo Current branch: claude/analyze-client-app-011CUTvDhFkMzfPBwMHZGGyX
+echo Current branch: claude/gav0-011CUTvDhFkMzfPBwMHZGGyX
 echo.
 echo WARNING: This script resets your local changes.
 echo Make sure to commit any work before running!
